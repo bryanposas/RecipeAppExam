@@ -71,6 +71,7 @@ struct RecipeDetailView: View {
                     .padding(14)
                     .background(.ultraThinMaterial, in: Circle())
             }
+            .accessibilityLabel(viewModel.isFavorite(recipe.id) ? "Remove from favorites" : "Add to favorites")
             .padding(16)
         }
     }
@@ -88,13 +89,15 @@ struct RecipeDetailView: View {
         .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 16))
     }
 
-    private func metaItem(icon: String, value: String, label: String) -> some View {
+    private func metaItem(icon: String, value: String, label: LocalizedStringKey) -> some View {
         VStack(spacing: 3) {
             Image(systemName: icon).foregroundStyle(Color.accentColor)
             Text(value).font(.headline)
             Text(label).font(.caption).foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: value) + Text(" ") + Text(label))
     }
 
     @ViewBuilder
@@ -146,11 +149,14 @@ private struct CollapsibleSection<Content: View>: View {
     let icon: String
     @State private var isExpanded = true
     @ViewBuilder let content: () -> Content
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
-                withAnimation(.easeInOut(duration: 0.25)) { isExpanded.toggle() }
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
+                    isExpanded.toggle()
+                }
             } label: {
                 HStack {
                     Label(title, systemImage: icon)
@@ -161,18 +167,21 @@ private struct CollapsibleSection<Content: View>: View {
                         .rotationEffect(.degrees(isExpanded ? 0 : -180))
                         .font(.subheadline.bold())
                         .foregroundStyle(.secondary)
-                        .animation(.easeInOut(duration: 0.25), value: isExpanded)
+                        .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: isExpanded)
                 }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(title)
+            .accessibilityHint(isExpanded ? "Collapse section" : "Expand section")
+            .accessibilityAddTraits(isExpanded ? [.isSelected] : [])
 
             if isExpanded {
                 content()
                     .padding(.top, 8)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .transition(reduceMotion ? .opacity : .opacity.combined(with: .move(edge: .top)))
             }
         }
         .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 16))

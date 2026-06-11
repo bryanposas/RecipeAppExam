@@ -26,6 +26,7 @@ struct RecipeListView: View {
     @State private var selectedTab: RecipeTab = .discover
     @State private var isFilterSheetPresented = false
     @State private var isOfflineBannerDismissed = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     private let columns = [GridItem(.flexible())]
 
@@ -95,7 +96,7 @@ struct RecipeListView: View {
         HStack(spacing: 0) {
             ForEach(RecipeTab.allCases, id: \.self) { tab in
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) { selectedTab = tab }
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) { selectedTab = tab }
                 } label: {
                     VStack(spacing: 6) {
                         HStack(spacing: 6) {
@@ -114,6 +115,7 @@ struct RecipeListView: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityAddTraits(selectedTab == tab ? [.isSelected] : [])
             }
         }
         .padding(.horizontal, 20)

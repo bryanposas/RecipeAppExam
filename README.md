@@ -94,16 +94,46 @@ Key enforcements aligned with project conventions:
 
 ```text
 RecipeAppExam/
-├── Models/               # Pure value types — Recipe, PaginatedResponse, RecipeFilter
-├── ViewModels/           # RecipeListViewModel (@MainActor ObservableObject)
-├── Views/                # SwiftUI views — one focused component per file
-├── Services/             # NetworkServiceProtocol + NetworkService (bundle + live modes)
-│                         # RecipeService (filter + paginate), FavoritesService
-│                         # ConnectivityMonitor (NWPathMonitor)
-├── Persistence/          # CoreDataStack, RecipeEntity, FavoriteEntity
-│                         # RecipePersistenceService
-├── Resources/            # recipes.json (20 mock recipes)
-└── Extensions/           # Reserved for shared View helpers
+├── Models/                     # Pure value types
+│   ├── Recipe.swift            #   — Codable, Identifiable, Hashable
+│   ├── PaginatedResponse.swift #   — Wrapper for paged API responses
+│   ├── RecipeFilter.swift      #   — Filter state; isActive, activeFilterCount
+│   └── DietaryAttribute.swift  #   — Enum with localized displayName, systemImage, color
+│
+├── ViewModels/
+│   └── RecipeListViewModel.swift  # @MainActor ObservableObject; single source of truth
+│
+├── Views/
+│   ├── RecipeListView.swift        # Tab bar, search row, grid, offline banner
+│   ├── RecipeDetailView.swift      # Hero image, meta strip, collapsible sections
+│   ├── RecipeCardView.swift        # RecipeGridCard, RecipeImageView (2-tier cache),
+│   │                               #   DietaryBadgeRowView, DietaryBadgeView
+│   ├── SearchFilterView.swift      # Modal filter sheet with chip picker
+│   ├── OfflineBannerView.swift     # Dismissable connectivity error banner
+│   └── ContentView.swift
+│
+├── Services/
+│   ├── NetworkService.swift            # Bundle-mode + live URLSession; NetworkServiceProtocol
+│   ├── RecipeService.swift             # Filter, paginate, ingredient extraction
+│   ├── FavoritesService.swift          # CoreData-backed; FavoritesServiceProtocol + publishers
+│   ├── RecipePersistenceService.swift  # Save / fetch / deleteAll; upsert by ID
+│   └── ConnectivityMonitor.swift       # NWPathMonitor → Combine publisher
+│
+├── Persistence/
+│   ├── CoreDataStack.swift       # Programmatic schema; in-memory test variant
+│   └── Entities/
+│       ├── RecipeEntity.swift    # Cached recipe; dietaryAttributesData as Data
+│       └── FavoriteEntity.swift  # recipeID + favoritedAt; nullify delete rule
+│
+├── Extensions/
+│   ├── Color+Extension.swift    # Color.appBackground, Color.appSurface (xcasset-backed)
+│   └── String+Extension.swift   # String.asDietaryAttribute
+│
+└── Resources/
+    ├── Assets.xcassets/         # AccentColor (#E8613C), AppBackground, AppSurface, AppIcon
+    ├── Localizable.xcstrings    # String Catalog — 40+ keys, plural rules, dietary names
+    ├── RecipeAppExam.entitlements
+    └── recipes.json             # 100 mock recipes with dietary attributes
 ```
 
 ### MVVM Data Flow
@@ -125,13 +155,71 @@ NetworkService → RecipeService → RecipeListViewModel → RecipeListView
 
 | Feature | Description |
 | --- | --- |
-| Recipe grid | 2-column `LazyVGrid` with paginated loading |
+| Recipe list | Single-column card list with dynamic height; hero image, title, stat strip (servings / ingredients / steps), and dietary badges |
 | Search | Debounced full-text search across title, description, and instructions |
 | Filter | Dietary attributes, serving count, include/exclude ingredients (chip picker) |
 | Favorites | Heart toggle on cards and detail view; persisted to CoreData |
 | Offline banner | Dismissable connectivity error via `NWPathMonitor` |
 | Offline cache | Last fetched recipes available without a network connection |
 | Pagination | Page-sliced at service layer; "load more" triggers on scroll |
+| Warm color palette | Tomato red-orange accent (`#E8613C`) with warm cream backgrounds; dark-mode aware |
+| Accessibility | Full VoiceOver labels, reduce-motion support, `.isSelected` traits |
+| Localization | String Catalog ready — add a language in Xcode; plural rules and dietary names included |
+
+---
+
+## Accessibility
+
+The app is designed to work with VoiceOver, Dynamic Type, and Reduce Motion out of the box.
+
+### VoiceOver
+
+Every interactive element and every compound visual unit carries an explicit accessibility label or a combined `Text`-based label so that VoiceOver reads meaningful content rather than raw system image names or bare numbers.
+
+| Element | What VoiceOver reads |
+| --- | --- |
+| Stat strip (cards + detail) | "4 Servings", "9 Ingredients", "5 Steps" — icon + number collapsed into one label via `accessibilityElement(children: .ignore)` |
+| Favorite button | "Add to favorites" / "Remove from favorites" — updates when state changes |
+| Dietary overflow pill | "2 more dietary attributes" (plural-aware) |
+| Dietary attribute badges | Full display name, e.g. "Gluten-Free" |
+| Collapsible section button | Section title + hint "Collapse section" / "Expand section"; `.isSelected` trait when expanded |
+| Tab bar buttons | `.isSelected` trait on the active tab |
+| Filter button | "Filters" / "Filters active (3)" with active count |
+| Dietary filter rows | "Vegetarian, selected" / "Vegetarian, not selected" |
+
+### Reduce Motion
+
+All animations check `@Environment(\.accessibilityReduceMotion)` and either reduce to a simple fade or skip the animation entirely:
+
+- **CollapsibleSection** expand/collapse — slide+fade → fade-only when reduce motion is on
+- **Tab switch** — spring transition → instant swap
+- **Offline banner** — slide-in transition respects the same flag
+
+### Dynamic Type
+
+All text uses SwiftUI's built-in type styles (`.headline`, `.caption2`, etc.) which scale automatically with the user's preferred text size setting. Fixed heights are used only for images and decorative chrome.
+
+---
+
+## Localization
+
+The app uses a **String Catalog** (`Resources/Localizable.xcstrings`) as the single source of truth for all user-visible strings. This is the Xcode 15+ recommended format and generates a `Localizable.strings` binary per language at build time.
+
+### String types
+
+| Type | Example key | Approach |
+| --- | --- | --- |
+| Plain UI strings | `"Search recipes…"` | Key IS the English string; `Text("…")` picks it up automatically as `LocalizedStringKey` |
+| Semantic dietary names | `"dietary.glutenFree"` | Looked up via `String(localized: "dietary.glutenFree")` in `DietaryAttribute.displayName` |
+| Plural — overflow badge | `"overflow_dietary_attributes %lld"` | Plural rule (one/other) in the catalog; called via `String(localized: "overflow_dietary_attributes \(count)")` |
+| Plural — filter footer | `"filter_include_footer %lld"` | Plural rule; rendered by `Text("filter_include_footer \(count)")` as a `LocalizedStringKey` |
+
+### Adding a new language
+
+1. In Xcode, select the project → **Info** → **Localizations** → **+** and choose the language (e.g. Spanish).
+2. Xcode will generate new entries in `Localizable.xcstrings` for every key, pre-populated and marked "Needs Translation".
+3. Fill in the translations — plural forms (one / few / many / other) are listed separately and pre-structured.
+4. No code changes are needed — all call sites already use `LocalizedStringKey` or `String(localized:)`.
 
 ---
 

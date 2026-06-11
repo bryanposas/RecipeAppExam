@@ -1,0 +1,351 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " " : {
+
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "%lld ingredients" : {
+
+    },
+    "%lld servings" : {
+
+    },
+    "+%lld" : {
+
+    },
+    "Add" : {
+      "comment" : "Button to add an ingredient to the exclude list"
+    },
+    "Add ingredient to exclude" : {
+      "comment" : "Text field placeholder in the exclude-ingredients section"
+    },
+    "Add more" : {
+      "comment" : "Label above additional ingredient chip suggestions after some are already selected"
+    },
+    "Add to favorites" : {
+      "comment" : "Accessibility label for the favorite button when recipe is not yet favorited"
+    },
+    "Apply" : {
+      "comment" : "Confirm and commit the current filter selection"
+    },
+    "Cancel" : {
+
+    },
+    "Clear Filters" : {
+
+    },
+    "Collapse section" : {
+      "comment" : "Accessibility hint for an expanded collapsible section"
+    },
+    "Dietary Attributes" : {
+      "comment" : "Section header in the filter sheet"
+    },
+    "dietary.dairyFree" : {
+      "comment" : "Display name for the dairy-free dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dairy-Free"
+          }
+        }
+      }
+    },
+    "dietary.glutenFree" : {
+      "comment" : "Display name for the gluten-free dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gluten-Free"
+          }
+        }
+      }
+    },
+    "dietary.halal" : {
+      "comment" : "Display name for the halal dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halal"
+          }
+        }
+      }
+    },
+    "dietary.kosher" : {
+      "comment" : "Display name for the kosher dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kosher"
+          }
+        }
+      }
+    },
+    "dietary.lowCarb" : {
+      "comment" : "Display name for the low-carb dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low-Carb"
+          }
+        }
+      }
+    },
+    "dietary.lowFat" : {
+      "comment" : "Display name for the low-fat dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low-Fat"
+          }
+        }
+      }
+    },
+    "dietary.lowFODMAP" : {
+      "comment" : "Display name for the low-FODMAP dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low-FODMAP"
+          }
+        }
+      }
+    },
+    "dietary.lowSodium" : {
+      "comment" : "Display name for the low-sodium dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Low-Sodium"
+          }
+        }
+      }
+    },
+    "dietary.nutFree" : {
+      "comment" : "Display name for the nut-free dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nut-Free"
+          }
+        }
+      }
+    },
+    "dietary.paleo" : {
+      "comment" : "Display name for the paleo dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paleo"
+          }
+        }
+      }
+    },
+    "dietary.plantBased" : {
+      "comment" : "Display name for the plant-based dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plant-Based"
+          }
+        }
+      }
+    },
+    "dietary.sugarFree" : {
+      "comment" : "Display name for the sugar-free dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sugar-Free"
+          }
+        }
+      }
+    },
+    "dietary.vegan" : {
+      "comment" : "Display name for the vegan dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegan"
+          }
+        }
+      }
+    },
+    "dietary.vegetarian" : {
+      "comment" : "Display name for the vegetarian dietary attribute",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetarian"
+          }
+        }
+      }
+    },
+    "Discover" : {
+      "comment" : "Tab title — browsing all recipes"
+    },
+    "Dismiss" : {
+      "comment" : "Dismiss-error button in alert"
+    },
+    "Dismiss offline banner" : {
+
+    },
+    "Error" : {
+      "comment" : "Alert title shown when recipe loading fails"
+    },
+    "Expand section" : {
+      "comment" : "Accessibility hint for a collapsed collapsible section"
+    },
+    "Favorites" : {
+      "comment" : "Tab title — saved favourite recipes"
+    },
+    "Filter by servings" : {
+      "comment" : "Toggle label in the servings filter section"
+    },
+    "filter_include_footer %lld" : {
+      "comment" : "Footer below selected ingredients in the filter sheet",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Recipe must contain ALL %lld selected ingredient."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Recipe must contain ALL %lld selected ingredients."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Filters" : {
+      "comment" : "Navigation title of the filter sheet; accessibility label for the filter button when no filters are active"
+    },
+    "Filters active (%lld)" : {
+      "comment" : "Accessibility label for the filter button showing the count of active filters"
+    },
+    "Ingredient suggestions load as recipes are fetched." : {
+      "comment" : "Placeholder shown when no ingredient suggestions are available yet"
+    },
+    "Ingredients" : {
+      "comment" : "Section title in recipe detail view and in the filter sheet"
+    },
+    "Instructions" : {
+      "comment" : "Section title for recipe cooking steps in detail view"
+    },
+    "Loading recipes…" : {
+      "comment" : "Shown while the recipe list is loading for the first time"
+    },
+    "Must Exclude Ingredients" : {
+      "comment" : "Section header — ingredients the recipe must NOT contain"
+    },
+    "Must Include Ingredients" : {
+      "comment" : "Section header — ingredients the recipe must contain"
+    },
+    "No favorites yet." : {
+
+    },
+    "No internet connection. Showing cached data." : {
+
+    },
+    "No matching ingredients found." : {
+
+    },
+    "No recipes available." : {
+
+    },
+    "No recipes match your filters." : {
+
+    },
+    "overflow_dietary_attributes %lld" : {
+      "comment" : "Accessibility label for the +N overflow pill on the dietary badge row",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more dietary attribute"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld more dietary attributes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Recipe must match ALL selected attributes." : {
+      "comment" : "Footer under the dietary-attributes filter section"
+    },
+    "Remove from favorites" : {
+      "comment" : "Accessibility label for the favorite button when recipe is already favorited"
+    },
+    "Reset All Filters" : {
+
+    },
+    "Retry" : {
+      "comment" : "Retry button in the error alert"
+    },
+    "Search ingredients" : {
+      "comment" : "Search field placeholder inside the ingredient chip picker in the filter sheet"
+    },
+    "Search recipes…" : {
+      "comment" : "Main recipe-list search field placeholder"
+    },
+    "Selected" : {
+      "comment" : "Label above the currently selected ingredient chips"
+    },
+    "Servings" : {
+      "comment" : "Stat label for number of servings on recipe cards and detail view"
+    },
+    "Servings: %lld" : {
+      "comment" : "Stepper label showing the selected servings value in the filter sheet"
+    },
+    "Steps" : {
+      "comment" : "Stat label for number of cooking steps on recipe cards and detail view"
+    },
+    "Tap the heart on any recipe to save it here." : {
+
+    }
+  },
+  "version" : "1.0"
+}

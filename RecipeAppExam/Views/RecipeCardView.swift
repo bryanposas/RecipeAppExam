@@ -129,6 +129,7 @@ struct RecipeGridCard: View {
                         .padding(9)
                         .background(.ultraThinMaterial, in: Circle())
                 }
+                .accessibilityLabel(isFavorited ? "Remove from favorites" : "Add to favorites")
                 .padding(12)
             }
 
@@ -143,11 +144,11 @@ struct RecipeGridCard: View {
                     .frame(maxWidth: .infinity)
 
                 HStack(spacing: 0) {
-                    statView(value: "\(recipe.servings)", icon: "person.2")
+                    statView(value: "\(recipe.servings)", icon: "person.2", label: "Servings")
                     Divider().frame(height: 30)
-                    statView(value: "\(recipe.ingredients.count)", icon: "cart")
+                    statView(value: "\(recipe.ingredients.count)", icon: "cart", label: "Ingredients")
                     Divider().frame(height: 30)
-                    statView(value: "\(recipe.instructions.count)", icon: "checklist")
+                    statView(value: "\(recipe.instructions.count)", icon: "checklist", label: "Steps")
                 }
 
                 if !recipe.dietaryAttributes.isEmpty {
@@ -165,7 +166,7 @@ struct RecipeGridCard: View {
     }
 
     @ViewBuilder
-    private func statView(value: String, icon: String) -> some View {
+    private func statView(value: String, icon: String, label: LocalizedStringKey) -> some View {
         VStack(spacing: 4) {
             Image(systemName: icon)
                 .font(.system(size: 16))
@@ -174,6 +175,8 @@ struct RecipeGridCard: View {
         }
         .frame(maxWidth: .infinity)
         .foregroundStyle(.secondary)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(verbatim: value) + Text(" ") + Text(label))
     }
 }
 
@@ -264,6 +267,7 @@ struct DietaryBadgeRowView: View {
                     .padding(.vertical, 3)
                     .background(.quaternary, in: Capsule())
                     .frame(maxWidth: .infinity)
+                    .accessibilityLabel(String(localized: "overflow_dietary_attributes \(overflow)"))
             }
         }
     }

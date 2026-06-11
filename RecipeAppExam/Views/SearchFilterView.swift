@@ -51,7 +51,7 @@ struct SearchFilterView: View {
                     Text("Must Include Ingredients")
                 } footer: {
                     if !draft.includeIngredients.isEmpty {
-                        Text("Recipe must contain ALL \(draft.includeIngredients.count) selected ingredient(s).")
+                        Text("filter_include_footer \(draft.includeIngredients.count)")
                             .font(.caption)
                     }
                 }

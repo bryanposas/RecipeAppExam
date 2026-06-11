@@ -36,20 +36,20 @@ enum DietaryAttribute: String, CaseIterable, Identifiable {
 
     var displayName: String {
         switch self {
-        case .glutenFree:  return "Gluten-Free"
-        case .dairyFree:   return "Dairy-Free"
-        case .nutFree:     return "Nut-Free"
-        case .lowFODMAP:   return "Low-FODMAP"
-        case .sugarFree:   return "Sugar-Free"
-        case .lowSodium:   return "Low-Sodium"
-        case .lowFat:      return "Low-Fat"
-        case .lowCarb:     return "Low-Carb"
-        case .vegetarian:  return "Vegetarian"
-        case .vegan:       return "Vegan"
-        case .plantBased:  return "Plant-Based"
-        case .paleo:       return "Paleo"
-        case .halal:       return "Halal"
-        case .kosher:      return "Kosher"
+        case .glutenFree:  return String(localized: "dietary.glutenFree")
+        case .dairyFree:   return String(localized: "dietary.dairyFree")
+        case .nutFree:     return String(localized: "dietary.nutFree")
+        case .lowFODMAP:   return String(localized: "dietary.lowFODMAP")
+        case .sugarFree:   return String(localized: "dietary.sugarFree")
+        case .lowSodium:   return String(localized: "dietary.lowSodium")
+        case .lowFat:      return String(localized: "dietary.lowFat")
+        case .lowCarb:     return String(localized: "dietary.lowCarb")
+        case .vegetarian:  return String(localized: "dietary.vegetarian")
+        case .vegan:       return String(localized: "dietary.vegan")
+        case .plantBased:  return String(localized: "dietary.plantBased")
+        case .paleo:       return String(localized: "dietary.paleo")
+        case .halal:       return String(localized: "dietary.halal")
+        case .kosher:      return String(localized: "dietary.kosher")
         }
     }
 

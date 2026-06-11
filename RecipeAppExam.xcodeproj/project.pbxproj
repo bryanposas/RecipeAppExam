@@ -45,6 +45,7 @@
 		BB000000000000000001A016 /* RecipeListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A015 /* RecipeListViewModelTests.swift */; };
 		BB000000000000000002A002 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000002A001 /* Color+Extension.swift */; };
 		BB000000000000000002A004 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000002A003 /* String+Extension.swift */; };
+		CC000000000000000001A002 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC000000000000000001A001 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		0E569B672FDA480900DD5EBA /* RecipeAppExamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeAppExamApp.swift; sourceTree = "<group>"; };
 		0E569B692FDA480900DD5EBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC000000000000000001A001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Localizable.xcstrings"; sourceTree = "<group>"; };
 		0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeAppExam.entitlements; sourceTree = "<group>"; };
 		0E569B712FDA480D00DD5EBA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E569B772FDA480E00DD5EBA /* RecipeAppExamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeAppExamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +283,7 @@
 			children = (
 				0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */,
 				0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */,
+				CC000000000000000001A001 /* Localizable.xcstrings */,
 				AA000000000000000000A01F /* recipes.json */,
 			);
 			path = Resources;
@@ -410,6 +413,7 @@
 			files = (
 				0E569B722FDA480D00DD5EBA /* Preview Assets.xcassets in Resources */,
 				0E569B6E2FDA480D00DD5EBA /* Assets.xcassets in Resources */,
+				CC000000000000000001A002 /* Localizable.xcstrings in Resources */,
 				AA000000000000000000A020 /* recipes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
