@@ -120,35 +120,58 @@ struct RecipeGridCard: View {
         VStack(alignment: .leading, spacing: 0) {
 
             ZStack(alignment: .topTrailing) {
-                RecipeImageView(urlString: recipe.imageURL, height: 160)
+                RecipeImageView(urlString: recipe.imageURL, height: 200)
 
                 Button(action: onToggle) {
                     Image(systemName: isFavorited ? "heart.fill" : "heart")
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(isFavorited ? .red : .white)
-                        .padding(8)
+                        .padding(9)
                         .background(.ultraThinMaterial, in: Circle())
                 }
-                .padding(8)
+                .padding(12)
             }
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 14) {
+
                 Text(recipe.title)
-                    .font(.subheadline.bold())
+                    .font(.headline)
                     .lineLimit(2)
                     .foregroundStyle(.primary)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Label("\(recipe.servings) servings", systemImage: "person.2")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 0) {
+                    statView(value: "\(recipe.servings)", icon: "person.2")
+                    Divider().frame(height: 30)
+                    statView(value: "\(recipe.ingredients.count)", icon: "cart")
+                    Divider().frame(height: 30)
+                    statView(value: "\(recipe.instructions.count)", icon: "checklist")
+                }
+
+                if !recipe.dietaryAttributes.isEmpty {
+                    DietaryBadgeRowView(attributes: recipe.dietaryAttributes, maxVisible: 3)
+                }
             }
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .padding(.top, 14)
+            .padding(.bottom, 18)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 14))
-        .shadow(color: .black.opacity(0.07), radius: 8, x: 0, y: 3)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.08), radius: 10, x: 0, y: 4)
+    }
+
+    @ViewBuilder
+    private func statView(value: String, icon: String) -> some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.system(size: 16))
+            Text(value)
+                .font(.caption.bold())
+        }
+        .frame(maxWidth: .infinity)
+        .foregroundStyle(.secondary)
     }
 }
 
@@ -165,23 +188,24 @@ struct RecipeImageView: View {
     @State private var isFailed = false
 
     var body: some View {
-        Group {
-            if let loadedImage {
-                Image(uiImage: loadedImage)
-                    .resizable()
-                    .scaledToFill()
-            } else if isFailed {
-                imagePlaceholder
-            } else {
-                imagePlaceholder
-                    .overlay { ProgressView().tint(.white) }
+        Color.clear
+            .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
+            .overlay {
+                if let loadedImage {
+                    Image(uiImage: loadedImage)
+                        .resizable()
+                        .scaledToFill()
+                } else if isFailed {
+                    imagePlaceholder
+                } else {
+                    imagePlaceholder
+                        .overlay { ProgressView().tint(.white) }
+                }
             }
-        }
-        .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
-        .clipped()
-        .task(id: urlString) {
-            await loadImage()
-        }
+            .clipped()
+            .task(id: urlString) {
+                await loadImage()
+            }
     }
 
     private func loadImage() async {
@@ -269,7 +293,7 @@ struct DietaryBadgeView: View {
 
 #Preview("Grid Cards") {
     ScrollView {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+        LazyVGrid(columns: [GridItem(.flexible())], spacing: 16) {
             RecipeGridCard(recipe: .preview, isFavorited: false, onToggle: {})
             RecipeGridCard(recipe: .previewMultiDietary, isFavorited: true, onToggle: {})
             RecipeGridCard(recipe: .preview, isFavorited: false, onToggle: {})

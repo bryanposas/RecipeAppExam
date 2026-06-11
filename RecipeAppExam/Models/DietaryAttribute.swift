@@ -81,9 +81,9 @@ enum DietaryAttribute: String, CaseIterable, Identifiable {
         case .glutenFree:
             return .orange
         case .dairyFree:
-            return .blue
+            return .indigo
         case .nutFree:
-            return .red
+            return .brown
         case .lowCarb, .lowFat, .lowFODMAP:
             return .teal
         case .sugarFree, .lowSodium:

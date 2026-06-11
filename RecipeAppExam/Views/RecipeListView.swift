@@ -27,7 +27,7 @@ struct RecipeListView: View {
     @State private var isFilterSheetPresented = false
     @State private var isOfflineBannerDismissed = false
 
-    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    private let columns = [GridItem(.flexible())]
 
     // MARK: - Body
 

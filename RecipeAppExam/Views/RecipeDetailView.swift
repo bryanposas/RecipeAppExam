@@ -17,7 +17,7 @@ struct RecipeDetailView: View {
                 heroImageSection
 
                 // Description + dietary badges
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: 16) {
                     Text(recipe.description)
                         .font(.body)
                         .foregroundStyle(.secondary)
@@ -28,16 +28,16 @@ struct RecipeDetailView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 20)
+                .padding(.top, 24)
+                .padding(.bottom, 24)
 
                 // Stats strip
                 metaRow
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 32)
 
                 // Collapsible content sections
-                VStack(spacing: 12) {
+                VStack(spacing: 16) {
                     CollapsibleSection(title: "Ingredients", icon: "cart") {
                         ingredientsList
                     }
@@ -45,7 +45,7 @@ struct RecipeDetailView: View {
                         instructionsList
                     }
                 }
-                .padding(.bottom, 36)
+                .padding(.bottom, 48)
             }
         }
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
@@ -99,7 +99,7 @@ struct RecipeDetailView: View {
 
     @ViewBuilder
     private var ingredientsList: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 14) {
             ForEach(recipe.ingredients, id: \.self) { ingredient in
                 HStack(alignment: .top, spacing: 12) {
                     Circle()
@@ -112,19 +112,19 @@ struct RecipeDetailView: View {
                 }
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 8)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 20)
     }
 
     @ViewBuilder
     private var instructionsList: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 20) {
             ForEach(Array(recipe.instructions.enumerated()), id: \.offset) { index, step in
-                HStack(alignment: .top, spacing: 14) {
+                HStack(alignment: .center, spacing: 14) {
                     Text("\(index + 1)")
                         .font(.subheadline.bold())
                         .foregroundStyle(.white)
-                        .frame(width: 28, height: 28)
+                        .frame(width: 30, height: 30)
                         .background(Color.accentColor, in: Circle())
 
                     Text(step)
@@ -133,8 +133,8 @@ struct RecipeDetailView: View {
                 }
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.bottom, 8)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 20)
     }
 }
 
@@ -171,7 +171,7 @@ private struct CollapsibleSection<Content: View>: View {
 
             if isExpanded {
                 content()
-                    .padding(.top, 4)
+                    .padding(.top, 8)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
