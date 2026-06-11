@@ -11,7 +11,6 @@
 		0E569B6A2FDA480900DD5EBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E569B692FDA480900DD5EBA /* ContentView.swift */; };
 		0E569B6E2FDA480D00DD5EBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */; };
 		0E569B722FDA480D00DD5EBA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E569B712FDA480D00DD5EBA /* Preview Assets.xcassets */; };
-		0E569B7C2FDA480E00DD5EBA /* RecipeAppExamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E569B7B2FDA480E00DD5EBA /* RecipeAppExamTests.swift */; };
 		0E569B862FDA480E00DD5EBA /* RecipeAppExamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E569B852FDA480E00DD5EBA /* RecipeAppExamUITests.swift */; };
 		0E569B882FDA480E00DD5EBA /* RecipeAppExamUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E569B872FDA480E00DD5EBA /* RecipeAppExamUITestsLaunchTests.swift */; };
 		AA000000000000000000A002 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A001 /* Recipe.swift */; };
@@ -29,10 +28,21 @@
 		AA000000000000000000A01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A019 /* CoreDataStack.swift */; };
 		AA000000000000000000A01C /* RecipeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01B /* RecipeEntity.swift */; };
 		AA000000000000000000A01E /* RecipePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01D /* RecipePersistenceService.swift */; };
-		AA000000000000000000E002 /* FavoriteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000E001 /* FavoriteEntity.swift */; };
 		AA000000000000000000A020 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01F /* recipes.json */; };
 		AA000000000000000000C002 /* DietaryAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000C001 /* DietaryAttribute.swift */; };
 		AA000000000000000000D002 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000D001 /* FavoritesService.swift */; };
+		AA000000000000000000E002 /* FavoriteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000E001 /* FavoriteEntity.swift */; };
+		BB000000000000000001A002 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A001 /* Fixtures.swift */; };
+		BB000000000000000001A004 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A003 /* Mocks.swift */; };
+		BB000000000000000001A006 /* RecipeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A005 /* RecipeTests.swift */; };
+		BB000000000000000001A008 /* RecipeFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A007 /* RecipeFilterTests.swift */; };
+		BB000000000000000001A00A /* DietaryAttributeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A009 /* DietaryAttributeTests.swift */; };
+		BB000000000000000001A00C /* PaginatedResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A00B /* PaginatedResponseTests.swift */; };
+		BB000000000000000001A00E /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A00D /* NetworkServiceTests.swift */; };
+		BB000000000000000001A010 /* RecipeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A00F /* RecipeServiceTests.swift */; };
+		BB000000000000000001A012 /* RecipePersistenceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A011 /* RecipePersistenceServiceTests.swift */; };
+		BB000000000000000001A014 /* FavoritesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A013 /* FavoritesServiceTests.swift */; };
+		BB000000000000000001A016 /* RecipeListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000001A015 /* RecipeListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +70,6 @@
 		0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeAppExam.entitlements; sourceTree = "<group>"; };
 		0E569B712FDA480D00DD5EBA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E569B772FDA480E00DD5EBA /* RecipeAppExamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeAppExamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E569B7B2FDA480E00DD5EBA /* RecipeAppExamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeAppExamTests.swift; sourceTree = "<group>"; };
 		0E569B812FDA480E00DD5EBA /* RecipeAppExamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeAppExamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E569B852FDA480E00DD5EBA /* RecipeAppExamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeAppExamUITests.swift; sourceTree = "<group>"; };
 		0E569B872FDA480E00DD5EBA /* RecipeAppExamUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeAppExamUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -80,10 +89,21 @@
 		AA000000000000000000A019 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01B /* RecipeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEntity.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01D /* RecipePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePersistenceService.swift; sourceTree = "<group>"; };
-		AA000000000000000000E001 /* FavoriteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEntity.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01F /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		AA000000000000000000C001 /* DietaryAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietaryAttribute.swift; sourceTree = "<group>"; };
 		AA000000000000000000D001 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
+		AA000000000000000000E001 /* FavoriteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEntity.swift; sourceTree = "<group>"; };
+		BB000000000000000001A001 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
+		BB000000000000000001A003 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		BB000000000000000001A005 /* RecipeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A007 /* RecipeFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeFilterTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A009 /* DietaryAttributeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietaryAttributeTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A00B /* PaginatedResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedResponseTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A00D /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A00F /* RecipeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeServiceTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A011 /* RecipePersistenceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePersistenceServiceTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A013 /* FavoritesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesServiceTests.swift; sourceTree = "<group>"; };
+		BB000000000000000001A015 /* RecipeListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +181,16 @@
 		0E569B7A2FDA480E00DD5EBA /* RecipeAppExamTests */ = {
 			isa = PBXGroup;
 			children = (
-				0E569B7B2FDA480E00DD5EBA /* RecipeAppExamTests.swift */,
+				BB000000000000000001A017 /* Support */,
+				BB000000000000000001A005 /* RecipeTests.swift */,
+				BB000000000000000001A007 /* RecipeFilterTests.swift */,
+				BB000000000000000001A009 /* DietaryAttributeTests.swift */,
+				BB000000000000000001A00B /* PaginatedResponseTests.swift */,
+				BB000000000000000001A00D /* NetworkServiceTests.swift */,
+				BB000000000000000001A00F /* RecipeServiceTests.swift */,
+				BB000000000000000001A011 /* RecipePersistenceServiceTests.swift */,
+				BB000000000000000001A013 /* FavoritesServiceTests.swift */,
+				BB000000000000000001A015 /* RecipeListViewModelTests.swift */,
 			);
 			path = RecipeAppExamTests;
 			sourceTree = "<group>";
@@ -234,6 +263,15 @@
 				AA000000000000000000A01F /* recipes.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		BB000000000000000001A017 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				BB000000000000000001A001 /* Fixtures.swift */,
+				BB000000000000000001A003 /* Mocks.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,7 +432,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E569B7C2FDA480E00DD5EBA /* RecipeAppExamTests.swift in Sources */,
+				BB000000000000000001A002 /* Fixtures.swift in Sources */,
+				BB000000000000000001A004 /* Mocks.swift in Sources */,
+				BB000000000000000001A006 /* RecipeTests.swift in Sources */,
+				BB000000000000000001A008 /* RecipeFilterTests.swift in Sources */,
+				BB000000000000000001A00A /* DietaryAttributeTests.swift in Sources */,
+				BB000000000000000001A00C /* PaginatedResponseTests.swift in Sources */,
+				BB000000000000000001A00E /* NetworkServiceTests.swift in Sources */,
+				BB000000000000000001A010 /* RecipeServiceTests.swift in Sources */,
+				BB000000000000000001A012 /* RecipePersistenceServiceTests.swift in Sources */,
+				BB000000000000000001A014 /* FavoritesServiceTests.swift in Sources */,
+				BB000000000000000001A016 /* RecipeListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
