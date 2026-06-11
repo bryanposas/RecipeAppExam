@@ -137,8 +137,10 @@ struct RecipeGridCard: View {
                 Text(recipe.title)
                     .font(.headline)
                     .lineLimit(2)
+                    .multilineTextAlignment(.center)
                     .foregroundStyle(.primary)
                     .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity)
 
                 HStack(spacing: 0) {
                     statView(value: "\(recipe.servings)", icon: "person.2")
@@ -239,6 +241,7 @@ struct RecipeImageView: View {
 // MARK: - DietaryBadgeRowView
 
 /// Shows up to `maxVisible` attribute chips, then a "+N" overflow pill.
+/// Spacers between items distribute available horizontal space evenly.
 struct DietaryBadgeRowView: View {
 
     let attributes: [String]
@@ -248,9 +251,10 @@ struct DietaryBadgeRowView: View {
     private var overflow: Int { max(0, attributes.count - maxVisible) }
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 0) {
             ForEach(visible, id: \.self) { raw in
                 DietaryBadgeView(rawValue: raw)
+                    .frame(maxWidth: .infinity)
             }
             if overflow > 0 {
                 Text("+\(overflow)")
@@ -259,6 +263,7 @@ struct DietaryBadgeRowView: View {
                     .padding(.horizontal, 6)
                     .padding(.vertical, 3)
                     .background(.quaternary, in: Capsule())
+                    .frame(maxWidth: .infinity)
             }
         }
     }
@@ -277,8 +282,11 @@ struct DietaryBadgeView: View {
         HStack(spacing: 3) {
             if let attribute {
                 Image(systemName: attribute.systemImage)
+                    .fixedSize()
             }
             Text(attribute?.displayName ?? rawValue.capitalized)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
         }
         .font(.caption2.bold())
         .foregroundStyle(.white)
