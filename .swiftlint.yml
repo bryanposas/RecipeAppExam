@@ -1,0 +1,82 @@
+# .swiftlint.yml
+#
+# Only the app target is linted. Tests are excluded because some rules
+# (force_try, large_tuple, function_body_length) are intentionally relaxed
+# in test code and would generate noise without improving test quality.
+
+included:
+  - RecipeAppExam
+
+excluded:
+  - RecipeAppExamTests
+  - RecipeAppExamUITests
+  - RecipeAppExam.xcodeproj
+
+# ---------------------------------------------------------------------------
+# Opt-in rules — enabled on top of the default ruleset.
+# Each one maps to a stated convention in copilot-instructions-recime.md.
+# ---------------------------------------------------------------------------
+opt_in_rules:
+  - closure_spacing              # consistent spacing inside { }
+  - empty_count                  # prefer .isEmpty over .count == 0
+  - empty_string                 # prefer .isEmpty over == ""
+  - first_where                  # prefer .first(where:) over .filter().first
+  - modifier_order               # @MainActor / final / private in consistent order
+  - redundant_nil_coalescing     # catch `?? nil` anti-patterns
+  - toggle_bool                  # prefer .toggle() over = !x
+
+# ---------------------------------------------------------------------------
+# Disabled rules — either too noisy for this codebase or intentionally
+# relaxed (see comment per rule).
+# ---------------------------------------------------------------------------
+disabled_rules:
+  - todo                              # TODO comments are acceptable in work-in-progress
+  - trailing_whitespace               # handled by Xcode editor settings
+  - vertical_whitespace_opening_braces  # codebase uniformly uses blank line after {
+  - vertical_whitespace_closing_braces  # consistent with above
+  - implicit_optional_initialization  # explicit `= nil` is clearer for @Published vars
+
+# ---------------------------------------------------------------------------
+# Thresholds — generous limits that flag genuine problems without being
+# pedantic about well-structured but naturally long files (e.g. CoreDataStack).
+# ---------------------------------------------------------------------------
+line_length:
+  warning: 130
+  error: 160
+  ignores_comments: true
+  ignores_urls: true
+
+type_body_length:
+  warning: 300
+  error: 500
+
+file_length:
+  warning: 400
+  error: 600
+  ignore_comment_only_lines: true
+
+function_body_length:
+  warning: 60
+  error: 100
+
+nesting:
+  type_level:
+    warning: 2    # allows MigrationStep.Policy nesting in CoreDataStack
+
+identifier_name:
+  min_length:
+    warning: 2
+  excluded:
+    - id    # standard Swift Identifiable property
+    - to    # common in animation/transition parameters
+
+# ---------------------------------------------------------------------------
+# Custom rules — project-specific conventions
+# ---------------------------------------------------------------------------
+custom_rules:
+  no_print_in_production:
+    name: "No bare print() in production code"
+    included: ".*\\.swift"
+    regex: "\\bprint\\("
+    message: "Use a structured logger instead of print(). Remove before merging."
+    severity: warning

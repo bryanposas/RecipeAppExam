@@ -1,0 +1,94 @@
+name: CI
+
+# Runs on every push to main and on every PR targeting main.
+# Both jobs must pass before a PR can be merged (configure as required
+# status checks under Settings → Branches → Branch protection rules).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel an in-progress run on the same branch when a newer commit is pushed.
+# Prevents stale CI runs from blocking merges after a quick follow-up push.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  # ---------------------------------------------------------------------------
+  # Job 1 — SwiftLint
+  # Runs in parallel with the test job. Produces inline PR annotations for
+  # each violation so reviewers see them directly in the diff.
+  # ---------------------------------------------------------------------------
+  lint:
+    name: SwiftLint
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Lint
+        run: swiftlint lint --reporter github-actions-logging
+
+  # ---------------------------------------------------------------------------
+  # Job 2 — Build & Test
+  # Compiles the app, runs the full unit test suite on a simulator, generates
+  # a code coverage report, and uploads the .xcresult bundle as an artifact.
+  # ---------------------------------------------------------------------------
+  test:
+    name: Build & Test
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install xcbeautify
+        run: brew install xcbeautify
+
+      # Cache DerivedData across runs to speed up incremental builds.
+      # Key includes the project file and all Swift sources so the cache is
+      # invalidated whenever the source set changes.
+      - name: Cache DerivedData
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Developer/Xcode/DerivedData
+          key: ${{ runner.os }}-deriveddata-${{ hashFiles('RecipeAppExam/**/*.swift', 'RecipeAppExam.xcodeproj/project.pbxproj') }}
+          restore-keys: |
+            ${{ runner.os }}-deriveddata-
+
+      # set -o pipefail ensures xcodebuild's exit code propagates through the
+      # pipe to xcbeautify — without it, a build failure would appear green.
+      - name: Build and Test
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project RecipeAppExam.xcodeproj \
+            -scheme RecipeAppExam \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -enableCodeCoverage YES \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO \
+          | xcbeautify --renderer github-actions
+
+      # Print a per-file coverage table to the build log.
+      # Visible in the Actions run summary without needing to download the artifact.
+      - name: Coverage Summary
+        if: success() || failure()
+        run: xcrun xccov view --report TestResults.xcresult
+
+      # Upload the full .xcresult bundle so it can be opened locally in Xcode
+      # for detailed per-line coverage inspection or test replay.
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ github.run_number }}
+          path: TestResults.xcresult
+          retention-days: 7

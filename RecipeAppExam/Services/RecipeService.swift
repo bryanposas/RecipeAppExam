@@ -112,6 +112,28 @@ final class RecipeService: RecipeServiceProtocol {
 
 extension RecipeService {
 
+    // Regex patterns are extracted as named constants so each can be understood
+    // and tested in isolation, and to keep function lines within lint limits.
+
+    /// Matches a leading numeric quantity plus an optional measurement unit.
+    /// \s+ after the number is mandatory — using \s* would consume the only space
+    /// and leave the optional unit group with nothing to match for bare counts like "3 onions".
+    private static let quantityAndUnitPattern: String = #"""
+        ^\s*\d+(?:[\/\.]\d+)?\s+
+        (?:(?:cups?|tbsps?|tablespoons?|tsps?|teaspoons?|lbs?|oz|g|kg|ml|l\b|
+        cloves?|slices?|cans?|bunches?|sprigs?|stalks?|heads?|pieces?|
+        packets?|strips?|sheets?|dashes?|pinch(?:es)?|handfuls?|pounds?)\s+)?
+        """#
+        .components(separatedBy: .newlines)
+        .map { $0.trimmingCharacters(in: .whitespaces) }
+        .joined()
+
+    /// Matches a leading size or prep adjective (e.g. "large", "finely", "frozen").
+    private static let adjectivePattern: String =
+        #"^\s*(?:large|medium|small|extra-large|fresh|dried|frozen|cooked|"# +
+        #"warm|cold|thin|thick|ripe|raw|boneless|peeled|skin-on|bone-in|"# +
+        #"day-old|finely|coarsely|roughly|thinly|lightly)\s+"#
+
     /// Strips quantity, unit, and prep-note fragments from a raw ingredient string,
     /// returning just the food name (e.g. "2 large onions, finely diced" → "Onions").
     static func extractIngredientName(from raw: String) -> String {
@@ -122,19 +144,13 @@ extension RecipeService {
             of: #"\([^)]*\)"#, with: "", options: .regularExpression
         )
 
-        // Remove leading quantity + optional unit.
-        // Structure: number + mandatory space + (optional unit + space)?
-        // Using \s+ after the number (not \s*) prevents the space from being consumed
-        // before the optional unit group, which would leave \s+ with nothing to match
-        // for bare counts like "3 onions".
         name = name.replacingOccurrences(
-            of: #"^\s*\d+(?:[\/\.]\d+)?\s+(?:(?:cups?|tbsps?|tablespoons?|tsps?|teaspoons?|lbs?|oz|g|kg|ml|l\b|cloves?|slices?|cans?|bunches?|sprigs?|stalks?|heads?|pieces?|packets?|strips?|sheets?|dashes?|pinch(?:es)?|handfuls?|pounds?)\s+)?"#,
+            of: quantityAndUnitPattern,
             with: "", options: [.regularExpression, .caseInsensitive]
         )
 
-        // Remove leading size and prep adjectives
         name = name.replacingOccurrences(
-            of: #"^\s*(?:large|medium|small|extra-large|fresh|dried|frozen|cooked|warm|cold|thin|thick|ripe|raw|boneless|peeled|skin-on|bone-in|day-old|finely|coarsely|roughly|thinly|lightly)\s+"#,
+            of: adjectivePattern,
             with: "", options: [.regularExpression, .caseInsensitive]
         )
 
