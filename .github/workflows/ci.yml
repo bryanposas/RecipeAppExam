@@ -15,6 +15,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Disable Homebrew auto-update so `brew install` doesn't download the entire
+# formula index before each package — saves 5–10 minutes per install step.
+env:
+  HOMEBREW_NO_AUTO_UPDATE: "1"
+  HOMEBREW_NO_INSTALL_CLEANUP: "1"
+
 jobs:
 
   # ---------------------------------------------------------------------------
@@ -25,6 +31,7 @@ jobs:
   lint:
     name: SwiftLint
     runs-on: macos-15
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -44,13 +51,11 @@ jobs:
   test:
     name: Build & Test
     runs-on: macos-15
+    timeout-minutes: 30
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install xcbeautify
-        run: brew install xcbeautify
 
       # Cache DerivedData across runs to speed up incremental builds.
       # Key includes the project file and all Swift sources so the cache is
@@ -63,19 +68,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-deriveddata-
 
-      # set -o pipefail ensures xcodebuild's exit code propagates through the
-      # pipe to xcbeautify — without it, a build failure would appear green.
+      # Pre-booting the simulator before xcodebuild removes the 3–5 minute
+      # cold-boot wait from the test step itself.
+      - name: Boot Simulator
+        run: xcrun simctl boot "iPhone 16" 2>/dev/null || true
+
+      # set -o pipefail ensures xcodebuild's exit code is not swallowed.
       - name: Build and Test
         run: |
           set -o pipefail
           xcodebuild test \
             -project RecipeAppExam.xcodeproj \
             -scheme RecipeAppExam \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -destination 'platform=iOS Simulator,OS=latest,name=iPhone 16' \
             -enableCodeCoverage YES \
             -resultBundlePath TestResults.xcresult \
-            CODE_SIGNING_ALLOWED=NO \
-          | xcbeautify --renderer github-actions
+            CODE_SIGNING_ALLOWED=NO
 
       # Print a per-file coverage table to the build log.
       # Visible in the Actions run summary without needing to download the artifact.
