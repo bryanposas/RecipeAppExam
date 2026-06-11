@@ -35,7 +35,7 @@ struct OfflineBannerView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)
-        .background(Color.orange)
+        .background(Color.accentColor)
         .transition(.move(edge: .top).combined(with: .opacity))
     }
 }

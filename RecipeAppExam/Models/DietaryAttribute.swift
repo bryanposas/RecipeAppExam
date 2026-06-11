@@ -93,12 +93,3 @@ enum DietaryAttribute: String, CaseIterable, Identifiable {
         }
     }
 }
-
-// MARK: - String helpers
-
-extension String {
-    /// Returns the matching `DietaryAttribute` case, or `nil` for unknown values.
-    var asDietaryAttribute: DietaryAttribute? {
-        DietaryAttribute(rawValue: self.lowercased())
-    }
-}

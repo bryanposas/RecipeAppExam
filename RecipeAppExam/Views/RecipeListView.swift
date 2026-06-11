@@ -88,7 +88,7 @@ struct RecipeListView: View {
             searchRow
             Divider()
         }
-        .background(Color(.systemBackground))
+        .background(Color.appSurfaceColor)
     }
 
     private var tabControl: some View {
@@ -138,7 +138,7 @@ struct RecipeListView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 9)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 12))
 
             filterButton
         }
@@ -158,7 +158,7 @@ struct RecipeListView: View {
                     .background(
                         viewModel.filter.activeFilterCount > 0
                             ? Color.accentColor
-                            : Color(.secondarySystemBackground),
+                            : Color.appSurfaceColor,
                         in: RoundedRectangle(cornerRadius: 12)
                     )
                     .foregroundStyle(viewModel.filter.activeFilterCount > 0 ? .white : .primary)
@@ -215,7 +215,7 @@ struct RecipeListView: View {
                     ProgressView().padding(.bottom, 20)
                 }
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Color.appBackgroundColor)
             .refreshable { await viewModel.loadRecipes() }
         }
     }
@@ -246,7 +246,7 @@ struct RecipeListView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 16)
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Color.appBackgroundColor)
         }
     }
 
@@ -261,7 +261,7 @@ struct RecipeListView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
+        .background(Color.appBackgroundColor)
     }
 
     @ViewBuilder
@@ -282,7 +282,7 @@ struct RecipeListView: View {
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
+        .background(Color.appBackgroundColor)
     }
 
     @ViewBuilder
@@ -301,7 +301,7 @@ struct RecipeListView: View {
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
+        .background(Color.appBackgroundColor)
     }
 }
 

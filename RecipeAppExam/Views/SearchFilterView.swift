@@ -81,6 +81,8 @@ struct SearchFilterView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.appBackgroundColor)
             .navigationTitle("Filters")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -118,7 +120,7 @@ struct SearchFilterView: View {
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
-            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+            .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 10))
 
             // Selected chips
             if !draft.includeIngredients.isEmpty {
@@ -276,7 +278,7 @@ private struct IngredientChip: View {
             .padding(.vertical, 6)
             .foregroundStyle(isSelected ? .white : .primary)
             .background(
-                isSelected ? Color.accentColor : Color(.tertiarySystemBackground),
+                isSelected ? Color.accentColor : Color.appSurfaceColor,
                 in: Capsule()
             )
         }

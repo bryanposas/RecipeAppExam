@@ -48,7 +48,7 @@ struct RecipeDetailView: View {
                 .padding(.bottom, 48)
             }
         }
-        .background(Color(.systemGroupedBackground).ignoresSafeArea())
+        .background(Color.appBackgroundColor.ignoresSafeArea())
         .navigationTitle(recipe.title)
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -85,7 +85,7 @@ struct RecipeDetailView: View {
             metaItem(icon: "text.alignleft", value: "\(recipe.instructions.count)", label: "Steps")
         }
         .padding(.vertical, 16)
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private func metaItem(icon: String, value: String, label: String) -> some View {
@@ -175,7 +175,7 @@ private struct CollapsibleSection<Content: View>: View {
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
-        .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 16))
+        .background(Color.appSurfaceColor, in: RoundedRectangle(cornerRadius: 16))
         .padding(.horizontal, 16)
     }
 }
