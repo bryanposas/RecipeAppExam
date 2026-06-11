@@ -7,7 +7,7 @@ import SwiftUI
 struct RecipeDetailView: View {
 
     let recipe: Recipe
-    @EnvironmentObject private var favorites: FavoritesService
+    @ObservedObject var viewModel: RecipeListViewModel
 
     var body: some View {
         ScrollView {
@@ -62,12 +62,12 @@ struct RecipeDetailView: View {
 
             Button {
                 Task {
-                    await favorites.toggle(recipe)
+                    await viewModel.toggleFavorite(recipe)
                 }
             } label: {
-                Image(systemName: favorites.isFavorite(recipe.id) ? "heart.fill" : "heart")
+                Image(systemName: viewModel.isFavorite(recipe.id) ? "heart.fill" : "heart")
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(favorites.isFavorite(recipe.id) ? .red : .white)
+                    .foregroundStyle(viewModel.isFavorite(recipe.id) ? .red : .white)
                     .padding(14)
                     .background(.ultraThinMaterial, in: Circle())
             }
@@ -203,7 +203,6 @@ private struct DietaryAttributesWrapView: View {
 
 #Preview {
     NavigationStack {
-        RecipeDetailView(recipe: .previewMultiDietary)
+        RecipeDetailView(recipe: .previewMultiDietary, viewModel: RecipeListViewModel())
     }
-    .environmentObject(FavoritesService.shared)
 }

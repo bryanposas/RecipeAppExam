@@ -25,6 +25,11 @@ final class RecipeListViewModel: ObservableObject {
     @Published private(set) var hasNextPage: Bool = false
     @Published private(set) var allIngredientNames: [String] = []
 
+    // Favorites state — forwarded from FavoritesService via Combine.
+    // Views read these directly; no @EnvironmentObject needed anywhere.
+    @Published private(set) var favoriteRecipes: [Recipe] = []
+    @Published private(set) var favoriteIDs: Set<String> = []
+
     /// Two-way binding: the View edits `filter`; the ViewModel observes and reacts.
     @Published var filter: RecipeFilter = RecipeFilter()
 
@@ -38,6 +43,7 @@ final class RecipeListViewModel: ObservableObject {
     private let recipeService: RecipeServiceProtocol
     private let persistenceService: RecipePersistenceServiceProtocol
     private let connectivityMonitor: ConnectivityMonitor
+    private let favoritesService: any FavoritesServiceProtocol
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -47,15 +53,18 @@ final class RecipeListViewModel: ObservableObject {
         recipeService: RecipeServiceProtocol = RecipeService(),
         persistenceService: RecipePersistenceServiceProtocol = RecipePersistenceService(),
         connectivityMonitor: ConnectivityMonitor = ConnectivityMonitor(),
+        favoritesService: any FavoritesServiceProtocol = FavoritesService.shared,
         pageSize: Int = 10
     ) {
         self.recipeService = recipeService
         self.persistenceService = persistenceService
         self.connectivityMonitor = connectivityMonitor
+        self.favoritesService = favoritesService
         self.pageSize = pageSize
 
         bindConnectivity()
         bindFilterChanges()
+        bindFavoritesChanges()
     }
 
     // MARK: - Public API
@@ -78,6 +87,16 @@ final class RecipeListViewModel: ObservableObject {
     /// Clears the active error banner.
     func dismissError() {
         errorMessage = nil
+    }
+
+    /// O(1) check whether a recipe is currently favorited.
+    func isFavorite(_ id: String) -> Bool {
+        favoriteIDs.contains(id)
+    }
+
+    /// Toggles the favorite state of a recipe, persisting to CoreData via FavoritesService.
+    func toggleFavorite(_ recipe: Recipe) async {
+        await favoritesService.toggle(recipe)
     }
 
     // MARK: - Private
@@ -153,6 +172,15 @@ final class RecipeListViewModel: ObservableObject {
             .map { !$0 }
             .receive(on: DispatchQueue.main)
             .assign(to: &$isOffline)
+    }
+
+    /// Bridges FavoritesService publishers into @Published properties on this ViewModel
+    /// so views only observe one object instead of reaching into a separate service.
+    private func bindFavoritesChanges() {
+        favoritesService.favoritesPublisher
+            .assign(to: &$favoriteRecipes)
+        favoritesService.favoriteIDsPublisher
+            .assign(to: &$favoriteIDs)
     }
 
     /// Debounces filter changes so we don't fire a fetch on every keystroke.

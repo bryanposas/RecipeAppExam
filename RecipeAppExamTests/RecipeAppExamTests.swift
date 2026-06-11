@@ -1,5 +1,6 @@
 // RecipeAppExamTests.swift
 
+import Combine
 import Foundation
 import Testing
 @testable import RecipeAppExam
@@ -109,9 +110,9 @@ private extension Fixtures {
     }
 }
 
-// MARK: - StubNetworkService
+// MARK: - MockNetworkService
 
-private struct StubNetworkService: NetworkServiceProtocol {
+private struct MockNetworkService: NetworkServiceProtocol {
     let recipes: [Recipe]
 
     func fetch<T: Decodable & Sendable>(endpoint: APIEndpoint) async throws -> T {
@@ -140,6 +141,49 @@ private final class StubPersistenceService: RecipePersistenceServiceProtocol, @u
     func deleteAll() async throws { stored = [] }
 }
 
+// MARK: - MockFavoritesService
+
+/// Lightweight in-memory mock that satisfies FavoritesServiceProtocol.
+/// Uses CurrentValueSubject so ViewModel subscribers see changes immediately.
+@MainActor
+private final class MockFavoritesService: FavoritesServiceProtocol {
+
+    private var _favorites: [Recipe] = [] {
+        didSet { favoritesSubject.send(_favorites) }
+    }
+    private var _favoriteIDs: Set<String> = [] {
+        didSet { favoriteIDsSubject.send(_favoriteIDs) }
+    }
+
+    private let favoritesSubject = CurrentValueSubject<[Recipe], Never>([])
+    private let favoriteIDsSubject = CurrentValueSubject<Set<String>, Never>([])
+
+    var favorites: [Recipe] { _favorites }
+    var favoriteIDs: Set<String> { _favoriteIDs }
+
+    var favoritesPublisher: AnyPublisher<[Recipe], Never> {
+        favoritesSubject.eraseToAnyPublisher()
+    }
+
+    var favoriteIDsPublisher: AnyPublisher<Set<String>, Never> {
+        favoriteIDsSubject.eraseToAnyPublisher()
+    }
+
+    func toggle(_ recipe: Recipe) async {
+        if _favoriteIDs.contains(recipe.id) {
+            _favoriteIDs.remove(recipe.id)
+            _favorites.removeAll { $0.id == recipe.id }
+        } else {
+            _favoriteIDs.insert(recipe.id)
+            _favorites.append(recipe)
+        }
+    }
+
+    func isFavorite(_ id: String) -> Bool { _favoriteIDs.contains(id) }
+
+    func loadFavorites() async {}
+}
+
 // MARK: - Suite: Recipe Service
 
 @Suite("Recipe Service")
@@ -152,7 +196,7 @@ struct RecipeServiceTests {
 
         @Test("Returns correct slice and metadata for page 1")
         func returnsFirstPage() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             let response = try await sut.fetchRecipes(page: 1, pageSize: 5)
 
             #expect(response.page == 1)
@@ -165,7 +209,7 @@ struct RecipeServiceTests {
             arguments: zip([1, 2], [true, false])
         )
         func pagination(page: Int, expectedHasNextPage: Bool) async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             let response = try await sut.fetchRecipes(page: page, pageSize: 5)
 
             #expect(response.hasNextPage == expectedHasNextPage)
@@ -173,7 +217,7 @@ struct RecipeServiceTests {
 
         @Test("Empty data source returns empty page with no next page")
         func emptyDataset() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: []))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: []))
             let response = try await sut.fetchRecipes(page: 1, pageSize: 10)
 
             #expect(response.data.isEmpty)
@@ -188,7 +232,7 @@ struct RecipeServiceTests {
 
         @Test("Single attribute filter returns only recipes that carry that attribute")
         func singleAttribute() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.dietaryAttributes = ["vegan"]
 
@@ -200,7 +244,7 @@ struct RecipeServiceTests {
 
         @Test("Multiple attributes filter uses AND logic — every selected attribute must be present")
         func multipleAttributesAND() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.dietaryAttributes = ["vegan", "gluten-free"]
 
@@ -213,7 +257,7 @@ struct RecipeServiceTests {
 
         @Test("Empty dietary filter returns all recipes without restriction")
         func emptyFilterReturnsAll() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             let filter = RecipeFilter()
 
             let response = try await sut.searchRecipes(filter: filter, page: 1, pageSize: 50)
@@ -223,7 +267,7 @@ struct RecipeServiceTests {
 
         @Test("Filter for an attribute present in no recipe returns empty result")
         func noMatchingAttributeReturnsEmpty() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.dietaryAttributes = ["kosher"]
 
@@ -237,7 +281,7 @@ struct RecipeServiceTests {
             arguments: ["Vegan", "VEGAN", "vEgAn"]
         )
         func caseInsensitiveMatching(_ rawValue: String) async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.dietaryAttributes = [rawValue]
 
@@ -254,7 +298,7 @@ struct RecipeServiceTests {
 
         @Test("Returns only recipes with the exact servings count requested")
         func exactServingsMatch() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.servings = 2
 
@@ -265,7 +309,7 @@ struct RecipeServiceTests {
 
         @Test("Nil servings filter returns all recipes without restricting count")
         func nilServingsReturnsAll() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             let filter = RecipeFilter()
 
             let response = try await sut.searchRecipes(filter: filter, page: 1, pageSize: 50)
@@ -281,7 +325,7 @@ struct RecipeServiceTests {
 
         @Test("Recipes with query in title, description, or instructions are returned")
         func matchesRecipeContent() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.searchQuery = "pizza"
 
@@ -296,7 +340,7 @@ struct RecipeServiceTests {
 
         @Test("Query with no matching recipes returns an empty result set")
         func noMatchReturnsEmpty() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.searchQuery = "xyznonexistent"
 
@@ -313,7 +357,7 @@ struct RecipeServiceTests {
 
         @Test("Include filter: every result contains all required ingredients")
         func includeIngredients() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.includeIngredients = ["flour"]
 
@@ -326,7 +370,7 @@ struct RecipeServiceTests {
 
         @Test("Exclude filter: no result contains the excluded ingredient")
         func excludeIngredients() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.excludeIngredients = ["chicken"]
 
@@ -339,7 +383,7 @@ struct RecipeServiceTests {
 
         @Test("Multiple include terms all must be present in each result")
         func multipleIncludeTerms() async throws {
-            let sut = RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes))
+            let sut = RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes))
             var filter = RecipeFilter()
             filter.includeIngredients = ["tomato", "lettuce"]
 
@@ -782,12 +826,19 @@ struct NetworkErrorTests {
         #expect(error.errorDescription?.contains("connection reset") == true)
     }
 
+    @Test("serverError errorDescription contains the HTTP status code")
+    func serverErrorDescription() {
+        let error = NetworkError.serverError(statusCode: 404)
+        #expect(error.errorDescription?.contains("404") == true)
+    }
+
     @Test("Every NetworkError case produces a non-nil errorDescription")
     func allCasesHaveNonNilDescription() {
         let errors: [NetworkError] = [
             .resourceNotFound("x"),
             .decodingFailed(NSError(domain: "x", code: 0)),
             .networkUnavailable,
+            .serverError(statusCode: 500),
             .unknown(NSError(domain: "x", code: 0))
         ]
         #expect(errors.allSatisfy { $0.errorDescription != nil })
@@ -985,7 +1036,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func initialState() {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: [])),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
             persistenceService: StubPersistenceService()
         )
         #expect(sut.recipes.isEmpty)
@@ -1001,7 +1052,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadRecipesPopulatesRecipes() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService()
         )
         await sut.loadRecipes()
@@ -1013,7 +1064,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadRecipesNoNextPageWhenUnderPageSize() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService(),
             pageSize: 10
         )
@@ -1025,7 +1076,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadRecipesHasNextPageWhenOverPageSize() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.twentyRecipes)),
             persistenceService: StubPersistenceService(),
             pageSize: 5
         )
@@ -1038,7 +1089,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadRecipesPopulatesIngredientNames() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService()
         )
         await sut.loadRecipes()
@@ -1050,7 +1101,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadRecipesResetsOnSecondCall() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService()
         )
         await sut.loadRecipes()
@@ -1066,7 +1117,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadNextPageIfNeededAppendsForLastRecipe() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.twentyRecipes)),
             persistenceService: StubPersistenceService(),
             pageSize: 5
         )
@@ -1083,7 +1134,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadNextPageIfNeededIgnoresNonLastRecipe() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.twentyRecipes)),
             persistenceService: StubPersistenceService(),
             pageSize: 5
         )
@@ -1099,7 +1150,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func loadNextPageIfNeededNoOpWhenNoNextPage() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService()
         )
         await sut.loadRecipes()
@@ -1160,7 +1211,7 @@ struct RecipeListViewModelTests {
     @MainActor
     func filteringReducesResults() async {
         let sut = RecipeListViewModel(
-            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: Fixtures.sampleRecipes)),
             persistenceService: StubPersistenceService()
         )
         await sut.loadRecipes()
@@ -1171,5 +1222,101 @@ struct RecipeListViewModelTests {
 
         #expect(sut.recipes.count < unfilteredCount)
         #expect(sut.recipes.allSatisfy { $0.dietaryAttributes.contains("vegan") })
+    }
+
+    // MARK: - Favorites via explicit DI
+
+    @Test("isFavorite returns false for any recipe before any toggle")
+    @MainActor
+    func viewModelIsFavoriteInitiallyFalse() {
+        let mock = MockFavoritesService()
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService(),
+            favoritesService: mock
+        )
+        #expect(!sut.isFavorite(Fixtures.sampleRecipes[0].id))
+        #expect(sut.favoriteIDs.isEmpty)
+        #expect(sut.favoriteRecipes.isEmpty)
+    }
+
+    @Test("toggleFavorite adds the recipe to favoriteIDs and favoriteRecipes")
+    @MainActor
+    func viewModelToggleFavoriteAddsRecipe() async {
+        let mock = MockFavoritesService()
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService(),
+            favoritesService: mock
+        )
+        let recipe = Fixtures.sampleRecipes[0]
+
+        await sut.toggleFavorite(recipe)
+
+        #expect(sut.isFavorite(recipe.id))
+        #expect(sut.favoriteIDs.contains(recipe.id))
+        #expect(sut.favoriteRecipes.count == 1)
+    }
+
+    @Test("Toggling the same recipe twice removes it from favoriteIDs and favoriteRecipes")
+    @MainActor
+    func viewModelToggleFavoriteTwiceRemovesRecipe() async {
+        let mock = MockFavoritesService()
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService(),
+            favoritesService: mock
+        )
+        let recipe = Fixtures.sampleRecipes[0]
+
+        await sut.toggleFavorite(recipe)
+        await sut.toggleFavorite(recipe)
+
+        #expect(!sut.isFavorite(recipe.id))
+        #expect(sut.favoriteIDs.isEmpty)
+        #expect(sut.favoriteRecipes.isEmpty)
+    }
+
+    @Test("favoriteIDs and favoriteRecipes reflect independent toggles for multiple recipes")
+    @MainActor
+    func viewModelMultipleTogglesReflectedCorrectly() async {
+        let mock = MockFavoritesService()
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService(),
+            favoritesService: mock
+        )
+        let r1 = Fixtures.sampleRecipes[0]
+        let r2 = Fixtures.sampleRecipes[1]
+
+        await sut.toggleFavorite(r1)
+        await sut.toggleFavorite(r2)
+
+        #expect(sut.favoriteIDs.count == 2)
+        #expect(sut.favoriteRecipes.count == 2)
+
+        await sut.toggleFavorite(r1)
+
+        #expect(sut.favoriteIDs.count == 1)
+        #expect(!sut.isFavorite(r1.id))
+        #expect(sut.isFavorite(r2.id))
+        #expect(sut.favoriteRecipes.count == 1)
+    }
+
+    @Test("ViewModel favoriteIDs stay in sync with the injected FavoritesService")
+    @MainActor
+    func viewModelFavoriteIDsReflectServiceState() async {
+        let mock = MockFavoritesService()
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: MockNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService(),
+            favoritesService: mock
+        )
+        let recipe = Fixtures.sampleRecipes[2]
+
+        await sut.toggleFavorite(recipe)
+
+        #expect(sut.favoriteIDs == mock.favoriteIDs)
+        #expect(sut.favoriteRecipes.map(\.id) == mock.favorites.map(\.id))
     }
 }

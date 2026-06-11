@@ -22,7 +22,7 @@ final class RecipeService: RecipeServiceProtocol {
 
     // MARK: - Init
 
-    init(networkService: NetworkServiceProtocol = MockNetworkService()) {
+    init(networkService: NetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
     }
 

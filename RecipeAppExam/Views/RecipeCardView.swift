@@ -107,10 +107,14 @@ struct RecipeCardView: View {
 // MARK: - RecipeGridCard
 
 /// Compact two-column grid card with a heart-overlay for the favorites feature.
+/// Receives `isFavorited` and `onToggle` as plain parameters — no environment
+/// dependencies. This makes the component self-contained, trivially previewable,
+/// and usable in any context without injecting services.
 struct RecipeGridCard: View {
 
     let recipe: Recipe
-    @EnvironmentObject private var favorites: FavoritesService
+    let isFavorited: Bool
+    let onToggle: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -118,14 +122,10 @@ struct RecipeGridCard: View {
             ZStack(alignment: .topTrailing) {
                 RecipeImageView(urlString: recipe.imageURL, height: 160)
 
-                Button {
-                    Task {
-                        await favorites.toggle(recipe)
-                    }
-                } label: {
-                    Image(systemName: favorites.isFavorite(recipe.id) ? "heart.fill" : "heart")
+                Button(action: onToggle) {
+                    Image(systemName: isFavorited ? "heart.fill" : "heart")
                         .font(.system(size: 13, weight: .semibold))
-                        .foregroundStyle(favorites.isFavorite(recipe.id) ? .red : .white)
+                        .foregroundStyle(isFavorited ? .red : .white)
                         .padding(8)
                         .background(.ultraThinMaterial, in: Circle())
                 }
@@ -270,15 +270,14 @@ struct DietaryBadgeView: View {
 #Preview("Grid Cards") {
     ScrollView {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-            RecipeGridCard(recipe: .preview)
-            RecipeGridCard(recipe: .previewMultiDietary)
-            RecipeGridCard(recipe: .preview)
-            RecipeGridCard(recipe: .previewMultiDietary)
+            RecipeGridCard(recipe: .preview, isFavorited: false, onToggle: {})
+            RecipeGridCard(recipe: .previewMultiDietary, isFavorited: true, onToggle: {})
+            RecipeGridCard(recipe: .preview, isFavorited: false, onToggle: {})
+            RecipeGridCard(recipe: .previewMultiDietary, isFavorited: true, onToggle: {})
         }
         .padding(16)
     }
     .background(Color(.systemGroupedBackground))
-    .environmentObject(FavoritesService.shared)
 }
 
 #Preview("List Card") {

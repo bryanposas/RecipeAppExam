@@ -1,7 +1,27 @@
 // Services/FavoritesService.swift
 
+import Combine
 import CoreData
 import Foundation
+
+// MARK: - FavoritesServiceProtocol
+
+/// Defines the contract for favorites management.
+/// Using a protocol instead of the concrete class lets every consumer
+/// (ViewModel, previews, tests) depend on the interface, not the implementation.
+/// The ViewModel owns this dependency explicitly — no ambient environment injection.
+@MainActor
+protocol FavoritesServiceProtocol: AnyObject {
+    var favorites: [Recipe] { get }
+    var favoriteIDs: Set<String> { get }
+    /// Type-erased publisher that fires after every state change.
+    /// Consumers subscribe to stay in sync without coupling to ObservableObject.
+    var favoritesPublisher: AnyPublisher<[Recipe], Never> { get }
+    var favoriteIDsPublisher: AnyPublisher<Set<String>, Never> { get }
+    func toggle(_ recipe: Recipe) async
+    func isFavorite(_ id: String) -> Bool
+    func loadFavorites() async
+}
 
 // MARK: - FavoritesService
 
@@ -19,7 +39,7 @@ import Foundation
 ///     the relationships — at which point the `NSManagedObjectContextDidSave`
 ///     observer triggers a reload automatically.
 @MainActor
-final class FavoritesService: ObservableObject {
+final class FavoritesService: ObservableObject, FavoritesServiceProtocol {
 
     static let shared = FavoritesService()
 
@@ -45,6 +65,16 @@ final class FavoritesService: ObservableObject {
 
     static func makeForTesting(coreDataStack: CoreDataStack) -> FavoritesService {
         FavoritesService(coreDataStack: coreDataStack)
+    }
+
+    // MARK: - FavoritesServiceProtocol Publishers
+
+    var favoritesPublisher: AnyPublisher<[Recipe], Never> {
+        $favorites.eraseToAnyPublisher()
+    }
+
+    var favoriteIDsPublisher: AnyPublisher<Set<String>, Never> {
+        $favoriteIDs.eraseToAnyPublisher()
     }
 
     // MARK: - Public API

@@ -21,7 +21,6 @@ private enum RecipeTab: String, CaseIterable {
 struct RecipeListView: View {
 
     @StateObject private var viewModel = RecipeListViewModel()
-    @EnvironmentObject private var favorites: FavoritesService
 
     @State private var navigationPath = NavigationPath()
     @State private var selectedTab: RecipeTab = .discover
@@ -55,7 +54,7 @@ struct RecipeListView: View {
             }
             .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Recipe.self) { recipe in
-                RecipeDetailView(recipe: recipe)
+                RecipeDetailView(recipe: recipe, viewModel: viewModel)
             }
             .sheet(isPresented: $isFilterSheetPresented) {
                 SearchFilterView(
@@ -196,7 +195,11 @@ struct RecipeListView: View {
                         Button {
                             navigationPath.append(recipe)
                         } label: {
-                            RecipeGridCard(recipe: recipe)
+                            RecipeGridCard(
+                                recipe: recipe,
+                                isFavorited: viewModel.isFavorite(recipe.id),
+                                onToggle: { Task { await viewModel.toggleFavorite(recipe) } }
+                            )
                         }
                         .buttonStyle(.plain)
                         .onAppear {
@@ -221,16 +224,20 @@ struct RecipeListView: View {
 
     @ViewBuilder
     private var favoritesContent: some View {
-        if favorites.favorites.isEmpty {
+        if viewModel.favoriteRecipes.isEmpty {
             emptyFavoritesView
         } else {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(favorites.favorites) { recipe in
+                    ForEach(viewModel.favoriteRecipes) { recipe in
                         Button {
                             navigationPath.append(recipe)
                         } label: {
-                            RecipeGridCard(recipe: recipe)
+                            RecipeGridCard(
+                                recipe: recipe,
+                                isFavorited: true,
+                                onToggle: { Task { await viewModel.toggleFavorite(recipe) } }
+                            )
                         }
                         .buttonStyle(.plain)
                     }
@@ -302,5 +309,4 @@ struct RecipeListView: View {
 
 #Preview {
     RecipeListView()
-        .environmentObject(FavoritesService.shared)
 }
