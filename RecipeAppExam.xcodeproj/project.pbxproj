@@ -167,9 +167,6 @@
 				AA000000000000000000B004 /* Services */,
 				AA000000000000000000B005 /* Persistence */,
 				AA000000000000000000B006 /* Resources */,
-				0E569B692FDA480900DD5EBA /* ContentView.swift */,
-				0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */,
-				0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */,
 				0E569B702FDA480D00DD5EBA /* Preview Content */,
 			);
 			path = RecipeAppExam;
@@ -209,6 +206,22 @@
 			path = RecipeAppExamUITests;
 			sourceTree = "<group>";
 		};
+		0E8917712FDAF41E0034C4BF /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				AA000000000000000000E001 /* FavoriteEntity.swift */,
+				AA000000000000000000A01B /* RecipeEntity.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		0E8917722FDAF45A0034C4BF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		AA000000000000000000B001 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,9 +244,10 @@
 		AA000000000000000000B003 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0E569B692FDA480900DD5EBA /* ContentView.swift */,
 				AA000000000000000000A009 /* RecipeListView.swift */,
-				AA000000000000000000A00B /* RecipeDetailView.swift */,
 				AA000000000000000000A00D /* RecipeCardView.swift */,
+				AA000000000000000000A00B /* RecipeDetailView.swift */,
 				AA000000000000000000A00F /* SearchFilterView.swift */,
 				AA000000000000000000A011 /* OfflineBannerView.swift */,
 			);
@@ -243,10 +257,12 @@
 		AA000000000000000000B004 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0E8917722FDAF45A0034C4BF /* New Group */,
 				AA000000000000000000A013 /* NetworkService.swift */,
 				AA000000000000000000A015 /* RecipeService.swift */,
 				AA000000000000000000A017 /* ConnectivityMonitor.swift */,
 				AA000000000000000000D001 /* FavoritesService.swift */,
+				AA000000000000000000A01D /* RecipePersistenceService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -254,10 +270,8 @@
 		AA000000000000000000B005 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				0E8917712FDAF41E0034C4BF /* Entities */,
 				AA000000000000000000A019 /* CoreDataStack.swift */,
-				AA000000000000000000E001 /* FavoriteEntity.swift */,
-				AA000000000000000000A01B /* RecipeEntity.swift */,
-				AA000000000000000000A01D /* RecipePersistenceService.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -265,6 +279,8 @@
 		AA000000000000000000B006 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */,
+				0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */,
 				AA000000000000000000A01F /* recipes.json */,
 			);
 			path = Resources;
@@ -606,7 +622,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RecipeAppExam/RecipeAppExam.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RecipeAppExam/Resources/RecipeAppExam.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecipeAppExam/Preview Content\"";
@@ -642,7 +658,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = RecipeAppExam/RecipeAppExam.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RecipeAppExam/Resources/RecipeAppExam.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"RecipeAppExam/Preview Content\"";
