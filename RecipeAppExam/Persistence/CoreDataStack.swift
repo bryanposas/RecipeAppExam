@@ -14,7 +14,7 @@ final class CoreDataStack: @unchecked Sendable {
     // History:
     //   v1 — initial schema (isVegetarian Bool attribute)
     //   v2 — replaced isVegetarian with dietaryAttributesData ([String] stored as Data)
-    static let currentModelVersion: Int = 2
+    static let currentModelVersion: Int = 3
 
     private static let modelVersionKey = "com.recipeapp.coredata.modelVersion"
 
@@ -51,17 +51,11 @@ final class CoreDataStack: @unchecked Sendable {
         2: MigrationStep(
             description: "Replaced is_vegetarian (Bool) with dietary_attributes ([String] as binary Data)",
             policy: .wipe
+        ),
+        3: MigrationStep(
+            description: "Added FavoriteEntity with one-to-many relationship to RecipeEntity",
+            policy: .wipe
         )
-        // Example of a future transform migration:
-        // 3: MigrationStep(
-        //     description: "Normalise all title fields to title-case",
-        //     policy: .transform { context in
-        //         let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
-        //         for entity in try context.fetch(request) {
-        //             entity.title = entity.title.capitalized
-        //         }
-        //     }
-        // )
     ]
 
     // MARK: - Properties
@@ -130,9 +124,41 @@ final class CoreDataStack: @unchecked Sendable {
     static let managedObjectModel: NSManagedObjectModel = {
         let model = NSManagedObjectModel()
 
+        // MARK: RecipeEntity
+
         let recipeEntity = NSEntityDescription()
         recipeEntity.name = "RecipeEntity"
         recipeEntity.managedObjectClassName = NSStringFromClass(RecipeEntity.self)
+
+        // MARK: FavoriteEntity
+
+        let favoriteEntity = NSEntityDescription()
+        favoriteEntity.name = "FavoriteEntity"
+        favoriteEntity.managedObjectClassName = NSStringFromClass(FavoriteEntity.self)
+
+        // MARK: Relationships
+        //
+        // RecipeEntity.favorites → to-many → FavoriteEntity  (nullify: recipe deletion orphans favorites)
+        // FavoriteEntity.recipe  → to-one  → RecipeEntity    (nullify: cache clear breaks link, record survives)
+        // The recipeID on FavoriteEntity is the source of truth; the relationship is a live join cache.
+
+        let recipeFavoritesRel = makeRelationship(
+            "favorites",
+            destination: favoriteEntity,
+            toMany: true,
+            deleteRule: .nullifyDeleteRule,
+            optional: true
+        )
+        let favoriteRecipeRel = makeRelationship(
+            "recipe",
+            destination: recipeEntity,
+            toMany: false,
+            deleteRule: .nullifyDeleteRule,
+            optional: true
+        )
+        recipeFavoritesRel.inverseRelationship = favoriteRecipeRel
+        favoriteRecipeRel.inverseRelationship = recipeFavoritesRel
+
         recipeEntity.properties = [
             makeAttribute("id", type: .stringAttributeType),
             makeAttribute("title", type: .stringAttributeType),
@@ -142,10 +168,18 @@ final class CoreDataStack: @unchecked Sendable {
             makeAttribute("instructionsData", type: .binaryDataAttributeType, optional: true),
             makeAttribute("dietaryAttributesData", type: .binaryDataAttributeType, optional: true),
             makeAttribute("imageURL", type: .stringAttributeType, optional: true),
-            makeAttribute("cachedAt", type: .dateAttributeType)
+            makeAttribute("cachedAt", type: .dateAttributeType),
+            recipeFavoritesRel
         ]
 
-        model.entities = [recipeEntity]
+        favoriteEntity.properties = [
+            makeAttribute("id", type: .UUIDAttributeType),
+            makeAttribute("recipeID", type: .stringAttributeType),
+            makeAttribute("favoritedAt", type: .dateAttributeType),
+            favoriteRecipeRel
+        ]
+
+        model.entities = [recipeEntity, favoriteEntity]
         return model
     }()
 
@@ -163,6 +197,23 @@ final class CoreDataStack: @unchecked Sendable {
         attr.isOptional = optional
         attr.defaultValue = defaultValue
         return attr
+    }
+
+    private static func makeRelationship(
+        _ name: String,
+        destination: NSEntityDescription,
+        toMany: Bool,
+        deleteRule: NSDeleteRule,
+        optional: Bool = true
+    ) -> NSRelationshipDescription {
+        let rel = NSRelationshipDescription()
+        rel.name = name
+        rel.destinationEntity = destination
+        rel.minCount = 0
+        rel.maxCount = toMany ? 0 : 1
+        rel.deleteRule = deleteRule
+        rel.isOptional = optional
+        return rel
     }
 
     // MARK: - Migration Runner

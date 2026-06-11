@@ -61,8 +61,8 @@ struct RecipeDetailView: View {
             RecipeImageView(urlString: recipe.imageURL, height: 280)
 
             Button {
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                    favorites.toggle(recipe)
+                Task {
+                    await favorites.toggle(recipe)
                 }
             } label: {
                 Image(systemName: favorites.isFavorite(recipe.id) ? "heart.fill" : "heart")

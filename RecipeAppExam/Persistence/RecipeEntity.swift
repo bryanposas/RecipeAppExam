@@ -19,6 +19,7 @@ final class RecipeEntity: NSManagedObject {
     @NSManaged var dietaryAttributesData: Data?
     @NSManaged var imageURL: String?
     @NSManaged var cachedAt: Date
+    @NSManaged var favorites: NSSet?
 }
 
 // MARK: - Domain mapping

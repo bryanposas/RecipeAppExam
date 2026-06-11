@@ -34,6 +34,9 @@ final class RecipePersistenceService: RecipePersistenceServiceProtocol {
     // MARK: - RecipePersistenceServiceProtocol
 
     /// Upserts recipes by `id` on a background context.
+    /// Also re-links any orphaned FavoriteEntity records whose `recipe` relationship
+    /// was nullified by a previous cache clear — restoring the live join so the
+    /// Favorites tab can display full recipe data without a toggle.
     func save(_ recipes: [Recipe]) async throws {
         let context = coreDataStack.newBackgroundContext()
         try await context.perform {
@@ -44,6 +47,15 @@ final class RecipePersistenceService: RecipePersistenceServiceProtocol {
                 let existing = try context.fetch(fetchRequest).first
                 let entity = existing ?? RecipeEntity(context: context)
                 entity.update(from: recipe)
+
+                // Re-link orphaned FavoriteEntity if the recipe was favorited before
+                // the cache was cleared (recipe relationship was nullified at that point).
+                let favRequest = FavoriteEntity.fetchRequest()
+                favRequest.predicate = NSPredicate(format: "recipeID == %@ AND recipe == nil", recipe.id)
+                favRequest.fetchLimit = 1
+                if let orphan = try? context.fetch(favRequest).first {
+                    orphan.recipe = entity
+                }
             }
             guard context.hasChanges else { return }
             try context.save()

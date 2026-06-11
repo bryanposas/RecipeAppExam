@@ -29,6 +29,7 @@
 		AA000000000000000000A01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A019 /* CoreDataStack.swift */; };
 		AA000000000000000000A01C /* RecipeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01B /* RecipeEntity.swift */; };
 		AA000000000000000000A01E /* RecipePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01D /* RecipePersistenceService.swift */; };
+		AA000000000000000000E002 /* FavoriteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000E001 /* FavoriteEntity.swift */; };
 		AA000000000000000000A020 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01F /* recipes.json */; };
 		AA000000000000000000C002 /* DietaryAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000C001 /* DietaryAttribute.swift */; };
 		AA000000000000000000D002 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000D001 /* FavoritesService.swift */; };
@@ -79,6 +80,7 @@
 		AA000000000000000000A019 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01B /* RecipeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEntity.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01D /* RecipePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePersistenceService.swift; sourceTree = "<group>"; };
+		AA000000000000000000E001 /* FavoriteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEntity.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01F /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		AA000000000000000000C001 /* DietaryAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietaryAttribute.swift; sourceTree = "<group>"; };
 		AA000000000000000000D001 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				AA000000000000000000A019 /* CoreDataStack.swift */,
+				AA000000000000000000E001 /* FavoriteEntity.swift */,
 				AA000000000000000000A01B /* RecipeEntity.swift */,
 				AA000000000000000000A01D /* RecipePersistenceService.swift */,
 			);
@@ -380,6 +383,7 @@
 				AA000000000000000000A016 /* RecipeService.swift in Sources */,
 				AA000000000000000000A018 /* ConnectivityMonitor.swift in Sources */,
 				AA000000000000000000A01A /* CoreDataStack.swift in Sources */,
+				AA000000000000000000E002 /* FavoriteEntity.swift in Sources */,
 				AA000000000000000000A01C /* RecipeEntity.swift in Sources */,
 				AA000000000000000000A01E /* RecipePersistenceService.swift in Sources */,
 				AA000000000000000000D002 /* FavoritesService.swift in Sources */,

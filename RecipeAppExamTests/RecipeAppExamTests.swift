@@ -905,65 +905,64 @@ struct FavoritesServiceTests {
 
     @Test("toggle adds a recipe to the favorites list")
     @MainActor
-    func toggleAddsRecipe() {
+    func toggleAddsRecipe() async {
         let sut = FavoritesService.makeForTesting()
         let recipe = Fixtures.sampleRecipes[0]
 
-        sut.toggle(recipe)
+        await sut.toggle(recipe)
 
-        #expect(sut.favorites.count == 1)
+        #expect(sut.favoriteIDs.count == 1)
         #expect(sut.isFavorite(recipe.id))
     }
 
     @Test("Toggling a recipe that is already a favorite removes it")
     @MainActor
-    func toggleTwiceRemovesRecipe() {
+    func toggleTwiceRemovesRecipe() async {
         let sut = FavoritesService.makeForTesting()
         let recipe = Fixtures.sampleRecipes[0]
 
-        sut.toggle(recipe)
-        sut.toggle(recipe)
+        await sut.toggle(recipe)
+        await sut.toggle(recipe)
 
-        #expect(sut.favorites.isEmpty)
+        #expect(sut.favoriteIDs.isEmpty)
         #expect(!sut.isFavorite(recipe.id))
     }
 
     @Test("Multiple distinct recipes can each be favorited independently")
     @MainActor
-    func multipleRecipesFavoritedAndCounted() {
+    func multipleRecipesFavoritedAndCounted() async {
         let sut = FavoritesService.makeForTesting()
         let r1 = Fixtures.sampleRecipes[0]
         let r2 = Fixtures.sampleRecipes[1]
         let r3 = Fixtures.sampleRecipes[2]
 
-        sut.toggle(r1)
-        sut.toggle(r2)
-        sut.toggle(r3)
-        #expect(sut.favorites.count == 3)
+        await sut.toggle(r1)
+        await sut.toggle(r2)
+        await sut.toggle(r3)
+        #expect(sut.favoriteIDs.count == 3)
 
-        sut.toggle(r2)
-        #expect(sut.favorites.count == 2)
+        await sut.toggle(r2)
+        #expect(sut.favoriteIDs.count == 2)
         #expect(sut.isFavorite(r1.id))
         #expect(!sut.isFavorite(r2.id))
         #expect(sut.isFavorite(r3.id))
     }
 
-    @Test("Favorites written by one instance are visible to a second instance on the same UserDefaults")
+    @Test("Favorites written by one instance are visible to a second instance sharing the same CoreData stack")
     @MainActor
-    func favoritesPersistedAndReloadedBySecondInstance() {
-        let suiteName = "com.recipeapp.test.\(UUID().uuidString)"
-        let sharedDefaults = UserDefaults(suiteName: suiteName)!
+    func favoritesPersistedAndReloadedBySecondInstance() async {
+        let sharedStack = CoreDataStack(inMemory: true)
 
-        let writer = FavoritesService.makeForTesting(defaults: sharedDefaults)
-        writer.toggle(Fixtures.sampleRecipes[0])
-        writer.toggle(Fixtures.sampleRecipes[1])
+        let writer = FavoritesService.makeForTesting(coreDataStack: sharedStack)
+        await writer.toggle(Fixtures.sampleRecipes[0])
+        await writer.toggle(Fixtures.sampleRecipes[1])
 
-        let reader = FavoritesService.makeForTesting(defaults: sharedDefaults)
-        #expect(reader.favorites.count == 2)
+        let reader = FavoritesService.makeForTesting(coreDataStack: sharedStack)
+        await reader.loadFavorites()
+
+        #expect(reader.favoriteIDs.count == 2)
         #expect(reader.isFavorite(Fixtures.sampleRecipes[0].id))
         #expect(reader.isFavorite(Fixtures.sampleRecipes[1].id))
-
-        sharedDefaults.removePersistentDomain(forName: suiteName)
     }
 
     @Test("A fresh instance starts with an empty favorites list")
@@ -971,6 +970,7 @@ struct FavoritesServiceTests {
     func freshInstanceHasNoFavorites() {
         let sut = FavoritesService.makeForTesting()
         #expect(sut.favorites.isEmpty)
+        #expect(sut.favoriteIDs.isEmpty)
     }
 }
 
