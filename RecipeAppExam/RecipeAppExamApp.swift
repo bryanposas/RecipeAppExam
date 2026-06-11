@@ -9,7 +9,7 @@ struct RecipeAppExamApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RecipeListView()
+            WelcomeView()
         }
     }
 }

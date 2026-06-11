@@ -46,6 +46,7 @@
 		BB000000000000000002A002 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000002A001 /* Color+Extension.swift */; };
 		BB000000000000000002A004 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000000000000000002A003 /* String+Extension.swift */; };
 		CC000000000000000001A002 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CC000000000000000001A001 /* Localizable.xcstrings */; };
+		DD000000000000000001A002 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD000000000000000001A001 /* WelcomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		0E569B692FDA480900DD5EBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E569B6D2FDA480D00DD5EBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC000000000000000001A001 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = "Localizable.xcstrings"; sourceTree = "<group>"; };
+		DD000000000000000001A001 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		0E569B6F2FDA480D00DD5EBA /* RecipeAppExam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeAppExam.entitlements; sourceTree = "<group>"; };
 		0E569B712FDA480D00DD5EBA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E569B772FDA480E00DD5EBA /* RecipeAppExamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipeAppExamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,6 +254,7 @@
 				AA000000000000000000A00B /* RecipeDetailView.swift */,
 				AA000000000000000000A00F /* SearchFilterView.swift */,
 				AA000000000000000000A011 /* OfflineBannerView.swift */,
+				DD000000000000000001A001 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				AA000000000000000000A00E /* RecipeCardView.swift in Sources */,
 				AA000000000000000000A010 /* SearchFilterView.swift in Sources */,
 				AA000000000000000000A012 /* OfflineBannerView.swift in Sources */,
+				DD000000000000000001A002 /* WelcomeView.swift in Sources */,
 				AA000000000000000000A014 /* NetworkService.swift in Sources */,
 				AA000000000000000000A016 /* RecipeService.swift in Sources */,
 				AA000000000000000000A018 /* ConnectivityMonitor.swift in Sources */,

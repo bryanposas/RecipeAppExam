@@ -210,6 +210,9 @@
     "Discover" : {
       "comment" : "Tab title — browsing all recipes"
     },
+    "Discover & Cook" : {
+
+    },
     "Dismiss" : {
       "comment" : "Dismiss-error button in alert"
     },
@@ -315,6 +318,12 @@
     },
     "Recipe must match ALL selected attributes." : {
       "comment" : "Footer under the dietary-attributes filter section"
+    },
+    "RecipeApp" : {
+
+    },
+    "RecipeApp — Discover & Cook" : {
+
     },
     "Remove from favorites" : {
       "comment" : "Accessibility label for the favorite button when recipe is already favorited"
