@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "1",
+    "title": "Classic Margherita Pizza",
+    "description": "A timeless Italian pizza with fresh mozzarella, tomatoes, and fragrant basil.",
+    "servings": 4,
+    "ingredients": ["2 cups all-purpose flour","1 tsp active dry yeast","3/4 cup warm water","1 tsp salt","2 tbsp olive oil","1 cup tomato sauce","8 oz fresh mozzarella, sliced","Fresh basil leaves"],
+    "instructions": ["Combine flour, yeast, salt, and olive oil. Add warm water and knead for 10 minutes.","Let dough rise in a warm spot for 1 hour until doubled.","Preheat oven to 475°F with a pizza stone inside.","Roll out dough into a 12-inch circle. Spread sauce, add mozzarella.","Bake 12–15 minutes until crust is golden. Top with fresh basil."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/pizza-margherita/800/600"
+  },
+  {
+    "id": "2",
+    "title": "Chicken Tikka Masala",
+    "description": "Tender chicken in a rich, spiced tomato-cream sauce served with basmati rice.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs boneless chicken breast, cubed","1 cup plain yogurt","2 tbsp tikka masala spice blend","2 tbsp butter","1 large onion, diced","4 garlic cloves, minced","14 oz canned crushed tomatoes","1 cup heavy cream","Fresh cilantro"],
+    "instructions": ["Marinate chicken in yogurt and 1 tbsp spice blend for 1 hour.","Grill or pan-fry chicken until charred. Set aside.","Sauté onion in butter until golden. Add garlic and remaining spices.","Stir in tomatoes and simmer 10 minutes. Add cream and chicken.","Simmer 5 minutes. Garnish with cilantro and serve with rice."],
+    "dietary_attributes": ["gluten-free","halal","nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-tikka/800/600"
+  },
+  {
+    "id": "3",
+    "title": "Garden Vegetable Stir-Fry",
+    "description": "A quick and colorful stir-fry bursting with crisp vegetables and savory umami sauce.",
+    "servings": 2,
+    "ingredients": ["1 red bell pepper, sliced","1 yellow bell pepper, sliced","2 cups broccoli florets","1 cup snap peas","2 tbsp soy sauce","1 tbsp sesame oil","1 tsp ginger, grated","2 garlic cloves, minced","Sesame seeds"],
+    "instructions": ["Whisk together soy sauce, sesame oil, ginger, garlic. Set aside.","Heat a wok over high heat. Stir-fry broccoli 2 minutes.","Add peppers and snap peas; stir-fry 3 more minutes.","Pour sauce over vegetables and toss. Cook 1 minute until thickened.","Sprinkle sesame seeds and serve over rice."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/veggie-stirfry/800/600"
+  },
+  {
+    "id": "4",
+    "title": "Beef Tacos",
+    "description": "Seasoned ground beef in crispy shells with fresh toppings — a family favourite.",
+    "servings": 4,
+    "ingredients": ["1 lb ground beef","1 packet taco seasoning","8 taco shells","1 cup shredded cheddar","1 cup shredded lettuce","2 tomatoes, diced","1/2 cup sour cream","Salsa to taste"],
+    "instructions": ["Brown ground beef in a skillet over medium-high heat. Drain fat.","Stir in taco seasoning and 1/4 cup water. Simmer 3 minutes.","Warm taco shells in the oven for 3 minutes.","Fill shells with beef, cheese, lettuce, and tomatoes.","Top with sour cream and salsa."],
+    "dietary_attributes": ["gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-tacos/800/600"
+  },
+  {
+    "id": "5",
+    "title": "Creamy Mushroom Risotto",
+    "description": "Velvety Arborio rice cooked with earthy mushrooms and finished with Parmesan.",
+    "servings": 4,
+    "ingredients": ["1.5 cups Arborio rice","4 cups warm vegetable broth","1 lb mixed mushrooms, sliced","1 onion, finely diced","3 garlic cloves, minced","1/2 cup dry white wine","1/2 cup grated Parmesan","2 tbsp butter","2 tbsp olive oil"],
+    "instructions": ["Sauté onion in olive oil until translucent. Add garlic and mushrooms.","Stir in rice and toast 1 minute. Pour in wine and stir until absorbed.","Add broth one ladle at a time, stirring continuously for ~20 minutes.","Remove from heat, stir in butter and Parmesan. Season to taste."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/mushroom-risotto/800/600"
+  },
+  {
+    "id": "6",
+    "title": "Lemon Herb Salmon",
+    "description": "Pan-seared salmon fillets with a bright lemon-dill butter sauce.",
+    "servings": 2,
+    "ingredients": ["2 salmon fillets","2 tbsp butter","2 garlic cloves, minced","Juice of 1 lemon","Zest of 1 lemon","2 tbsp fresh dill","Salt and pepper","1 tbsp olive oil"],
+    "instructions": ["Pat salmon dry and season with salt and pepper.","Sear in olive oil skin-side up 3 minutes; flip and sear 3 more.","Transfer to a 400°F oven for 5 minutes.","Make sauce: melt butter, add garlic, lemon juice, zest, and dill.","Plate salmon and spoon sauce over the top."],
+    "dietary_attributes": ["gluten-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/herb-salmon/800/600"
+  },
+  {
+    "id": "7",
+    "title": "Classic Hummus",
+    "description": "Silky-smooth chickpea hummus with tahini, garlic, and a drizzle of olive oil.",
+    "servings": 6,
+    "ingredients": ["1 can chickpeas, drained","3 tbsp tahini","3 tbsp fresh lemon juice","2 garlic cloves","3 tbsp olive oil","1/2 tsp cumin","Salt to taste","Paprika to serve"],
+    "instructions": ["Blend chickpeas, tahini, lemon juice, garlic, and cumin until smooth.","Drizzle in olive oil while blending. Add cold water to adjust consistency.","Season with salt.","Spread in a bowl, drizzle olive oil, and dust with paprika."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/classic-hummus/800/600"
+  },
+  {
+    "id": "8",
+    "title": "Spaghetti Carbonara",
+    "description": "Roman pasta classic made with eggs, Pecorino, guanciale, and black pepper — no cream.",
+    "servings": 4,
+    "ingredients": ["400g spaghetti","150g guanciale, diced","4 egg yolks","1 whole egg","80g Pecorino Romano, grated","Freshly ground black pepper","Salt"],
+    "instructions": ["Cook spaghetti in salted water until al dente. Reserve 1 cup pasta water.","Render guanciale in a cold pan until crispy.","Whisk egg yolks, whole egg, and Pecorino with generous black pepper.","Remove pan from heat. Add drained pasta to guanciale.","Pour egg mixture over pasta, tossing quickly with pasta water until glossy."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/carbonara-pasta/800/600"
+  },
+  {
+    "id": "9",
+    "title": "Avocado Toast with Poached Egg",
+    "description": "Smashed avocado on sourdough topped with a perfectly poached egg and chilli flakes.",
+    "servings": 2,
+    "ingredients": ["2 slices sourdough","2 ripe avocados","2 eggs","1 tbsp white vinegar","Juice of half a lemon","Red chilli flakes","Salt and pepper","Microgreens"],
+    "instructions": ["Toast sourdough until golden. Mash avocado with lemon, salt, and pepper.","Bring a saucepan of water to a simmer; add vinegar.","Swirl water and gently slide in each egg. Poach 3 minutes.","Spread avocado on toast. Top with poached egg and chilli flakes."],
+    "dietary_attributes": ["vegetarian","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/avocado-toast/800/600"
+  },
+  {
+    "id": "10",
+    "title": "BBQ Pulled Pork",
+    "description": "Slow-cooked pork shoulder that falls apart, smothered in smoky barbecue sauce.",
+    "servings": 8,
+    "ingredients": ["4 lbs pork shoulder","2 tbsp brown sugar","1 tbsp smoked paprika","1 tbsp garlic powder","1 tsp cumin","Salt and pepper","1 cup BBQ sauce","Burger buns and coleslaw"],
+    "instructions": ["Mix sugar, paprika, garlic powder, cumin, salt, and pepper. Coat pork; refrigerate overnight.","Cook at 275°F covered for 6–8 hours until pull-apart tender.","Shred pork with two forks. Mix in BBQ sauce.","Serve on buns with coleslaw."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/bbq-pulled-pork/800/600"
+  },
+  {
+    "id": "11",
+    "title": "Greek Salad",
+    "description": "A refreshing combination of cucumber, tomato, olives, and feta with a herby dressing.",
+    "servings": 4,
+    "ingredients": ["2 large tomatoes, chunked","1 cucumber, chunked","1/2 red onion, sliced","1 cup Kalamata olives","200g feta cheese, cubed","3 tbsp olive oil","1 tbsp red wine vinegar","1 tsp dried oregano"],
+    "instructions": ["Combine tomatoes, cucumber, red onion, and olives in a bowl.","Arrange feta on top.","Whisk olive oil, vinegar, oregano, salt, and pepper. Drizzle over salad.","Serve immediately."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/greek-salad/800/600"
+  },
+  {
+    "id": "12",
+    "title": "Shrimp Fried Rice",
+    "description": "Quick wok fried rice packed with plump shrimp, vegetables, and fluffy egg.",
+    "servings": 3,
+    "ingredients": ["2 cups day-old cooked rice","200g peeled shrimp","2 eggs, beaten","1 cup frozen peas and carrots","3 green onions, sliced","3 tbsp soy sauce","1 tbsp sesame oil","2 garlic cloves, minced"],
+    "instructions": ["Stir-fry shrimp in a hot wok 2 minutes; remove and set aside.","Add garlic and vegetables; stir-fry 2 minutes. Scramble eggs in the pan.","Add rice and stir-fry 3 minutes. Return shrimp.","Add soy sauce and sesame oil. Finish with green onions."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/shrimp-fried-rice/800/600"
+  },
+  {
+    "id": "13",
+    "title": "Banana Oat Pancakes",
+    "description": "Naturally sweetened, gluten-friendly pancakes using only bananas and oats.",
+    "servings": 2,
+    "ingredients": ["2 ripe bananas","1 cup rolled oats","2 eggs","1/2 tsp baking powder","1/2 tsp vanilla","Pinch of cinnamon","Butter for the pan","Maple syrup and berries"],
+    "instructions": ["Blend bananas, oats, eggs, baking powder, vanilla, and cinnamon until smooth.","Heat a non-stick pan over medium heat with butter.","Pour 1/4 cup batter per pancake. Cook 2 minutes, flip, 1 more minute.","Serve stacked with maple syrup and fresh berries."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/banana-pancakes/800/600"
+  },
+  {
+    "id": "14",
+    "title": "Thai Green Curry",
+    "description": "Aromatic coconut-milk curry with chicken, green beans, and fresh Thai basil.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs chicken thighs, sliced","2 tbsp green curry paste","2 cans coconut milk","1 cup green beans","1 zucchini, sliced","2 tbsp fish sauce","1 tsp brown sugar","Fresh Thai basil","Lime juice"],
+    "instructions": ["Fry curry paste in coconut cream 1 minute. Add chicken and stir-fry 3 minutes.","Pour in remaining coconut milk and bring to a simmer.","Add green beans and zucchini; simmer 5 minutes.","Season with fish sauce, sugar, and lime. Stir in Thai basil."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/thai-green-curry/800/600"
+  },
+  {
+    "id": "15",
+    "title": "Caprese Salad",
+    "description": "Simple Italian salad of tomato, fresh mozzarella, and basil with a balsamic glaze.",
+    "servings": 4,
+    "ingredients": ["3 large ripe tomatoes, sliced","8 oz fresh mozzarella, sliced","Fresh basil leaves","3 tbsp extra-virgin olive oil","2 tbsp balsamic glaze","Salt and cracked black pepper"],
+    "instructions": ["Alternate tomato and mozzarella slices on a platter.","Tuck basil between the slices.","Drizzle with olive oil and balsamic glaze.","Season with salt and pepper. Serve at room temperature."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/caprese-salad/800/600"
+  },
+  {
+    "id": "16",
+    "title": "Lamb Chops with Rosemary",
+    "description": "Herb-crusted lamb chops seared to a perfect blush-pink centre.",
+    "servings": 2,
+    "ingredients": ["4 lamb chops","2 tbsp fresh rosemary, chopped","3 garlic cloves, minced","2 tbsp olive oil","1 lemon, zested","Salt and cracked pepper"],
+    "instructions": ["Combine rosemary, garlic, olive oil, lemon zest, salt, and pepper; coat chops.","Marinate 20 minutes at room temperature.","Sear in a cast-iron skillet 3 minutes per side for medium-rare.","Rest 5 minutes before serving."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","low-carb","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/lamb-rosemary/800/600"
+  },
+  {
+    "id": "17",
+    "title": "Spinach & Chickpea Curry",
+    "description": "Hearty, plant-based curry with wilted spinach and spiced chickpeas in a tomato base.",
+    "servings": 4,
+    "ingredients": ["2 cans chickpeas, drained","200g fresh spinach","1 large onion, diced","3 garlic cloves, minced","1 can diced tomatoes","1 tbsp garam masala","1 tsp turmeric","1 tsp cumin","2 tbsp olive oil"],
+    "instructions": ["Sauté onion until golden. Add garlic and spices; cook 1 minute.","Stir in tomatoes and simmer 10 minutes.","Add chickpeas and simmer 10 more minutes.","Stir in spinach until wilted. Season with salt."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/chickpea-curry/800/600"
+  },
+  {
+    "id": "18",
+    "title": "Eggs Benedict",
+    "description": "Poached eggs and Canadian bacon on English muffins with classic hollandaise sauce.",
+    "servings": 2,
+    "ingredients": ["4 eggs","4 slices Canadian bacon","2 English muffins, split","3 egg yolks","115g butter, melted","1 tbsp lemon juice","Pinch of cayenne","White vinegar","Chives"],
+    "instructions": ["Hollandaise: whisk yolks and lemon juice over simmering water; slowly whisk in butter. Season.","Toast muffins; pan-fry bacon until warm.","Poach eggs in simmering water with vinegar for 3 minutes.","Assemble: muffin → bacon → egg → hollandaise. Garnish with chives."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/eggs-benedict/800/600"
+  },
+  {
+    "id": "19",
+    "title": "Vegan Black Bean Burgers",
+    "description": "Hearty plant-based patties with cumin-spiced black beans and a smoky chipotle mayo.",
+    "servings": 4,
+    "ingredients": ["2 cans black beans, drained","1/2 cup breadcrumbs","1 flax egg","1/2 red onion, diced","2 garlic cloves, minced","1 tsp cumin","1 tsp smoked paprika","4 burger buns","Lettuce and tomato"],
+    "instructions": ["Mash black beans leaving some texture. Mix in breadcrumbs, flax egg, onion, garlic, and spices.","Form 4 patties; refrigerate 15 minutes.","Cook in oiled pan 4 minutes per side.","Serve on buns with lettuce, tomato, and chipotle mayo."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/black-bean-burger/800/600"
+  },
+  {
+    "id": "20",
+    "title": "Honey Garlic Glazed Chicken Thighs",
+    "description": "Sticky, caramelised chicken thighs with a sweet-salty honey-garlic glaze.",
+    "servings": 4,
+    "ingredients": ["8 bone-in chicken thighs","1/3 cup honey","1/4 cup soy sauce","5 garlic cloves, minced","1 tbsp rice vinegar","1 tsp sesame oil","Sesame seeds and green onions"],
+    "instructions": ["Season chicken with salt and pepper. Sear skin-side down 5 minutes.","Flip; cook 2 more minutes.","Mix honey, soy sauce, garlic, vinegar, and sesame oil. Pour over chicken.","Bake at 400°F for 25 minutes, basting halfway. Garnish and serve."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/honey-garlic-chicken/800/600"
+  },
+  {
+    "id": "21",
+    "title": "Pad Thai",
+    "description": "Classic Thai stir-fried rice noodles with egg, bean sprouts, and a tangy tamarind sauce.",
+    "servings": 2,
+    "ingredients": ["200g flat rice noodles","2 eggs","1 cup bean sprouts","3 green onions, sliced","2 tbsp tamarind paste","2 tbsp fish sauce","1 tbsp sugar","2 tbsp vegetable oil","Lime and crushed peanuts to serve"],
+    "instructions": ["Soak noodles in warm water 20 minutes; drain.","Stir-fry noodles in oil over high heat 2 minutes.","Push aside; scramble eggs in the pan.","Add bean sprouts and sauce ingredients; toss everything together.","Serve with lime, green onions, and crushed peanuts."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/pad-thai/800/600"
+  },
+  {
+    "id": "22",
+    "title": "Chicken Caesar Wrap",
+    "description": "Grilled chicken, crisp romaine, Parmesan, and Caesar dressing wrapped in a warm tortilla.",
+    "servings": 2,
+    "ingredients": ["2 large flour tortillas","2 grilled chicken breasts, sliced","2 cups romaine lettuce, chopped","1/4 cup Parmesan, shaved","3 tbsp Caesar dressing","1/2 cup croutons"],
+    "instructions": ["Warm tortillas in a dry pan 30 seconds per side.","Toss romaine with Caesar dressing.","Layer chicken, lettuce, Parmesan, and croutons on each tortilla.","Fold and wrap tightly. Slice in half and serve."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/caesar-wrap/800/600"
+  },
+  {
+    "id": "23",
+    "title": "French Onion Soup",
+    "description": "Deeply caramelised onion soup topped with crusty croutons and melted Gruyère.",
+    "servings": 4,
+    "ingredients": ["4 large onions, thinly sliced","3 tbsp butter","1 tsp sugar","1/2 cup dry white wine","4 cups beef broth","4 baguette slices","1.5 cups Gruyère, grated","Fresh thyme","Salt and pepper"],
+    "instructions": ["Slowly caramelise onions in butter with sugar over low heat for 45 minutes.","Add wine and reduce 5 minutes. Add broth and thyme; simmer 20 minutes.","Ladle into oven-safe bowls. Top with baguette slices and Gruyère.","Broil until cheese is bubbly and golden."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/french-onion-soup/800/600"
+  },
+  {
+    "id": "24",
+    "title": "Shakshuka",
+    "description": "Eggs poached in a spiced tomato and pepper sauce — a one-pan Mediterranean classic.",
+    "servings": 3,
+    "ingredients": ["6 eggs","2 cans crushed tomatoes","2 red peppers, diced","1 onion, diced","4 garlic cloves, minced","1 tsp cumin","1 tsp paprika","1/2 tsp chilli flakes","2 tbsp olive oil","Fresh parsley"],
+    "instructions": ["Sauté onion and peppers in olive oil until soft. Add garlic and spices.","Stir in tomatoes and simmer 10 minutes.","Make 6 wells; crack an egg into each.","Cover and cook on low heat until whites are set but yolks are still runny.","Garnish with parsley and serve with bread."],
+    "dietary_attributes": ["vegetarian","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/shakshuka/800/600"
+  },
+  {
+    "id": "25",
+    "title": "Butter Chicken",
+    "description": "Tender chicken simmered in a velvety, mildly spiced tomato and butter sauce.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs chicken thighs","1/2 cup plain yogurt","1 tbsp garam masala","1 tsp turmeric","4 tbsp butter","1 large onion, puréed","14 oz crushed tomatoes","1 cup heavy cream","Salt and sugar"],
+    "instructions": ["Marinate chicken in yogurt and 1 tsp garam masala for 1 hour.","Grill or broil until charred. Set aside.","Sauté onion purée in butter until golden. Add remaining spices and tomatoes; simmer 15 minutes.","Blend sauce until smooth. Return to pan with cream and chicken.","Simmer 5 minutes. Serve with naan or rice."],
+    "dietary_attributes": ["gluten-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/butter-chicken/800/600"
+  },
+  {
+    "id": "26",
+    "title": "Falafel with Tzatziki",
+    "description": "Crispy chickpea falafel balls served with cool, herby tzatziki and warm pita.",
+    "servings": 4,
+    "ingredients": ["2 cans chickpeas, drained","1 onion, roughly chopped","3 garlic cloves","1/2 cup fresh parsley","1 tsp cumin","1 tsp coriander","2 tbsp flour","Salt and pepper","Oil for frying"],
+    "instructions": ["Blend chickpeas, onion, garlic, parsley, and spices until a coarse paste forms.","Mix in flour. Refrigerate 30 minutes.","Shape into balls and deep-fry at 375°F for 3–4 minutes until golden.","Serve with tzatziki and pita."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/falafel-pita/800/600"
+  },
+  {
+    "id": "27",
+    "title": "Miso Ramen",
+    "description": "Rich miso broth with ramen noodles, soft-boiled egg, and fresh toppings.",
+    "servings": 2,
+    "ingredients": ["200g ramen noodles","3 tbsp white miso paste","4 cups dashi or chicken broth","1 cup corn kernels","100g bean sprouts","2 soft-boiled eggs, halved","2 sheets nori","2 green onions, sliced","1 tbsp sesame oil"],
+    "instructions": ["Whisk miso paste into warm broth. Add sesame oil; keep at a gentle simmer.","Cook ramen noodles per package instructions; drain.","Divide noodles between bowls. Ladle broth over.","Top with corn, bean sprouts, egg, nori, and green onions."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/miso-ramen/800/600"
+  },
+  {
+    "id": "28",
+    "title": "Korean Bibimbap",
+    "description": "A vibrant bowl of seasoned rice topped with vegetables, gochujang, and a fried egg.",
+    "servings": 2,
+    "ingredients": ["2 cups cooked short-grain rice","1 zucchini, julienned","1 carrot, julienned","2 cups spinach, blanched","100g shiitake mushrooms","2 eggs","2 tbsp gochujang","1 tbsp sesame oil","2 tbsp soy sauce","Sesame seeds"],
+    "instructions": ["Sauté each vegetable separately in sesame oil, seasoning with soy sauce.","Fry eggs sunny-side up.","Divide rice between bowls. Arrange vegetables on top.","Add fried egg. Serve with gochujang and sesame seeds."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","vegetarian"],
+    "image_url": "https://picsum.photos/seed/bibimbap/800/600"
+  },
+  {
+    "id": "29",
+    "title": "Beef Bulgogi",
+    "description": "Tender marinated beef strips grilled to sweet-savory perfection — a Korean barbecue staple.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs beef ribeye, thinly sliced","1/4 cup soy sauce","2 tbsp sugar","2 tbsp sesame oil","4 garlic cloves, minced","1 tsp ginger, grated","1 Asian pear, grated","Sesame seeds and green onions"],
+    "instructions": ["Mix soy sauce, sugar, sesame oil, garlic, ginger, and grated pear.","Marinate beef for at least 1 hour in the fridge.","Grill or pan-fry over high heat in batches, 1–2 minutes per side.","Garnish with sesame seeds and green onions. Serve with rice."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-bulgogi/800/600"
+  },
+  {
+    "id": "30",
+    "title": "Vietnamese Pho",
+    "description": "Silky rice noodles in a deeply aromatic beef bone broth with fresh herbs.",
+    "servings": 4,
+    "ingredients": ["1 lb beef bones","200g rice noodles","1 onion, charred","3-inch piece ginger, charred","Star anise, cinnamon, cloves","2 tbsp fish sauce","1 lb beef sirloin, very thinly sliced","Bean sprouts, lime, basil, hoisin to serve"],
+    "instructions": ["Simmer bones with charred onion, ginger, and spices for 4 hours. Strain broth.","Season broth with fish sauce and salt.","Cook noodles; divide into bowls. Top with raw beef slices.","Ladle boiling broth over to cook the beef. Serve with garnishes."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/vietnamese-pho/800/600"
+  },
+  {
+    "id": "31",
+    "title": "Dal Makhani",
+    "description": "Black lentils slow-cooked with butter, cream, and warming spices — rich and comforting.",
+    "servings": 4,
+    "ingredients": ["1 cup black lentils, soaked overnight","1/2 cup kidney beans, soaked","2 tbsp butter","1 onion, diced","2 tomatoes, puréed","1 tsp garam masala","1 tsp cumin seeds","1 tbsp ginger-garlic paste","1/4 cup cream"],
+    "instructions": ["Pressure-cook lentils and beans until very soft.","Sauté cumin in butter. Add onion until golden; add ginger-garlic paste.","Stir in tomato purée and garam masala; cook 5 minutes.","Add cooked lentils, simmer 20 minutes. Finish with cream."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/dal-makhani/800/600"
+  },
+  {
+    "id": "32",
+    "title": "Chicken Shawarma",
+    "description": "Middle-Eastern spiced chicken wraps with pickled vegetables and garlic sauce.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs chicken thighs","1 tbsp cumin","1 tsp turmeric","1 tsp cinnamon","1 tsp allspice","3 tbsp olive oil","4 pita breads","Garlic sauce","Pickled turnip and tomato"],
+    "instructions": ["Mix spices and olive oil; coat chicken. Marinate 1 hour.","Grill or pan-fry chicken until cooked through. Slice thinly.","Warm pitas. Layer chicken, pickled vegetables, and garlic sauce.","Wrap tightly and serve."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/chicken-shawarma/800/600"
+  },
+  {
+    "id": "33",
+    "title": "Vegetable Paella",
+    "description": "Saffron-infused rice with artichokes, peppers, and green beans in a smoky broth.",
+    "servings": 4,
+    "ingredients": ["2 cups paella rice","4 cups vegetable broth","1 pinch saffron","2 red peppers, diced","1 cup green beans, trimmed","1 can artichoke hearts","1 onion, diced","3 garlic cloves, minced","1 tsp smoked paprika","3 tbsp olive oil"],
+    "instructions": ["Sauté onion, garlic, and peppers in olive oil. Add smoked paprika and saffron.","Stir in rice and coat with the oil. Add warm broth.","Spread evenly; add green beans and artichokes. Do not stir.","Cook on medium-low 20 minutes until liquid is absorbed and a crust forms."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/vegetable-paella/800/600"
+  },
+  {
+    "id": "34",
+    "title": "Lentil Soup",
+    "description": "A warming, hearty red lentil soup seasoned with cumin, coriander, and lemon.",
+    "servings": 6,
+    "ingredients": ["2 cups red lentils","1 onion, diced","3 garlic cloves, minced","2 tomatoes, diced","1 tsp cumin","1 tsp coriander","1/2 tsp turmeric","6 cups vegetable broth","Juice of 1 lemon","2 tbsp olive oil"],
+    "instructions": ["Sauté onion and garlic in olive oil. Add spices and cook 1 minute.","Add lentils and broth; bring to a boil then simmer 25 minutes.","Blend half the soup for a creamy texture. Stir back in.","Finish with lemon juice. Serve with crusty bread."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/lentil-soup/800/600"
+  },
+  {
+    "id": "35",
+    "title": "Lamb Tagine",
+    "description": "Moroccan slow-cooked lamb with apricots, preserved lemon, and aromatic spices.",
+    "servings": 6,
+    "ingredients": ["2 lbs lamb shoulder, cubed","1 large onion, sliced","3 garlic cloves, minced","1 tsp cinnamon","1 tsp ginger","1 tsp cumin","1/2 cup dried apricots","1/4 preserved lemon, chopped","2 cups chicken broth","2 tbsp olive oil"],
+    "instructions": ["Brown lamb in olive oil in batches. Set aside.","Sauté onion and garlic. Add spices; cook 1 minute.","Return lamb to pot. Add apricots, preserved lemon, and broth.","Cover and braise at 325°F for 1.5–2 hours until very tender. Serve with couscous."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/lamb-tagine/800/600"
+  },
+  {
+    "id": "36",
+    "title": "Sweet Potato Curry",
+    "description": "Creamy, warming sweet potato and coconut curry with red lentils and spinach.",
+    "servings": 4,
+    "ingredients": ["2 large sweet potatoes, cubed","1 cup red lentils","1 can coconut milk","1 can diced tomatoes","1 onion, diced","2 tbsp red curry paste","1 tsp turmeric","2 cups spinach","1 tbsp coconut oil"],
+    "instructions": ["Sauté onion in coconut oil. Add curry paste and turmeric; cook 1 minute.","Add sweet potatoes and lentils. Pour in tomatoes and coconut milk.","Simmer 25 minutes until lentils and potatoes are tender.","Stir in spinach. Season and serve with rice or naan."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/sweet-potato-curry/800/600"
+  },
+  {
+    "id": "37",
+    "title": "Chicken Noodle Soup",
+    "description": "Classic comfort soup with tender chicken, vegetables, and egg noodles in a golden broth.",
+    "servings": 6,
+    "ingredients": ["1 lb chicken breast or thighs","2 carrots, sliced","3 celery stalks, sliced","1 onion, diced","3 garlic cloves, minced","6 cups chicken broth","200g egg noodles","Fresh parsley","Salt and pepper"],
+    "instructions": ["Simmer chicken in broth 20 minutes. Remove and shred.","Add carrots, celery, onion, and garlic to broth; cook 10 minutes.","Add noodles and cook per package instructions.","Return chicken. Season and garnish with parsley."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-noodle/800/600"
+  },
+  {
+    "id": "38",
+    "title": "Beef Enchiladas",
+    "description": "Corn tortillas filled with seasoned beef, smothered in red enchilada sauce and cheese.",
+    "servings": 4,
+    "ingredients": ["1 lb ground beef","8 corn tortillas","2 cups enchilada sauce","1.5 cups shredded cheddar","1 onion, diced","2 garlic cloves, minced","1 tsp cumin","1 tsp chilli powder","Sour cream and jalapeños to serve"],
+    "instructions": ["Brown beef with onion, garlic, and spices. Drain fat.","Warm tortillas; fill with beef, roll tightly, and place seam-down in a baking dish.","Pour enchilada sauce over; top with cheese.","Bake at 375°F for 20 minutes until bubbling. Serve with sour cream."],
+    "dietary_attributes": ["gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-enchiladas/800/600"
+  },
+  {
+    "id": "39",
+    "title": "Tiramisu",
+    "description": "Classic Italian dessert with espresso-soaked ladyfingers and a mascarpone cream.",
+    "servings": 8,
+    "ingredients": ["500g mascarpone","4 egg yolks","80g sugar","200ml strong espresso, cooled","2 tbsp coffee liqueur","24 ladyfinger biscuits","Cocoa powder to dust"],
+    "instructions": ["Beat egg yolks and sugar until pale. Fold in mascarpone until smooth.","Mix espresso with liqueur. Quickly dip ladyfingers and layer in a dish.","Spread half the cream over the ladyfingers. Repeat layers.","Dust with cocoa powder. Refrigerate at least 4 hours before serving."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/tiramisu/800/600"
+  },
+  {
+    "id": "40",
+    "title": "Pulled Jackfruit Tacos",
+    "description": "Tender shredded jackfruit with chipotle sauce tucked into soft corn tortillas.",
+    "servings": 4,
+    "ingredients": ["2 cans young jackfruit, drained","2 chipotle peppers in adobo sauce","1 onion, sliced","3 garlic cloves, minced","1 tsp cumin","1 tsp smoked paprika","12 corn tortillas","Avocado, cabbage, and lime"],
+    "instructions": ["Shred jackfruit with forks. Sauté onion and garlic; add jackfruit and spices.","Blend chipotle peppers with some adobo sauce; stir into jackfruit.","Cook on medium heat 15 minutes until caramelised.","Serve in warm tortillas with avocado, cabbage, and lime."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/jackfruit-tacos/800/600"
+  },
+  {
+    "id": "41",
+    "title": "Mushroom Tacos",
+    "description": "Roasted portobello mushrooms with chipotle crema and pickled red onion in corn tortillas.",
+    "servings": 3,
+    "ingredients": ["4 large portobello mushrooms, sliced","1 tsp smoked paprika","1 tsp cumin","2 tbsp olive oil","6 corn tortillas","1/2 cup pickled red onion","1 avocado, sliced","Fresh coriander"],
+    "instructions": ["Toss mushrooms with olive oil, paprika, and cumin.","Roast at 425°F for 20 minutes until caramelised.","Warm tortillas. Layer mushrooms, avocado, and pickled onion.","Garnish with coriander and serve with lime."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/mushroom-tacos/800/600"
+  },
+  {
+    "id": "42",
+    "title": "Cauliflower Fried Rice",
+    "description": "Low-carb cauliflower rice stir-fried with vegetables, soy sauce, and egg.",
+    "servings": 3,
+    "ingredients": ["1 large cauliflower, riced","2 eggs, beaten","1 cup frozen peas and carrots","3 green onions, sliced","3 tbsp soy sauce","1 tbsp sesame oil","2 garlic cloves, minced","Vegetable oil"],
+    "instructions": ["Rice cauliflower in a food processor. Sauté in oil over high heat 5 minutes.","Push aside; scramble eggs. Add garlic and frozen vegetables; stir-fry 3 minutes.","Toss everything together with soy sauce and sesame oil.","Serve topped with green onions."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/cauliflower-rice/800/600"
+  },
+  {
+    "id": "43",
+    "title": "Teriyaki Salmon",
+    "description": "Glazed salmon fillets with a sweet-salty homemade teriyaki sauce over steamed rice.",
+    "servings": 2,
+    "ingredients": ["2 salmon fillets","3 tbsp soy sauce","2 tbsp mirin","1 tbsp sake or dry sherry","1 tbsp sugar","1 tsp sesame oil","Sesame seeds and green onions to serve"],
+    "instructions": ["Mix soy sauce, mirin, sake, and sugar to make teriyaki sauce.","Marinate salmon 15 minutes. Reserve marinade.","Pan-sear salmon 3 minutes per side.","Pour reserved marinade into pan; reduce to a glaze and coat salmon.","Serve over rice with sesame seeds and green onions."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/teriyaki-salmon/800/600"
+  },
+  {
+    "id": "44",
+    "title": "Baked Mac and Cheese",
+    "description": "Creamy three-cheese macaroni baked until golden and bubbling with a crispy breadcrumb top.",
+    "servings": 6,
+    "ingredients": ["400g elbow macaroni","3 tbsp butter","3 tbsp flour","2 cups milk","1 cup cheddar, grated","1 cup Gruyère, grated","1/2 cup Parmesan, grated","1/2 cup breadcrumbs","Pinch of nutmeg"],
+    "instructions": ["Cook pasta until al dente. Make a béchamel with butter, flour, and milk.","Stir in cheddar and Gruyère. Mix with pasta. Season with nutmeg.","Transfer to a baking dish. Top with Parmesan and breadcrumbs.","Bake at 375°F for 25 minutes until golden and bubbling."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/baked-mac-cheese/800/600"
+  },
+  {
+    "id": "45",
+    "title": "Lamb Kofta",
+    "description": "Spiced lamb mince skewers grilled until charred and served with hummus and flatbread.",
+    "servings": 4,
+    "ingredients": ["1 lb ground lamb","1 onion, grated","2 garlic cloves, minced","1 tsp cumin","1 tsp coriander","1/2 tsp cinnamon","1/2 tsp chilli flakes","Fresh parsley, chopped","Salt and pepper"],
+    "instructions": ["Mix all ingredients together until well combined. Refrigerate 30 minutes.","Shape mince around skewers into long sausage shapes.","Grill over high heat 3–4 minutes per side until charred.","Serve with hummus, flatbread, and a fresh herb salad."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/lamb-kofta/800/600"
+  },
+  {
+    "id": "46",
+    "title": "Chicken Fajitas",
+    "description": "Sizzling strips of marinated chicken with peppers and onions in warm flour tortillas.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs chicken breast, sliced","2 bell peppers, sliced","1 large onion, sliced","2 tbsp fajita seasoning","2 tbsp olive oil","8 flour tortillas","Sour cream, guacamole, and salsa"],
+    "instructions": ["Toss chicken and vegetables with fajita seasoning and olive oil.","Cook in a very hot cast-iron skillet until chicken is cooked and vegetables are charred.","Warm tortillas directly over a gas flame.","Serve sizzling with sour cream, guacamole, and salsa."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-fajitas/800/600"
+  },
+  {
+    "id": "47",
+    "title": "Butternut Squash Soup",
+    "description": "Smooth and velvety roasted butternut squash soup with a hint of nutmeg and ginger.",
+    "servings": 6,
+    "ingredients": ["1 large butternut squash, halved","1 onion, diced","3 garlic cloves","1 tsp ginger, grated","Pinch of nutmeg","4 cups vegetable broth","2 tbsp olive oil","Crème fraîche and pumpkin seeds to serve"],
+    "instructions": ["Roast squash cut-side down at 400°F for 45 minutes until very tender.","Sauté onion, garlic, and ginger in olive oil.","Scoop squash flesh into a blender with onion mixture and broth. Blend until smooth.","Season with nutmeg, salt, and pepper. Serve with crème fraîche and seeds."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/butternut-squash/800/600"
+  },
+  {
+    "id": "48",
+    "title": "Quinoa Buddha Bowl",
+    "description": "Nourishing bowl of quinoa, roasted vegetables, chickpeas, and a tahini dressing.",
+    "servings": 2,
+    "ingredients": ["1 cup quinoa","1 cup chickpeas, roasted","1 sweet potato, cubed and roasted","2 cups kale, massaged","1 avocado, sliced","1 cucumber, diced","3 tbsp tahini","2 tbsp lemon juice","1 tbsp maple syrup"],
+    "instructions": ["Cook quinoa per package instructions. Season with salt.","Roast chickpeas and sweet potato at 400°F for 25 minutes.","Whisk tahini, lemon juice, and maple syrup with water to a drizzleable consistency.","Assemble bowls with all components. Drizzle with tahini dressing."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/buddha-bowl/800/600"
+  },
+  {
+    "id": "49",
+    "title": "Garlic Butter Shrimp",
+    "description": "Juicy shrimp sautéed in garlic butter with white wine, parsley, and a squeeze of lemon.",
+    "servings": 2,
+    "ingredients": ["500g peeled shrimp","4 garlic cloves, minced","3 tbsp butter","1/4 cup dry white wine","Juice of 1 lemon","2 tbsp fresh parsley, chopped","Salt and red pepper flakes"],
+    "instructions": ["Melt butter in a large skillet over medium-high heat. Add garlic and red pepper flakes.","Add shrimp in a single layer; cook 1 minute per side.","Add wine and cook 1 more minute until sauce reduces slightly.","Finish with lemon juice and parsley. Serve with crusty bread."],
+    "dietary_attributes": ["gluten-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/garlic-butter-shrimp/800/600"
+  },
+  {
+    "id": "50",
+    "title": "Pineapple Fried Rice",
+    "description": "Fragrant Thai-style fried rice in a pineapple shell with cashews and curry powder.",
+    "servings": 3,
+    "ingredients": ["2 cups cooked jasmine rice","1 cup pineapple chunks","2 eggs","1/2 cup cashews, toasted","3 green onions, sliced","2 tbsp soy sauce","1 tbsp curry powder","2 tbsp vegetable oil"],
+    "instructions": ["Heat oil in a wok over high heat. Scramble eggs; push aside.","Add rice, breaking up clumps, and stir-fry 3 minutes.","Add curry powder and soy sauce; toss well.","Stir in pineapple, cashews, and green onions. Serve in pineapple halves if desired."],
+    "dietary_attributes": ["vegetarian","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/pineapple-rice/800/600"
+  },
+  {
+    "id": "51",
+    "title": "Palak Paneer",
+    "description": "Soft cubes of fresh cheese simmered in a silky, spiced spinach sauce.",
+    "servings": 4,
+    "ingredients": ["400g paneer, cubed","500g fresh spinach, blanched","1 onion, diced","3 garlic cloves, minced","1 tbsp ginger, grated","1 tsp garam masala","1 tsp cumin","1/2 tsp turmeric","2 tbsp ghee","Cream to garnish"],
+    "instructions": ["Blend blanched spinach into a smooth purée.","Sauté onion in ghee until golden. Add garlic, ginger, and spices.","Stir in spinach purée; simmer 5 minutes.","Add paneer cubes and heat through. Garnish with cream."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/palak-paneer/800/600"
+  },
+  {
+    "id": "52",
+    "title": "Crispy Tofu Bowl",
+    "description": "Baked crispy tofu over brown rice with edamame, cucumber, and a ginger miso dressing.",
+    "servings": 2,
+    "ingredients": ["400g firm tofu, cubed","1 cup brown rice","1 cup edamame","1 cucumber, sliced","2 tbsp soy sauce","1 tbsp cornstarch","2 tbsp white miso","1 tbsp rice vinegar","1 tsp fresh ginger","1 tsp sesame oil"],
+    "instructions": ["Press and cube tofu. Toss with soy sauce and cornstarch.","Bake at 400°F for 25 minutes until crispy.","Cook brown rice. Whisk miso, vinegar, ginger, and sesame oil into a dressing.","Assemble bowls with rice, tofu, edamame, and cucumber. Drizzle with dressing."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free","gluten-free"],
+    "image_url": "https://picsum.photos/seed/crispy-tofu/800/600"
+  },
+  {
+    "id": "53",
+    "title": "Tom Yum Soup",
+    "description": "Spicy-sour Thai soup with shrimp, mushrooms, and fragrant lemongrass.",
+    "servings": 4,
+    "ingredients": ["300g shrimp, peeled","200g straw mushrooms","4 cups chicken broth","2 stalks lemongrass, bruised","4 kaffir lime leaves","3 slices galangal","2 tbsp fish sauce","2 tbsp lime juice","2 Thai chillies, sliced","Fresh coriander"],
+    "instructions": ["Bring broth to a simmer with lemongrass, lime leaves, and galangal.","Add mushrooms and simmer 5 minutes.","Add shrimp; cook 2 minutes until pink.","Season with fish sauce and lime juice. Add chillies. Garnish with coriander."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/tom-yum/800/600"
+  },
+  {
+    "id": "54",
+    "title": "Chocolate Lava Cake",
+    "description": "Warm, gooey chocolate fondant cakes with a molten centre — a dinner-party showstopper.",
+    "servings": 4,
+    "ingredients": ["150g dark chocolate, chopped","100g butter","2 eggs","2 egg yolks","80g sugar","2 tbsp flour","Pinch of salt","Vanilla ice cream to serve"],
+    "instructions": ["Melt chocolate and butter together; cool slightly.","Whisk eggs, yolks, and sugar until light. Fold into chocolate.","Fold in flour and salt.","Pour into buttered ramekins. Bake at 425°F for 12 minutes. Invert and serve immediately with ice cream."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/lava-cake/800/600"
+  },
+  {
+    "id": "55",
+    "title": "Chicken Piccata",
+    "description": "Sautéed chicken cutlets in a bright, tangy lemon-caper butter sauce.",
+    "servings": 4,
+    "ingredients": ["4 chicken breasts, pounded thin","1/2 cup flour for dredging","4 tbsp butter","1/4 cup capers","1/2 cup dry white wine","1/2 cup chicken broth","Juice of 1.5 lemons","Fresh parsley"],
+    "instructions": ["Dredge chicken in flour, shaking off excess.","Pan-fry in butter 3 minutes per side until golden. Remove.","Deglaze with wine; add broth, lemon juice, and capers. Simmer 3 minutes.","Return chicken to sauce; heat 1 minute. Garnish with parsley."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-piccata/800/600"
+  },
+  {
+    "id": "56",
+    "title": "Mushroom Stroganoff",
+    "description": "Creamy, tangy mushroom stroganoff served over egg noodles — a hearty vegetarian dinner.",
+    "servings": 4,
+    "ingredients": ["500g mixed mushrooms, sliced","1 onion, diced","3 garlic cloves, minced","1 tbsp flour","1 cup vegetable broth","1 cup sour cream","1 tbsp Dijon mustard","2 tbsp butter","400g egg noodles","Fresh parsley"],
+    "instructions": ["Sauté mushrooms and onion in butter until golden. Add garlic.","Stir in flour; cook 1 minute. Add broth and simmer 5 minutes.","Remove from heat; stir in sour cream and mustard. Season well.","Serve over cooked egg noodles with fresh parsley."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/mushroom-stroganoff/800/600"
+  },
+  {
+    "id": "57",
+    "title": "Fish Tacos",
+    "description": "Battered white fish in corn tortillas with slaw, avocado crema, and pickled jalapeños.",
+    "servings": 4,
+    "ingredients": ["1 lb white fish fillets (cod or tilapia)","1 tsp chilli powder","1 tsp cumin","12 corn tortillas","2 cups cabbage, shredded","1 avocado","1/4 cup Greek yogurt","Juice of 1 lime","Pickled jalapeños"],
+    "instructions": ["Season fish with chilli powder, cumin, salt, and pepper.","Pan-fry in oil 3 minutes per side until flaky.","Blend avocado, yogurt, and lime juice into a crema.","Fill warm tortillas with fish, slaw, crema, and pickled jalapeños."],
+    "dietary_attributes": ["gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/fish-tacos/800/600"
+  },
+  {
+    "id": "58",
+    "title": "Beef Burritos",
+    "description": "Loaded flour tortillas with seasoned beef, rice, beans, and all the fixings.",
+    "servings": 4,
+    "ingredients": ["1 lb ground beef","1 cup cooked rice","1 can black beans, drained","1 cup corn","4 large flour tortillas","1 cup cheddar, grated","Salsa and sour cream","Taco seasoning"],
+    "instructions": ["Brown beef with taco seasoning. Warm black beans and rice.","Warm tortillas. Layer rice, beans, beef, corn, and cheese in each.","Fold sides and roll tightly. Toast in a dry pan for a golden crust.","Serve with salsa and sour cream."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-burritos/800/600"
+  },
+  {
+    "id": "59",
+    "title": "Greek Moussaka",
+    "description": "Layers of seasoned beef, roasted aubergine, and creamy béchamel baked until golden.",
+    "servings": 6,
+    "ingredients": ["2 large aubergines, sliced","1 lb ground beef","1 onion, diced","3 garlic cloves","1 can crushed tomatoes","1 tsp cinnamon","1/2 tsp allspice","3 tbsp butter","3 tbsp flour","2 cups milk","2 egg yolks"],
+    "instructions": ["Salt aubergine slices; let sit 20 minutes, rinse, and roast at 400°F until soft.","Brown beef with onion, garlic, and spices. Add tomatoes; simmer 15 minutes.","Make béchamel: melt butter, whisk in flour, gradually add milk. Remove from heat; whisk in yolks.","Layer: aubergine, meat sauce, béchamel. Bake at 375°F for 40 minutes."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/moussaka/800/600"
+  },
+  {
+    "id": "60",
+    "title": "Chicken Quesadillas",
+    "description": "Crispy grilled quesadillas filled with seasoned chicken, peppers, and melted cheese.",
+    "servings": 4,
+    "ingredients": ["2 chicken breasts, cooked and shredded","4 large flour tortillas","1.5 cups Mexican blend cheese","1 red pepper, diced","1/2 red onion, diced","1 tsp cumin","1 tsp chilli powder","Sour cream and guacamole"],
+    "instructions": ["Mix shredded chicken with cumin, chilli powder, peppers, and onion.","Spread chicken and cheese over half of each tortilla. Fold.","Cook in a dry pan over medium heat 2–3 minutes per side until golden.","Slice into wedges and serve with sour cream and guacamole."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/quesadillas/800/600"
+  },
+  {
+    "id": "61",
+    "title": "Salmon Poke Bowl",
+    "description": "Hawaiian-style bowl with marinated fresh salmon, sushi rice, and bright toppings.",
+    "servings": 2,
+    "ingredients": ["300g sushi-grade salmon, cubed","2 cups sushi rice, cooked","2 tbsp soy sauce","1 tbsp sesame oil","1 tsp rice vinegar","1/2 avocado, sliced","1/4 cup edamame","Cucumber and pickled ginger","Sesame seeds and nori strips"],
+    "instructions": ["Marinate salmon in soy sauce, sesame oil, and rice vinegar for 15 minutes.","Divide sushi rice between bowls.","Top with marinated salmon, avocado, edamame, and cucumber.","Garnish with sesame seeds, nori strips, and pickled ginger."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/salmon-poke/800/600"
+  },
+  {
+    "id": "62",
+    "title": "Chana Masala",
+    "description": "Boldly spiced Indian chickpea curry in a tangy tomato and onion gravy.",
+    "servings": 4,
+    "ingredients": ["2 cans chickpeas, drained","2 onions, finely diced","3 tomatoes, puréed","4 garlic cloves, minced","1 tbsp ginger, grated","1.5 tsp garam masala","1 tsp cumin","1 tsp coriander","1/2 tsp amchur (dry mango powder)","2 tbsp oil"],
+    "instructions": ["Fry onions in oil until deep golden. Add garlic and ginger.","Add spices and tomato purée; cook 10 minutes until oil separates.","Add chickpeas with 1/2 cup water. Simmer 15 minutes.","Finish with amchur for tartness. Serve with bhatura or rice."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/chana-masala/800/600"
+  },
+  {
+    "id": "63",
+    "title": "Beef Short Ribs",
+    "description": "Slow-braised beef short ribs in a rich red wine and herb sauce until meltingly tender.",
+    "servings": 4,
+    "ingredients": ["3 lbs bone-in beef short ribs","1 bottle red wine","2 cups beef broth","1 onion, diced","3 carrots, diced","4 garlic cloves","2 sprigs rosemary","2 sprigs thyme","2 tbsp tomato paste","Olive oil"],
+    "instructions": ["Season ribs generously; sear on all sides in olive oil. Remove.","Sauté vegetables until soft. Add tomato paste, wine, and broth.","Return ribs; add herbs. Cover and braise at 325°F for 3–3.5 hours.","Remove ribs; reduce sauce on stovetop. Spoon over ribs and serve with mash."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-short-ribs/800/600"
+  },
+  {
+    "id": "64",
+    "title": "Chicken Gyros",
+    "description": "Greek-spiced chicken wrapped in warm pita with tzatziki, tomato, and onion.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs chicken thighs","1 tsp oregano","1 tsp paprika","1/2 tsp garlic powder","2 tbsp olive oil","4 pita breads","1 cup tzatziki","2 tomatoes, diced","1/2 red onion, sliced","Fresh parsley"],
+    "instructions": ["Marinate chicken with spices and olive oil for 1 hour.","Grill or pan-fry until golden and cooked through. Slice thinly.","Warm pitas. Spread with tzatziki.","Top with chicken, tomato, onion, and parsley. Wrap and serve."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-gyros/800/600"
+  },
+  {
+    "id": "65",
+    "title": "Mango Sticky Rice",
+    "description": "Thai dessert of sweet coconut sticky rice paired with ripe fresh mango.",
+    "servings": 4,
+    "ingredients": ["2 cups glutinous rice","1.5 cups coconut milk","3 tbsp sugar","1/2 tsp salt","2 ripe mangoes, sliced","Sesame seeds to garnish"],
+    "instructions": ["Soak sticky rice overnight. Steam for 20–25 minutes until tender.","Heat coconut milk, sugar, and salt until dissolved. Pour over hot rice; let absorb 20 minutes.","Arrange sliced mango alongside rice.","Drizzle with remaining warm coconut milk and sprinkle sesame seeds."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/mango-sticky-rice/800/600"
+  },
+  {
+    "id": "66",
+    "title": "Tofu Scramble",
+    "description": "A protein-rich vegan alternative to scrambled eggs with turmeric, spinach, and peppers.",
+    "servings": 2,
+    "ingredients": ["400g firm tofu, crumbled","1 red pepper, diced","1 cup spinach","1/2 onion, diced","2 garlic cloves, minced","1 tsp turmeric","1 tsp cumin","2 tbsp nutritional yeast","1 tbsp olive oil","Salt and pepper"],
+    "instructions": ["Sauté onion, garlic, and pepper in olive oil 3 minutes.","Add crumbled tofu, turmeric, cumin, and nutritional yeast; cook 5 minutes.","Stir in spinach until wilted. Season with salt and pepper.","Serve on toast or with roasted vegetables."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/tofu-scramble/800/600"
+  },
+  {
+    "id": "67",
+    "title": "Beef Kebabs",
+    "description": "Spiced beef skewers grilled over charcoal and served with flatbread and fresh salad.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs ground beef","1 onion, grated","2 garlic cloves, minced","1 tsp paprika","1 tsp cumin","1/2 tsp allspice","Fresh parsley, chopped","Salt and pepper"],
+    "instructions": ["Mix all ingredients; knead until the mixture holds together well.","Shape firmly around flat skewers into sausage shapes.","Grill over high heat 3–4 minutes per side until charred.","Serve with flatbread, tomato salad, and tahini."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/beef-kebabs/800/600"
+  },
+  {
+    "id": "68",
+    "title": "Veggie Spring Rolls",
+    "description": "Crispy fried spring rolls filled with glass noodles, cabbage, carrots, and mushrooms.",
+    "servings": 4,
+    "ingredients": ["12 spring roll wrappers","100g glass noodles, soaked","2 cups cabbage, shredded","2 carrots, julienned","100g shiitake mushrooms, sliced","2 garlic cloves, minced","2 tbsp soy sauce","Oil for frying"],
+    "instructions": ["Stir-fry garlic, mushrooms, cabbage, and carrots 3 minutes. Add noodles and soy sauce.","Cool filling. Place 2 tbsp in each wrapper; roll tightly, sealing with water.","Deep-fry at 350°F in batches until golden and crispy.","Serve with sweet chilli dipping sauce."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/spring-rolls/800/600"
+  },
+  {
+    "id": "69",
+    "title": "Cauliflower Buffalo Wings",
+    "description": "Crispy baked cauliflower florets tossed in tangy buffalo sauce — all the heat, zero chicken.",
+    "servings": 4,
+    "ingredients": ["1 large cauliflower, cut into florets","1/2 cup flour","1/2 cup water","1 tsp garlic powder","1 tsp onion powder","1/2 cup buffalo sauce","2 tbsp melted vegan butter","Salt and pepper"],
+    "instructions": ["Mix flour, water, garlic powder, and onion powder into a batter. Coat florets.","Bake on a lined sheet at 425°F for 20 minutes until golden.","Toss with buffalo sauce and vegan butter. Return to oven 10 minutes.","Serve with celery sticks and blue cheese or ranch dip."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/cauliflower-wings/800/600"
+  },
+  {
+    "id": "70",
+    "title": "Mango Avocado Salad",
+    "description": "Bright tropical salad with sweet mango, creamy avocado, red onion, and a lime dressing.",
+    "servings": 4,
+    "ingredients": ["2 ripe mangoes, diced","2 avocados, diced","1/2 red onion, thinly sliced","1 red pepper, diced","Fresh coriander","Juice of 2 limes","1 tbsp olive oil","Salt and chilli flakes"],
+    "instructions": ["Combine mango, avocado, red onion, and red pepper in a bowl.","Whisk lime juice, olive oil, salt, and chilli flakes.","Pour dressing over salad. Toss gently.","Garnish with fresh coriander and serve immediately."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/mango-avocado/800/600"
+  },
+  {
+    "id": "71",
+    "title": "Chicken Katsu Curry",
+    "description": "Japanese crispy breaded chicken in a mild, sweet curry sauce served over steamed rice.",
+    "servings": 4,
+    "ingredients": ["4 chicken breasts, pounded flat","1 cup panko breadcrumbs","2 eggs, beaten","1/2 cup flour","2 onions, diced","1 tbsp curry powder","2 cups chicken broth","1 tbsp honey","1 tbsp soy sauce","Vegetable oil for frying"],
+    "instructions": ["Bread chicken: dust with flour, dip in egg, coat in panko.","Deep-fry at 350°F for 6–8 minutes until golden. Rest on a rack.","Curry sauce: sauté onions until deep golden. Add curry powder; cook 1 minute.","Add broth, honey, and soy sauce; simmer 15 minutes. Blend smooth. Serve over rice with sliced chicken."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/katsu-curry/800/600"
+  },
+  {
+    "id": "72",
+    "title": "Black Bean Quesadillas",
+    "description": "Crispy quesadillas stuffed with spiced black beans, corn, and gooey melted cheese.",
+    "servings": 4,
+    "ingredients": ["1 can black beans, drained","1/2 cup corn","4 flour tortillas","1.5 cups cheddar, grated","1 tsp cumin","1 tsp smoked paprika","Sour cream, salsa, and avocado"],
+    "instructions": ["Mash beans with cumin and smoked paprika.","Spread bean mixture and cheese over half of each tortilla; fold.","Cook in a dry pan over medium heat 2–3 minutes per side until golden and cheese melts.","Slice into wedges. Serve with sour cream, salsa, and avocado."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/bean-quesadilla/800/600"
+  },
+  {
+    "id": "73",
+    "title": "Açaí Bowl",
+    "description": "Thick, frozen açaí smoothie topped with granola, fresh fruit, honey, and coconut flakes.",
+    "servings": 2,
+    "ingredients": ["2 packets frozen açaí","1 ripe banana","1/2 cup almond milk","1/2 cup granola","1/2 cup mixed berries","1 banana, sliced","2 tbsp honey","2 tbsp coconut flakes"],
+    "instructions": ["Blend frozen açaí, banana, and almond milk until thick and smooth.","Pour into bowls.","Top with granola, berries, banana slices, and coconut flakes.","Drizzle with honey and serve immediately."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/acai-bowl/800/600"
+  },
+  {
+    "id": "74",
+    "title": "Minestrone Soup",
+    "description": "Classic Italian vegetable soup with beans, pasta, and a rich tomato herb broth.",
+    "servings": 6,
+    "ingredients": ["2 cans diced tomatoes","1 can cannellini beans","2 carrots, diced","3 celery stalks, diced","1 onion, diced","3 garlic cloves, minced","1 zucchini, diced","1 cup small pasta","4 cups vegetable broth","1 tsp Italian seasoning","Parmesan rind","Fresh basil"],
+    "instructions": ["Sauté onion, carrot, celery, and garlic in olive oil until softened.","Add tomatoes, broth, and Parmesan rind. Simmer 15 minutes.","Add zucchini, beans, and pasta. Cook 10 minutes until pasta is tender.","Remove rind. Season and serve with fresh basil and Parmesan."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/minestrone/800/600"
+  },
+  {
+    "id": "75",
+    "title": "Chicken Marsala",
+    "description": "Tender chicken cutlets in a rich Marsala wine and mushroom sauce.",
+    "servings": 4,
+    "ingredients": ["4 chicken breasts, pounded thin","1/2 cup flour","250g mushrooms, sliced","3/4 cup Marsala wine","1/2 cup chicken broth","3 tbsp butter","2 tbsp olive oil","Fresh parsley","Salt and pepper"],
+    "instructions": ["Dredge chicken in flour; pan-fry in butter and oil 3 minutes per side. Remove.","Sauté mushrooms until golden. Add Marsala; reduce by half.","Add broth; simmer 5 minutes.","Return chicken; heat through. Finish with cold butter for a glossy sauce."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-marsala/800/600"
+  },
+  {
+    "id": "76",
+    "title": "Zucchini Fritters",
+    "description": "Crispy pan-fried zucchini cakes with feta and fresh herbs, served with sour cream.",
+    "servings": 4,
+    "ingredients": ["3 medium zucchinis, grated","1/2 cup feta cheese, crumbled","2 eggs","1/3 cup flour","2 green onions, sliced","2 tbsp fresh dill","Salt and pepper","Oil for frying"],
+    "instructions": ["Salt grated zucchini; let sit 10 minutes. Squeeze out excess moisture.","Mix zucchini with feta, eggs, flour, green onions, dill, salt, and pepper.","Heat oil in a pan. Drop heaped spoonfuls; flatten slightly.","Fry 3 minutes per side until golden. Serve with sour cream."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/zucchini-fritters/800/600"
+  },
+  {
+    "id": "77",
+    "title": "Chicken Biryani",
+    "description": "Aromatic basmati rice layered with spiced chicken, fried onions, and fragrant saffron.",
+    "servings": 6,
+    "ingredients": ["2 lbs chicken thighs","2 cups basmati rice","2 onions, thinly sliced","1 cup yogurt","1.5 tbsp biryani masala","1 tsp turmeric","Pinch of saffron in warm milk","Fresh mint and coriander","4 tbsp ghee"],
+    "instructions": ["Marinate chicken in yogurt and spices for 2 hours.","Fry onions in ghee until crispy golden; set aside.","Parboil rice until 70% cooked.","Layer: chicken on bottom, then rice, fried onions, herbs, and saffron milk. Cover tightly and cook on low 30 minutes."],
+    "dietary_attributes": ["gluten-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/chicken-biryani/800/600"
+  },
+  {
+    "id": "78",
+    "title": "Lemon Ricotta Pasta",
+    "description": "Light and creamy pasta with whipped ricotta, fresh lemon zest, and peas.",
+    "servings": 4,
+    "ingredients": ["400g spaghetti or linguine","1 cup ricotta","1/2 cup Parmesan, grated","Zest of 2 lemons","Juice of 1 lemon","1 cup peas","2 tbsp olive oil","Fresh basil","Salt and pepper"],
+    "instructions": ["Cook pasta in salted water until al dente. Reserve 1 cup pasta water.","Beat ricotta with Parmesan, lemon zest, and juice until smooth.","Toss hot pasta with ricotta mixture, adding pasta water to loosen.","Stir in peas and olive oil. Garnish with basil."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/ricotta-pasta/800/600"
+  },
+  {
+    "id": "79",
+    "title": "Beef Ragu Pasta",
+    "description": "Slow-cooked beef ragu with rich tomatoes and red wine tossed through pappardelle.",
+    "servings": 6,
+    "ingredients": ["1 lb beef chuck, cubed","1 onion, diced","3 garlic cloves, minced","2 carrots, diced","2 celery stalks, diced","1 cup red wine","2 cans crushed tomatoes","400g pappardelle","Parmesan to serve","Olive oil"],
+    "instructions": ["Brown beef in olive oil; set aside. Sauté vegetables until soft.","Add wine; reduce by half. Add tomatoes and beef.","Braise at 300°F for 2.5 hours until beef shreds easily. Pull apart.","Toss with cooked pappardelle and Parmesan."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/beef-ragu/800/600"
+  },
+  {
+    "id": "80",
+    "title": "Lamb Souvlaki",
+    "description": "Grilled lamb skewers marinated in lemon, garlic, and oregano — a Greek BBQ classic.",
+    "servings": 4,
+    "ingredients": ["1.5 lbs lamb leg, cubed","3 tbsp olive oil","Juice of 1 lemon","1 tbsp dried oregano","3 garlic cloves, minced","Salt and pepper","Pita bread, tzatziki, and tomato to serve"],
+    "instructions": ["Mix olive oil, lemon juice, oregano, garlic, salt, and pepper.","Marinate lamb for at least 2 hours. Thread onto skewers.","Grill over high heat 3–4 minutes per side until charred and cooked through.","Serve with warm pita, tzatziki, and fresh tomato."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/lamb-souvlaki/800/600"
+  },
+  {
+    "id": "81",
+    "title": "Smoked Salmon Bagel",
+    "description": "Toasted bagel with cream cheese, smoked salmon, capers, and thinly sliced red onion.",
+    "servings": 2,
+    "ingredients": ["2 everything bagels","100g cream cheese","150g smoked salmon","2 tbsp capers","1/4 red onion, thinly sliced","Fresh dill","Lemon wedges"],
+    "instructions": ["Slice and toast bagels until golden.","Spread cream cheese generously on both halves.","Layer smoked salmon over the bottom half.","Top with capers, red onion, and dill. Serve with lemon wedges."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/smoked-salmon-bagel/800/600"
+  },
+  {
+    "id": "82",
+    "title": "Aloo Gobi",
+    "description": "Indian dry-cooked cauliflower and potato in an aromatic blend of turmeric and spices.",
+    "servings": 4,
+    "ingredients": ["1 large cauliflower, cut into florets","3 medium potatoes, cubed","1 onion, diced","2 garlic cloves, minced","1 tsp turmeric","1 tsp cumin","1 tsp coriander","1/2 tsp garam masala","3 tbsp oil","Fresh coriander"],
+    "instructions": ["Heat oil; sauté onion until golden. Add garlic and dry spices.","Add potatoes; stir-coat in spices. Cook 5 minutes.","Add cauliflower florets and a splash of water. Cover and cook 15 minutes on medium-low.","Garnish with fresh coriander. Serve with roti or rice."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/aloo-gobi/800/600"
+  },
+  {
+    "id": "83",
+    "title": "Chicken Parmesan",
+    "description": "Crispy breaded chicken cutlets baked in marinara and smothered with melted mozzarella.",
+    "servings": 4,
+    "ingredients": ["4 chicken breasts, pounded thin","1 cup breadcrumbs","1/2 cup Parmesan, grated","2 eggs, beaten","1.5 cups marinara sauce","1.5 cups mozzarella, grated","1 tsp garlic powder","Olive oil spray","Fresh basil"],
+    "instructions": ["Bread chicken: dip in egg, then breadcrumbs mixed with Parmesan and garlic powder.","Pan-fry in oil until golden on each side; transfer to a baking dish.","Spoon marinara over each cutlet. Top with mozzarella.","Bake at 400°F for 15 minutes until cheese is golden. Garnish with basil."],
+    "dietary_attributes": ["nut-free"],
+    "image_url": "https://picsum.photos/seed/chicken-parmesan/800/600"
+  },
+  {
+    "id": "84",
+    "title": "Miso Glazed Salmon",
+    "description": "Salmon fillets with a sweet white miso and mirin glaze, broiled until caramelised.",
+    "servings": 2,
+    "ingredients": ["2 salmon fillets","3 tbsp white miso paste","2 tbsp mirin","1 tbsp sake","1 tbsp sugar","1 tsp sesame oil","Green onions and sesame seeds"],
+    "instructions": ["Whisk miso, mirin, sake, sugar, and sesame oil into a glaze.","Coat salmon; marinate in the fridge for at least 1 hour.","Wipe off excess marinade. Broil on high for 8–10 minutes until caramelised.","Garnish with green onions and sesame seeds. Serve with rice."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/miso-salmon/800/600"
+  },
+  {
+    "id": "85",
+    "title": "Lamb Biryani",
+    "description": "Fragrant basmati rice layered with slow-cooked spiced lamb and golden fried onions.",
+    "servings": 6,
+    "ingredients": ["2 lbs lamb shoulder, cubed","2 cups basmati rice","2 onions, sliced","1 cup yogurt","2 tbsp biryani spice mix","1 tsp saffron dissolved in 1/4 cup milk","Fresh mint","4 tbsp ghee"],
+    "instructions": ["Marinate lamb in yogurt and biryani spice mix for 2 hours. Cook in ghee until tender.","Fry onions until crispy; set aside.","Parboil rice to 70% done.","Layer lamb, rice, onions, mint, and saffron milk in a pot. Seal and cook on the lowest heat for 30 minutes."],
+    "dietary_attributes": ["gluten-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/lamb-biryani/800/600"
+  },
+  {
+    "id": "86",
+    "title": "Seafood Paella",
+    "description": "Spanish saffron rice with mussels, shrimp, and clams cooked in a flavourful stock.",
+    "servings": 6,
+    "ingredients": ["2 cups paella rice","1 pinch saffron","300g shrimp, peeled","200g mussels, cleaned","200g clams, cleaned","1 onion, diced","4 garlic cloves, minced","1 red pepper, diced","1 tsp smoked paprika","4 cups seafood broth","3 tbsp olive oil"],
+    "instructions": ["Sauté onion, garlic, and pepper in olive oil. Add paprika and saffron.","Add rice; coat in oil. Pour in warm broth. Spread evenly.","Arrange seafood on top; push partway into rice.","Cook on medium-low 20 minutes without stirring until rice is cooked and crust forms."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/seafood-paella/800/600"
+  },
+  {
+    "id": "87",
+    "title": "Pesto Pasta",
+    "description": "Linguine tossed in vibrant homemade basil pesto with cherry tomatoes and Parmesan.",
+    "servings": 4,
+    "ingredients": ["400g linguine","2 cups fresh basil","1/3 cup pine nuts","2 garlic cloves","1/2 cup Parmesan, grated","1/2 cup olive oil","1 cup cherry tomatoes, halved","Salt and pepper"],
+    "instructions": ["Blend basil, pine nuts, garlic, and Parmesan. Slowly add olive oil until smooth.","Cook linguine in salted water until al dente. Reserve 1/2 cup pasta water.","Toss hot pasta with pesto, adding pasta water to loosen.","Fold in cherry tomatoes. Serve with extra Parmesan."],
+    "dietary_attributes": ["vegetarian"],
+    "image_url": "https://picsum.photos/seed/pesto-pasta/800/600"
+  },
+  {
+    "id": "88",
+    "title": "Duck Confit",
+    "description": "French slow-cooked duck legs cured in salt and herbs, crisped in their own fat.",
+    "servings": 2,
+    "ingredients": ["2 duck legs","1 tbsp coarse salt","2 garlic cloves, sliced","2 sprigs thyme","1 bay leaf","1/2 tsp black pepper","Duck fat or olive oil to cover"],
+    "instructions": ["Rub duck legs with salt, garlic, thyme, bay, and pepper. Refrigerate overnight.","Rinse and pat dry. Submerge in duck fat in an oven-safe dish.","Cook at 275°F for 2.5–3 hours until very tender.","Increase oven to 450°F for the last 15 minutes to crisp the skin."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/duck-confit/800/600"
+  },
+  {
+    "id": "89",
+    "title": "Caprese Bruschetta",
+    "description": "Grilled sourdough topped with burrata, heirloom tomatoes, basil oil, and flaky sea salt.",
+    "servings": 4,
+    "ingredients": ["8 slices sourdough","2 burrata balls","4 heirloom tomatoes, sliced","1 cup fresh basil","1/3 cup olive oil","1 garlic clove","Flaky sea salt","Balsamic glaze"],
+    "instructions": ["Grill sourdough slices; rub while hot with a cut garlic clove.","Blend basil with olive oil into a loose basil oil.","Arrange tomato slices on each toast. Tear burrata over the top.","Drizzle with basil oil and balsamic glaze. Finish with flaky sea salt."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/caprese-bruschetta/800/600"
+  },
+  {
+    "id": "90",
+    "title": "Korean Fried Chicken",
+    "description": "Double-fried ultra-crispy chicken wings glazed in a sweet and spicy gochujang sauce.",
+    "servings": 4,
+    "ingredients": ["2 lbs chicken wings","1/2 cup cornstarch","Salt and pepper","3 tbsp gochujang","2 tbsp honey","1 tbsp soy sauce","2 garlic cloves, minced","1 tsp sesame oil","Sesame seeds","Oil for frying"],
+    "instructions": ["Season wings with salt and pepper; coat in cornstarch. Fry at 340°F for 8 minutes; drain.","Raise oil to 375°F. Fry a second time for 3 minutes until very crispy.","Mix gochujang, honey, soy sauce, garlic, and sesame oil in a pan over low heat.","Toss crispy wings in the sauce. Serve with sesame seeds."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/korean-chicken/800/600"
+  },
+  {
+    "id": "91",
+    "title": "Crème Brûlée",
+    "description": "Classic French silky vanilla custard with a perfectly caramelised sugar crust.",
+    "servings": 4,
+    "ingredients": ["500ml heavy cream","6 egg yolks","80g sugar plus extra for the crust","1 vanilla pod or 1 tsp vanilla extract"],
+    "instructions": ["Heat cream with vanilla until just steaming; remove from heat.","Whisk yolks and sugar until pale. Slowly pour in warm cream, whisking.","Strain into ramekins. Bake in a water bath at 300°F for 35–40 minutes until set with a slight wobble.","Refrigerate 2 hours. Sprinkle sugar on top and brulee with a torch."],
+    "dietary_attributes": ["vegetarian","gluten-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/creme-brulee/800/600"
+  },
+  {
+    "id": "92",
+    "title": "Shrimp Tacos with Mango Salsa",
+    "description": "Spiced pan-fried shrimp in corn tortillas with a fresh, sweet mango-jalapeño salsa.",
+    "servings": 4,
+    "ingredients": ["500g shrimp, peeled","1 mango, diced","1 jalapeño, finely diced","1/4 red onion, diced","Juice of 1 lime","1 tsp chilli powder","1 tsp cumin","12 corn tortillas","Fresh coriander","Salt"],
+    "instructions": ["Mix mango, jalapeño, red onion, lime juice, coriander, and salt into a salsa.","Toss shrimp with chilli powder, cumin, and salt.","Pan-fry shrimp in oil 1–2 minutes per side until pink.","Serve in warm tortillas topped with mango salsa."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/shrimp-mango-tacos/800/600"
+  },
+  {
+    "id": "93",
+    "title": "Grilled Swordfish",
+    "description": "Meaty swordfish steaks marinated in lemon and herbs and grilled to perfection.",
+    "servings": 2,
+    "ingredients": ["2 swordfish steaks","Juice of 1 lemon","2 tbsp olive oil","2 garlic cloves, minced","1 tbsp fresh oregano","Salt and pepper","Lemon wedges and capers to serve"],
+    "instructions": ["Marinate swordfish in lemon juice, olive oil, garlic, and oregano for 30 minutes.","Grill over medium-high heat 4 minutes per side.","Rest 2 minutes. Serve with lemon wedges, capers, and a green salad."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","low-carb"],
+    "image_url": "https://picsum.photos/seed/grilled-swordfish/800/600"
+  },
+  {
+    "id": "94",
+    "title": "Sweet and Sour Pork",
+    "description": "Crispy pork pieces with pineapple and peppers in a tangy sweet-and-sour sauce.",
+    "servings": 4,
+    "ingredients": ["1 lb pork tenderloin, cubed","1 cup pineapple chunks","1 red pepper, diced","1 green pepper, diced","3 tbsp rice vinegar","3 tbsp ketchup","2 tbsp sugar","1 tbsp soy sauce","Cornstarch and egg for coating","Oil for frying"],
+    "instructions": ["Coat pork in egg then cornstarch. Deep-fry at 375°F until golden; drain.","Mix vinegar, ketchup, sugar, and soy sauce into a sauce.","Stir-fry peppers 2 minutes. Add sauce; bring to a boil.","Add pork and pineapple; toss to coat. Serve with steamed rice."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/sweet-sour-pork/800/600"
+  },
+  {
+    "id": "95",
+    "title": "Pesto Gnocchi",
+    "description": "Pillowy potato gnocchi tossed in vibrant basil pesto with roasted cherry tomatoes.",
+    "servings": 4,
+    "ingredients": ["500g potato gnocchi","3/4 cup basil pesto","1 cup cherry tomatoes","2 tbsp olive oil","1/2 cup Parmesan, grated","Fresh basil","Salt and pepper"],
+    "instructions": ["Roast cherry tomatoes with olive oil at 400°F for 15 minutes until blistered.","Cook gnocchi in salted boiling water until they float; drain.","Toss hot gnocchi immediately with pesto.","Top with roasted tomatoes, Parmesan, and fresh basil."],
+    "dietary_attributes": ["vegetarian","nut-free"],
+    "image_url": "https://picsum.photos/seed/pesto-gnocchi/800/600"
+  },
+  {
+    "id": "96",
+    "title": "Tom Kha Gai",
+    "description": "Creamy Thai coconut soup with chicken, galangal, lemongrass, and kaffir lime.",
+    "servings": 4,
+    "ingredients": ["1 can coconut milk","2 cups chicken broth","300g chicken breast, sliced","200g mushrooms, sliced","2 stalks lemongrass, bruised","4 kaffir lime leaves","3 slices galangal","2 tbsp fish sauce","1 tbsp lime juice","2 Thai chillies","Fresh coriander"],
+    "instructions": ["Simmer broth with lemongrass, galangal, and lime leaves for 5 minutes.","Add coconut milk and bring to a gentle simmer.","Add chicken and mushrooms; cook 5 minutes until chicken is done.","Season with fish sauce and lime juice. Add chillies. Serve with coriander."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free","nut-free","halal"],
+    "image_url": "https://picsum.photos/seed/tom-kha/800/600"
+  },
+  {
+    "id": "97",
+    "title": "Pulled Chicken Sandwiches",
+    "description": "Tender slow-cooked BBQ pulled chicken on a brioche bun with tangy coleslaw.",
+    "servings": 6,
+    "ingredients": ["2 lbs chicken thighs","1 cup BBQ sauce","1/2 cup chicken broth","1 tsp smoked paprika","1 tsp garlic powder","6 brioche buns","2 cups coleslaw mix","3 tbsp mayonnaise","1 tbsp apple cider vinegar"],
+    "instructions": ["Place chicken, BBQ sauce, broth, paprika, and garlic powder in a slow cooker. Cook on low 6 hours.","Shred chicken and mix back into sauce.","Combine coleslaw mix with mayonnaise and vinegar.","Pile pulled chicken onto brioche buns with a heap of coleslaw."],
+    "dietary_attributes": ["dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/pulled-chicken/800/600"
+  },
+  {
+    "id": "98",
+    "title": "Ratatouille",
+    "description": "French Provençal slow-cooked vegetable stew with tomatoes, courgette, and herbes de Provence.",
+    "servings": 6,
+    "ingredients": ["2 courgettes, diced","2 aubergines, diced","4 tomatoes, diced","2 red peppers, diced","1 onion, diced","4 garlic cloves, minced","1 can crushed tomatoes","2 tsp herbes de Provence","3 tbsp olive oil","Fresh basil"],
+    "instructions": ["Sauté onion and garlic in olive oil until soft. Add herbes de Provence.","Add aubergine and peppers; cook 5 minutes. Add courgette.","Stir in fresh tomatoes and canned tomatoes. Season well.","Simmer uncovered 30 minutes until vegetables are tender and sauce thickens. Serve with crusty bread."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free","nut-free"],
+    "image_url": "https://picsum.photos/seed/ratatouille/800/600"
+  },
+  {
+    "id": "99",
+    "title": "Prawn Pad Thai",
+    "description": "Wok-tossed flat rice noodles with tiger prawns, egg, tamarind, and spring onions.",
+    "servings": 2,
+    "ingredients": ["200g flat rice noodles","200g tiger prawns, peeled","2 eggs","1 cup bean sprouts","3 tbsp tamarind paste","2 tbsp fish sauce","1 tbsp sugar","2 tbsp vegetable oil","Lime, spring onions, and crushed peanuts to serve"],
+    "instructions": ["Soak noodles in warm water 20 minutes; drain.","Stir-fry prawns in oil until pink; push aside and scramble eggs.","Add noodles; toss over high heat 2 minutes.","Add tamarind, fish sauce, and sugar; toss well. Add bean sprouts.","Serve with lime, spring onions, and peanuts."],
+    "dietary_attributes": ["gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/prawn-pad-thai/800/600"
+  },
+  {
+    "id": "100",
+    "title": "Smoothie Bowl",
+    "description": "Thick blended açaí and berry smoothie base loaded with colourful toppings and seeds.",
+    "servings": 1,
+    "ingredients": ["1 packet frozen açaí","1/2 cup frozen blueberries","1/2 banana","1/4 cup coconut milk","1/4 cup granola","Fresh kiwi, strawberry, and banana slices","1 tbsp chia seeds","1 tbsp hemp seeds","Drizzle of honey"],
+    "instructions": ["Blend açaí, blueberries, banana, and coconut milk until very thick.","Pour into a bowl.","Arrange granola, kiwi, strawberry, and banana artfully on top.","Sprinkle with chia seeds and hemp seeds. Drizzle honey and serve immediately."],
+    "dietary_attributes": ["vegan","vegetarian","plant-based","gluten-free","dairy-free / lactose-free"],
+    "image_url": "https://picsum.photos/seed/smoothie-bowl/800/600"
+  }
+]
