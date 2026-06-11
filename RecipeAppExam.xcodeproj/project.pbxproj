@@ -31,6 +31,7 @@
 		AA000000000000000000A01E /* RecipePersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01D /* RecipePersistenceService.swift */; };
 		AA000000000000000000A020 /* recipes.json in Resources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000A01F /* recipes.json */; };
 		AA000000000000000000C002 /* DietaryAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000C001 /* DietaryAttribute.swift */; };
+		AA000000000000000000D002 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000D001 /* FavoritesService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		AA000000000000000000A01D /* RecipePersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePersistenceService.swift; sourceTree = "<group>"; };
 		AA000000000000000000A01F /* recipes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = recipes.json; sourceTree = "<group>"; };
 		AA000000000000000000C001 /* DietaryAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietaryAttribute.swift; sourceTree = "<group>"; };
+		AA000000000000000000D001 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				AA000000000000000000A013 /* NetworkService.swift */,
 				AA000000000000000000A015 /* RecipeService.swift */,
 				AA000000000000000000A017 /* ConnectivityMonitor.swift */,
+				AA000000000000000000D001 /* FavoritesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				AA000000000000000000A01A /* CoreDataStack.swift in Sources */,
 				AA000000000000000000A01C /* RecipeEntity.swift in Sources */,
 				AA000000000000000000A01E /* RecipePersistenceService.swift in Sources */,
+				AA000000000000000000D002 /* FavoritesService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

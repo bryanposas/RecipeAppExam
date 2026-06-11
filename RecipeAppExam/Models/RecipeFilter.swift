@@ -34,4 +34,13 @@ struct RecipeFilter: Equatable {
             || !includeIngredients.isEmpty
             || !excludeIngredients.isEmpty
     }
+
+    /// Count of filter-sheet criteria only (excludes search query).
+    /// Used to badge the filter button so the user knows filters are active.
+    var activeFilterCount: Int {
+        dietaryAttributes.count
+        + (servings != nil ? 1 : 0)
+        + includeIngredients.count
+        + excludeIngredients.count
+    }
 }

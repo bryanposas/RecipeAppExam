@@ -1,5 +1,6 @@
 // RecipeAppExamTests.swift
 
+import Foundation
 import Testing
 @testable import RecipeAppExam
 
@@ -90,6 +91,24 @@ private enum Fixtures {
     ]
 }
 
+// MARK: - Extended fixtures
+
+private extension Fixtures {
+    /// 20 recipes used for pagination tests (needs more than the default pageSize of 10).
+    static let twentyRecipes: [Recipe] = (1...20).map { i in
+        Recipe(
+            id: "\(100 + i)",
+            title: "Paged Recipe \(i)",
+            description: "Description \(i)",
+            servings: (i % 4) + 1,
+            ingredients: ["ingredient \(i) a", "ingredient \(i) b", "tomato"],
+            instructions: ["Step 1", "Step 2"],
+            dietaryAttributes: i.isMultiple(of: 2) ? ["vegan", "gluten-free"] : ["halal"],
+            imageURL: nil
+        )
+    }
+}
+
 // MARK: - StubNetworkService
 
 private struct StubNetworkService: NetworkServiceProtocol {
@@ -101,6 +120,24 @@ private struct StubNetworkService: NetworkServiceProtocol {
         }
         return result
     }
+}
+
+// MARK: - FailingNetworkService
+
+private struct FailingNetworkService: NetworkServiceProtocol {
+    func fetch<T: Decodable & Sendable>(endpoint: APIEndpoint) async throws -> T {
+        throw NetworkError.networkUnavailable
+    }
+}
+
+// MARK: - StubPersistenceService
+
+private final class StubPersistenceService: RecipePersistenceServiceProtocol, @unchecked Sendable {
+    private var stored: [Recipe] = []
+
+    func save(_ recipes: [Recipe]) async throws { stored = recipes }
+    func fetchAll() async throws -> [Recipe] { stored }
+    func deleteAll() async throws { stored = [] }
 }
 
 // MARK: - Suite: Recipe Service
@@ -360,6 +397,53 @@ struct RecipeFilterTests {
         #expect(filter.isActive)
         #expect(filter.dietaryAttributes.count == 3)
     }
+
+    // MARK: activeFilterCount
+
+    @Test("Default filter has activeFilterCount of zero")
+    func activeFilterCountDefaultIsZero() {
+        #expect(RecipeFilter().activeFilterCount == 0)
+    }
+
+    @Test("Search query alone does not increment activeFilterCount")
+    func searchQueryDoesNotIncrementActiveFilterCount() {
+        var filter = RecipeFilter()
+        filter.searchQuery = "pasta"
+        #expect(filter.activeFilterCount == 0)
+    }
+
+    @Test("Each dietary attribute increments activeFilterCount by one")
+    func dietaryAttributeIncrementsCount() {
+        var filter = RecipeFilter()
+        filter.dietaryAttributes = ["vegan", "halal"]
+        #expect(filter.activeFilterCount == 2)
+    }
+
+    @Test("Servings filter increments activeFilterCount by one")
+    func servingsIncrementsCount() {
+        var filter = RecipeFilter()
+        filter.servings = 4
+        #expect(filter.activeFilterCount == 1)
+    }
+
+    @Test("Include and exclude ingredients both contribute to activeFilterCount")
+    func ingredientsIncrementCount() {
+        var filter = RecipeFilter()
+        filter.includeIngredients = ["garlic", "onion"]
+        filter.excludeIngredients = ["nuts"]
+        #expect(filter.activeFilterCount == 3)
+    }
+
+    @Test("activeFilterCount sums all filter-sheet criteria correctly")
+    func activeFilterCountSumsAllCriteria() {
+        var filter = RecipeFilter()
+        filter.searchQuery = "pasta"          // not counted
+        filter.dietaryAttributes = ["vegan"]  // +1
+        filter.servings = 2                   // +1
+        filter.includeIngredients = ["flour"] // +1
+        filter.excludeIngredients = ["nuts"]  // +1
+        #expect(filter.activeFilterCount == 4)
+    }
 }
 
 // MARK: - Suite: Dietary Attribute
@@ -531,5 +615,561 @@ struct RecipePersistenceTests {
         let titles = fetched.map(\.title)
 
         #expect(titles == titles.sorted())
+    }
+
+    @Test("imageURL is preserved through the CoreData round-trip")
+    func imageURLRoundTrip() async throws {
+        let original = Recipe(
+            id: "img-test",
+            title: "Image Test Recipe",
+            description: "A recipe with an image",
+            servings: 2,
+            ingredients: ["flour"],
+            instructions: ["mix"],
+            dietaryAttributes: [],
+            imageURL: "https://picsum.photos/seed/test/800/600"
+        )
+        try await sut.save([original])
+
+        let fetched = try await sut.fetchAll()
+        let first = try #require(fetched.first)
+
+        #expect(first.imageURL == original.imageURL)
+    }
+}
+
+// MARK: - Suite: Recipe Model
+
+@Suite("Recipe Model")
+struct RecipeModelTests {
+
+    @Test("All fields are accessible after init")
+    func allFieldsStoredOnInit() {
+        let recipe = Recipe(
+            id: "42",
+            title: "Test Recipe",
+            description: "A test description",
+            servings: 3,
+            ingredients: ["flour", "sugar"],
+            instructions: ["mix", "bake"],
+            dietaryAttributes: ["vegan", "gluten-free"],
+            imageURL: "https://example.com/img.jpg"
+        )
+        #expect(recipe.id == "42")
+        #expect(recipe.title == "Test Recipe")
+        #expect(recipe.description == "A test description")
+        #expect(recipe.servings == 3)
+        #expect(recipe.ingredients == ["flour", "sugar"])
+        #expect(recipe.instructions == ["mix", "bake"])
+        #expect(recipe.dietaryAttributes == ["vegan", "gluten-free"])
+        #expect(recipe.imageURL == "https://example.com/img.jpg")
+    }
+
+    @Test("Decodes from JSON using snake_case coding keys")
+    func decodesFromJSON() throws {
+        let json = """
+        {
+            "id": "7",
+            "title": "JSON Recipe",
+            "description": "Decoded from JSON",
+            "servings": 4,
+            "ingredients": ["eggs", "butter"],
+            "instructions": ["crack eggs", "melt butter"],
+            "dietary_attributes": ["vegetarian"],
+            "image_url": "https://picsum.photos/seed/test/800/600"
+        }
+        """.data(using: .utf8)!
+
+        let recipe = try JSONDecoder().decode(Recipe.self, from: json)
+
+        #expect(recipe.id == "7")
+        #expect(recipe.title == "JSON Recipe")
+        #expect(recipe.dietaryAttributes == ["vegetarian"])
+        #expect(recipe.imageURL == "https://picsum.photos/seed/test/800/600")
+    }
+
+    @Test("imageURL decodes as nil when image_url key is absent from JSON")
+    func nilImageURLWhenKeyAbsent() throws {
+        let json = """
+        {
+            "id": "8",
+            "title": "No Image",
+            "description": "No image URL",
+            "servings": 2,
+            "ingredients": [],
+            "instructions": [],
+            "dietary_attributes": []
+        }
+        """.data(using: .utf8)!
+
+        let recipe = try JSONDecoder().decode(Recipe.self, from: json)
+        #expect(recipe.imageURL == nil)
+    }
+
+    @Test("Encodes to JSON with snake_case keys matching CodingKeys")
+    func encodesWithSnakeCaseKeys() throws {
+        let recipe = Fixtures.sampleRecipes[0]
+        let data = try JSONEncoder().encode(recipe)
+        let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+
+        #expect(json["id"] != nil)
+        #expect(json["title"] != nil)
+        #expect(json["dietary_attributes"] != nil)
+    }
+
+    @Test("Hashable: two instances with identical data are equal and share the same hash")
+    func hashableEqualityForIdenticalInstances() {
+        let r1 = Fixtures.sampleRecipes[0]
+        let r2 = Fixtures.sampleRecipes[0]
+        #expect(r1 == r2)
+        #expect(r1.hashValue == r2.hashValue)
+    }
+
+    @Test("Hashable: instances with different ids are not equal")
+    func hashableInequalityForDifferentInstances() {
+        let r1 = Fixtures.sampleRecipes[0]
+        let r2 = Fixtures.sampleRecipes[1]
+        #expect(r1 != r2)
+    }
+
+    @Test("Identifiable: id property matches the value passed at init")
+    func identifiableIDMatchesInit() {
+        let recipe = Fixtures.sampleRecipes[2]
+        #expect(recipe.id == "3")
+    }
+
+    @Test("Recipe round-trips through encode then decode preserving all fields")
+    func encodeThenDecodeRoundTrip() throws {
+        let original = Fixtures.sampleRecipes[3]
+        let data = try JSONEncoder().encode(original)
+        let decoded = try JSONDecoder().decode(Recipe.self, from: data)
+
+        #expect(decoded.id == original.id)
+        #expect(decoded.title == original.title)
+        #expect(decoded.servings == original.servings)
+        #expect(decoded.dietaryAttributes.sorted() == original.dietaryAttributes.sorted())
+        #expect(decoded.imageURL == original.imageURL)
+    }
+}
+
+// MARK: - Suite: Network Error
+
+@Suite("Network Error")
+struct NetworkErrorTests {
+
+    @Test("resourceNotFound errorDescription contains the resource name")
+    func resourceNotFoundDescription() {
+        let error = NetworkError.resourceNotFound("recipes")
+        #expect(error.errorDescription?.contains("recipes") == true)
+    }
+
+    @Test("decodingFailed errorDescription is non-nil")
+    func decodingFailedDescription() {
+        let inner = NSError(domain: "test", code: 0, userInfo: [NSLocalizedDescriptionKey: "bad json"])
+        let error = NetworkError.decodingFailed(inner)
+        #expect(error.errorDescription != nil)
+    }
+
+    @Test("networkUnavailable errorDescription is non-nil")
+    func networkUnavailableDescription() {
+        #expect(NetworkError.networkUnavailable.errorDescription != nil)
+    }
+
+    @Test("unknown errorDescription forwards the underlying error message")
+    func unknownDescription() {
+        let inner = NSError(domain: "test", code: 99, userInfo: [NSLocalizedDescriptionKey: "connection reset"])
+        let error = NetworkError.unknown(inner)
+        #expect(error.errorDescription?.contains("connection reset") == true)
+    }
+
+    @Test("Every NetworkError case produces a non-nil errorDescription")
+    func allCasesHaveNonNilDescription() {
+        let errors: [NetworkError] = [
+            .resourceNotFound("x"),
+            .decodingFailed(NSError(domain: "x", code: 0)),
+            .networkUnavailable,
+            .unknown(NSError(domain: "x", code: 0))
+        ]
+        #expect(errors.allSatisfy { $0.errorDescription != nil })
+    }
+}
+
+// MARK: - Suite: API Endpoint
+
+@Suite("API Endpoint")
+struct APIEndpointTests {
+
+    @Test("recipes endpoint maps to the 'recipes' JSON resource")
+    func recipesResourceName() {
+        #expect(APIEndpoint.recipes.resourceName == "recipes")
+    }
+
+    @Test("searchRecipes endpoint maps to the same 'recipes' JSON resource")
+    func searchRecipesResourceName() {
+        #expect(APIEndpoint.searchRecipes.resourceName == "recipes")
+    }
+}
+
+// MARK: - Suite: Ingredient Name Extraction
+
+@Suite("Ingredient Name Extraction")
+struct IngredientExtractionTests {
+
+    @Test(
+        "Strips leading quantity and unit, returning just the ingredient name",
+        arguments: [
+            ("2 cups flour",              "Flour"),
+            ("1 tsp salt",                "Salt"),
+            ("3 tbsp olive oil",          "Olive Oil"),
+            ("1/2 tsp baking powder",     "Baking Powder"),
+            ("1 lb ground beef",          "Ground Beef"),
+        ]
+    )
+    func stripsQuantityAndUnit(raw: String, expected: String) {
+        #expect(RecipeService.extractIngredientName(from: raw) == expected)
+    }
+
+    @Test("Strips text after the first comma (prep notes)")
+    func stripsAfterComma() {
+        let result = RecipeService.extractIngredientName(from: "3 large onions, finely diced")
+        #expect(result == "Onions")
+    }
+
+    @Test("Removes parenthetical weight/size notes")
+    func removesParentheticals() {
+        let result = RecipeService.extractIngredientName(from: "(14 oz) canned tomatoes")
+        #expect(result.localizedCaseInsensitiveContains("tomato"))
+    }
+
+    @Test("Plain ingredient names are returned capitalised and unchanged otherwise")
+    func preservesPlainName() {
+        #expect(RecipeService.extractIngredientName(from: "garlic") == "Garlic")
+        #expect(RecipeService.extractIngredientName(from: "basil") == "Basil")
+    }
+
+    @Test("Strips leading size adjectives before the ingredient name")
+    func stripsLeadingAdjectives() {
+        let result = RecipeService.extractIngredientName(from: "fresh basil leaves")
+        #expect(result == "Basil Leaves")
+    }
+
+    @Test("allIngredientNames deduplicates the same ingredient appearing in multiple recipes")
+    func allIngredientNamesDeduplicates() {
+        let r1 = Recipe(id: "1", title: "A", description: "", servings: 1,
+                        ingredients: ["tomato", "garlic"], instructions: [],
+                        dietaryAttributes: [], imageURL: nil)
+        let r2 = Recipe(id: "2", title: "B", description: "", servings: 1,
+                        ingredients: ["tomato", "onion"], instructions: [],
+                        dietaryAttributes: [], imageURL: nil)
+
+        let names = RecipeService.allIngredientNames(from: [r1, r2])
+        let tomatoCount = names.filter { $0.lowercased() == "tomato" }.count
+        #expect(tomatoCount == 1)
+    }
+
+    @Test("allIngredientNames returns names sorted alphabetically")
+    func allIngredientNamesSorted() {
+        let names = RecipeService.allIngredientNames(from: Fixtures.sampleRecipes)
+        #expect(names == names.sorted())
+    }
+
+    @Test("allIngredientNames filters out strings shorter than 3 characters")
+    func allIngredientNamesFiltersShortStrings() {
+        let recipe = Recipe(id: "x", title: "Short", description: "", servings: 1,
+                            ingredients: ["a", "bb", "ccc", "dddd"], instructions: [],
+                            dietaryAttributes: [], imageURL: nil)
+        let names = RecipeService.allIngredientNames(from: [recipe])
+        #expect(!names.contains("A"))
+        #expect(!names.contains("Bb"))
+        #expect(names.contains("Ccc"))
+        #expect(names.contains("Dddd"))
+    }
+
+    @Test("allIngredientNames returns empty array for an empty recipe collection")
+    func allIngredientNamesEmptyInput() {
+        #expect(RecipeService.allIngredientNames(from: []).isEmpty)
+    }
+}
+
+// MARK: - Suite: Favorites Service
+
+@Suite("Favorites Service")
+struct FavoritesServiceTests {
+
+    @Test("isFavorite returns false for a recipe that has never been toggled")
+    @MainActor
+    func isFavoriteReturnsFalseForUnknownID() {
+        let sut = FavoritesService.makeForTesting()
+        #expect(!sut.isFavorite("nonexistent-id"))
+    }
+
+    @Test("toggle adds a recipe to the favorites list")
+    @MainActor
+    func toggleAddsRecipe() {
+        let sut = FavoritesService.makeForTesting()
+        let recipe = Fixtures.sampleRecipes[0]
+
+        sut.toggle(recipe)
+
+        #expect(sut.favorites.count == 1)
+        #expect(sut.isFavorite(recipe.id))
+    }
+
+    @Test("Toggling a recipe that is already a favorite removes it")
+    @MainActor
+    func toggleTwiceRemovesRecipe() {
+        let sut = FavoritesService.makeForTesting()
+        let recipe = Fixtures.sampleRecipes[0]
+
+        sut.toggle(recipe)
+        sut.toggle(recipe)
+
+        #expect(sut.favorites.isEmpty)
+        #expect(!sut.isFavorite(recipe.id))
+    }
+
+    @Test("Multiple distinct recipes can each be favorited independently")
+    @MainActor
+    func multipleRecipesFavoritedAndCounted() {
+        let sut = FavoritesService.makeForTesting()
+        let r1 = Fixtures.sampleRecipes[0]
+        let r2 = Fixtures.sampleRecipes[1]
+        let r3 = Fixtures.sampleRecipes[2]
+
+        sut.toggle(r1)
+        sut.toggle(r2)
+        sut.toggle(r3)
+        #expect(sut.favorites.count == 3)
+
+        sut.toggle(r2)
+        #expect(sut.favorites.count == 2)
+        #expect(sut.isFavorite(r1.id))
+        #expect(!sut.isFavorite(r2.id))
+        #expect(sut.isFavorite(r3.id))
+    }
+
+    @Test("Favorites written by one instance are visible to a second instance on the same UserDefaults")
+    @MainActor
+    func favoritesPersistedAndReloadedBySecondInstance() {
+        let suiteName = "com.recipeapp.test.\(UUID().uuidString)"
+        let sharedDefaults = UserDefaults(suiteName: suiteName)!
+
+        let writer = FavoritesService.makeForTesting(defaults: sharedDefaults)
+        writer.toggle(Fixtures.sampleRecipes[0])
+        writer.toggle(Fixtures.sampleRecipes[1])
+
+        let reader = FavoritesService.makeForTesting(defaults: sharedDefaults)
+        #expect(reader.favorites.count == 2)
+        #expect(reader.isFavorite(Fixtures.sampleRecipes[0].id))
+        #expect(reader.isFavorite(Fixtures.sampleRecipes[1].id))
+
+        sharedDefaults.removePersistentDomain(forName: suiteName)
+    }
+
+    @Test("A fresh instance starts with an empty favorites list")
+    @MainActor
+    func freshInstanceHasNoFavorites() {
+        let sut = FavoritesService.makeForTesting()
+        #expect(sut.favorites.isEmpty)
+    }
+}
+
+// MARK: - Suite: Recipe List ViewModel
+
+@Suite("Recipe List ViewModel")
+struct RecipeListViewModelTests {
+
+    // MARK: - Initial state
+
+    @Test("Initial state: recipes are empty, isLoading is false, no error, no next page")
+    @MainActor
+    func initialState() {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: [])),
+            persistenceService: StubPersistenceService()
+        )
+        #expect(sut.recipes.isEmpty)
+        #expect(!sut.isLoading)
+        #expect(sut.errorMessage == nil)
+        #expect(!sut.hasNextPage)
+        #expect(sut.allIngredientNames.isEmpty)
+    }
+
+    // MARK: - loadRecipes
+
+    @Test("loadRecipes populates the recipes array from the service")
+    @MainActor
+    func loadRecipesPopulatesRecipes() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        #expect(!sut.recipes.isEmpty)
+        #expect(sut.recipes.count == Fixtures.sampleRecipes.count)
+    }
+
+    @Test("loadRecipes with fewer results than pageSize leaves hasNextPage false")
+    @MainActor
+    func loadRecipesNoNextPageWhenUnderPageSize() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService(),
+            pageSize: 10
+        )
+        await sut.loadRecipes()
+        #expect(!sut.hasNextPage)
+    }
+
+    @Test("loadRecipes with more results than pageSize sets hasNextPage true")
+    @MainActor
+    func loadRecipesHasNextPageWhenOverPageSize() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            persistenceService: StubPersistenceService(),
+            pageSize: 5
+        )
+        await sut.loadRecipes()
+        #expect(sut.hasNextPage)
+        #expect(sut.recipes.count == 5)
+    }
+
+    @Test("loadRecipes populates allIngredientNames from the full dataset")
+    @MainActor
+    func loadRecipesPopulatesIngredientNames() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        #expect(!sut.allIngredientNames.isEmpty)
+        #expect(sut.allIngredientNames == sut.allIngredientNames.sorted())
+    }
+
+    @Test("Calling loadRecipes a second time resets to page 1 and refreshes results")
+    @MainActor
+    func loadRecipesResetsOnSecondCall() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        let firstCount = sut.recipes.count
+
+        await sut.loadRecipes()
+        #expect(sut.recipes.count == firstCount)
+    }
+
+    // MARK: - Pagination
+
+    @Test("loadNextPageIfNeeded for the last recipe appends the next page")
+    @MainActor
+    func loadNextPageIfNeededAppendsForLastRecipe() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            persistenceService: StubPersistenceService(),
+            pageSize: 5
+        )
+        await sut.loadRecipes()
+        #expect(sut.recipes.count == 5)
+
+        let last = try! #require(sut.recipes.last)
+        await sut.loadNextPageIfNeeded(currentItem: last)
+
+        #expect(sut.recipes.count == 10)
+    }
+
+    @Test("loadNextPageIfNeeded for a non-last recipe does not trigger a fetch")
+    @MainActor
+    func loadNextPageIfNeededIgnoresNonLastRecipe() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.twentyRecipes)),
+            persistenceService: StubPersistenceService(),
+            pageSize: 5
+        )
+        await sut.loadRecipes()
+        let first = sut.recipes[0]
+
+        await sut.loadNextPageIfNeeded(currentItem: first)
+
+        #expect(sut.recipes.count == 5)
+    }
+
+    @Test("loadNextPageIfNeeded when hasNextPage is false does nothing")
+    @MainActor
+    func loadNextPageIfNeededNoOpWhenNoNextPage() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        #expect(!sut.hasNextPage)
+
+        let last = try! #require(sut.recipes.last)
+        await sut.loadNextPageIfNeeded(currentItem: last)
+
+        #expect(sut.recipes.count == Fixtures.sampleRecipes.count)
+    }
+
+    // MARK: - Error handling
+
+    @Test("loadRecipes with a failing service sets errorMessage")
+    @MainActor
+    func loadRecipesWithFailingServiceSetsError() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: FailingNetworkService()),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        #expect(sut.errorMessage != nil)
+    }
+
+    @Test("dismissError clears a previously set error message")
+    @MainActor
+    func dismissErrorClearsMessage() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: FailingNetworkService()),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        #expect(sut.errorMessage != nil)
+
+        sut.dismissError()
+        #expect(sut.errorMessage == nil)
+    }
+
+    @Test("loadRecipes with a failing service falls back to cached recipes when available")
+    @MainActor
+    func loadRecipesFallsBackToCacheOnError() async {
+        let cache = StubPersistenceService()
+        try! await cache.save(Fixtures.sampleRecipes)
+
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: FailingNetworkService()),
+            persistenceService: cache
+        )
+        await sut.loadRecipes()
+
+        #expect(!sut.recipes.isEmpty)
+        #expect(sut.recipes.count == Fixtures.sampleRecipes.count)
+    }
+
+    // MARK: - Filter
+
+    @Test("Setting a filter and reloading returns only matching recipes")
+    @MainActor
+    func filteringReducesResults() async {
+        let sut = RecipeListViewModel(
+            recipeService: RecipeService(networkService: StubNetworkService(recipes: Fixtures.sampleRecipes)),
+            persistenceService: StubPersistenceService()
+        )
+        await sut.loadRecipes()
+        let unfilteredCount = sut.recipes.count
+
+        sut.filter.dietaryAttributes = ["vegan"]
+        await sut.loadRecipes()
+
+        #expect(sut.recipes.count < unfilteredCount)
+        #expect(sut.recipes.allSatisfy { $0.dietaryAttributes.contains("vegan") })
     }
 }

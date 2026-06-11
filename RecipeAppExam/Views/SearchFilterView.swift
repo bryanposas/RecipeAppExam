@@ -5,25 +5,23 @@ import SwiftUI
 // MARK: - SearchFilterView
 
 /// Modal sheet exposing all `RecipeFilter` parameters.
-/// Edits a local copy; only applies on "Apply" so the user can cancel
-/// without triggering a network fetch.
+/// Edits a local draft; only commits on "Apply" to avoid mid-edit fetches.
 struct SearchFilterView: View {
 
     @Binding var filter: RecipeFilter
+    var availableIngredients: [String] = []
     @Environment(\.dismiss) private var dismiss
 
-    // Local draft — only committed when the user taps Apply.
     @State private var draft: RecipeFilter
-
-    // Ingredient input helpers.
-    @State private var includeText: String = ""
     @State private var excludeText: String = ""
+    @State private var ingredientSearch: String = ""
 
     // MARK: - Init
 
-    init(filter: Binding<RecipeFilter>) {
+    init(filter: Binding<RecipeFilter>, availableIngredients: [String] = []) {
         _filter = filter
         _draft = State(initialValue: filter.wrappedValue)
+        self.availableIngredients = availableIngredients
     }
 
     // MARK: - Body
@@ -31,7 +29,7 @@ struct SearchFilterView: View {
     var body: some View {
         NavigationStack {
             Form {
-                // MARK: Dietary Attributes
+                // Dietary attributes
                 Section {
                     dietaryAttributesGrid
                 } header: {
@@ -41,36 +39,26 @@ struct SearchFilterView: View {
                         .font(.caption)
                 }
 
-                // MARK: Servings
+                // Servings
                 Section("Servings") {
                     servingsPicker
                 }
 
-                // MARK: Include Ingredients
+                // Include ingredients — chip picker
                 Section {
-                    ingredientInputRow(
-                        label: "Add ingredient to include",
-                        text: $includeText
-                    ) {
-                        let trimmed = includeText.trimmingCharacters(in: .whitespaces)
-                        guard !trimmed.isEmpty else { return }
-                        draft.includeIngredients.append(trimmed)
-                        includeText = ""
-                    }
-                    ForEach(draft.includeIngredients, id: \.self) { item in
-                        Text(item).foregroundStyle(.primary)
-                    }
-                    .onDelete { draft.includeIngredients.remove(atOffsets: $0) }
+                    ingredientPickerSection
                 } header: {
                     Text("Must Include Ingredients")
+                } footer: {
+                    if !draft.includeIngredients.isEmpty {
+                        Text("Recipe must contain ALL \(draft.includeIngredients.count) selected ingredient(s).")
+                            .font(.caption)
+                    }
                 }
 
-                // MARK: Exclude Ingredients
+                // Exclude ingredients — text input
                 Section {
-                    ingredientInputRow(
-                        label: "Add ingredient to exclude",
-                        text: $excludeText
-                    ) {
+                    ingredientInputRow(label: "Add ingredient to exclude", text: $excludeText) {
                         let trimmed = excludeText.trimmingCharacters(in: .whitespaces)
                         guard !trimmed.isEmpty else { return }
                         draft.excludeIngredients.append(trimmed)
@@ -84,12 +72,12 @@ struct SearchFilterView: View {
                     Text("Must Exclude Ingredients")
                 }
 
-                // MARK: Reset
+                // Reset
                 Section {
                     Button("Reset All Filters", role: .destructive) {
                         draft = RecipeFilter()
-                        includeText = ""
                         excludeText = ""
+                        ingredientSearch = ""
                     }
                 }
             }
@@ -110,9 +98,88 @@ struct SearchFilterView: View {
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - Ingredient Chip Picker
 
-    /// Adaptive two-column grid of toggle rows, one per dietary attribute.
+    @ViewBuilder
+    private var ingredientPickerSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Search within available ingredients
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+                TextField("Search ingredients", text: $ingredientSearch)
+                    .autocorrectionDisabled()
+                if !ingredientSearch.isEmpty {
+                    Button {
+                        ingredientSearch = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(Color(.tertiarySystemBackground), in: RoundedRectangle(cornerRadius: 10))
+
+            // Selected chips
+            if !draft.includeIngredients.isEmpty {
+                Text("Selected")
+                    .font(.caption.bold())
+                    .foregroundStyle(Color.accentColor)
+
+                ingredientChipGrid(items: draft.includeIngredients, isSelected: true)
+            }
+
+            // Suggestion chips
+            let suggestions = filteredSuggestions
+            if !suggestions.isEmpty {
+                Text(draft.includeIngredients.isEmpty ? "Ingredients" : "Add more")
+                    .font(.caption.bold())
+                    .foregroundStyle(.secondary)
+
+                ingredientChipGrid(items: suggestions, isSelected: false)
+            } else if !ingredientSearch.isEmpty {
+                Text("No matching ingredients found.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else if availableIngredients.isEmpty {
+                Text("Ingredient suggestions load as recipes are fetched.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .listRowInsets(EdgeInsets(top: 10, leading: 16, bottom: 12, trailing: 16))
+    }
+
+    private var filteredSuggestions: [String] {
+        let unselected = availableIngredients.filter { !draft.includeIngredients.contains($0) }
+        guard !ingredientSearch.isEmpty else { return Array(unselected.prefix(40)) }
+        return Array(
+            unselected
+                .filter { $0.localizedCaseInsensitiveContains(ingredientSearch) }
+                .prefix(40)
+        )
+    }
+
+    private func ingredientChipGrid(items: [String], isSelected: Bool) -> some View {
+        LazyVGrid(
+            columns: [GridItem(.adaptive(minimum: 80, maximum: 160), spacing: 8)],
+            alignment: .leading,
+            spacing: 8
+        ) {
+            ForEach(items, id: \.self) { item in
+                IngredientChip(name: item, isSelected: isSelected) {
+                    if isSelected {
+                        draft.includeIngredients.removeAll { $0 == item }
+                    } else {
+                        draft.includeIngredients.append(item)
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - Dietary & Servings
+
     @ViewBuilder
     private var dietaryAttributesGrid: some View {
         ForEach(DietaryAttribute.allCases) { attribute in
@@ -161,10 +228,7 @@ struct SearchFilterView: View {
         if let servings = draft.servings {
             Stepper(
                 "Servings: \(servings)",
-                value: Binding(
-                    get: { servings },
-                    set: { draft.servings = $0 }
-                ),
+                value: Binding(get: { servings }, set: { draft.servings = $0 }),
                 in: 1...20
             )
         }
@@ -177,14 +241,11 @@ struct SearchFilterView: View {
         onAdd: @escaping () -> Void
     ) -> some View {
         HStack {
-            TextField(label, text: text)
-                .onSubmit(onAdd)
+            TextField(label, text: text).onSubmit(onAdd)
             Button("Add", action: onAdd)
                 .disabled(text.wrappedValue.trimmingCharacters(in: .whitespaces).isEmpty)
         }
     }
-
-    // MARK: - Helpers
 
     private func toggleAttribute(_ attribute: DietaryAttribute) {
         if let index = draft.dietaryAttributes.firstIndex(of: attribute.rawValue) {
@@ -195,8 +256,44 @@ struct SearchFilterView: View {
     }
 }
 
+// MARK: - IngredientChip
+
+private struct IngredientChip: View {
+
+    let name: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 4) {
+                if isSelected {
+                    Image(systemName: "xmark").font(.caption2.bold())
+                }
+                Text(name).font(.caption.bold()).lineLimit(1)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 6)
+            .foregroundStyle(isSelected ? .white : .primary)
+            .background(
+                isSelected ? Color.accentColor : Color(.tertiarySystemBackground),
+                in: Capsule()
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: - Preview
 
 #Preview {
-    SearchFilterView(filter: .constant(RecipeFilter()))
+    SearchFilterView(
+        filter: .constant(RecipeFilter()),
+        availableIngredients: [
+            "Chicken", "Onion", "Garlic", "Tomatoes", "Pasta", "Olive Oil",
+            "Cheese", "Eggs", "Flour", "Butter", "Rice", "Spinach",
+            "Mushrooms", "Bell Pepper", "Cumin", "Ginger", "Coconut Milk",
+            "Lemon", "Basil", "Parmesan"
+        ]
+    )
 }

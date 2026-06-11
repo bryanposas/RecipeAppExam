@@ -2,44 +2,66 @@
 
 import SwiftUI
 
+// MARK: - RecipeTab
+
+private enum RecipeTab: String, CaseIterable {
+    case discover = "Discover"
+    case favorites = "Favorites"
+
+    var icon: String {
+        switch self {
+        case .discover: return "fork.knife.circle"
+        case .favorites: return "heart"
+        }
+    }
+}
+
 // MARK: - RecipeListView
 
 struct RecipeListView: View {
 
     @StateObject private var viewModel = RecipeListViewModel()
+    @EnvironmentObject private var favorites: FavoritesService
 
     @State private var navigationPath = NavigationPath()
-    @State private var isFilterSheetPresented: Bool = false
-    @State private var isOfflineBannerDismissed: Bool = false
+    @State private var selectedTab: RecipeTab = .discover
+    @State private var isFilterSheetPresented = false
+    @State private var isOfflineBannerDismissed = false
+
+    private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+
+    // MARK: - Body
 
     var body: some View {
         NavigationStack(path: $navigationPath) {
-            ZStack(alignment: .top) {
-                recipeList
+            VStack(spacing: 0) {
+                headerArea
 
-                if viewModel.isOffline && !isOfflineBannerDismissed {
-                    OfflineBannerView(isDismissed: $isOfflineBannerDismissed)
-                        .zIndex(1)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                        .animation(.easeInOut(duration: 0.3), value: viewModel.isOffline)
+                ZStack(alignment: .top) {
+                    Group {
+                        switch selectedTab {
+                        case .discover: discoverContent
+                        case .favorites: favoritesContent
+                        }
+                    }
+
+                    if viewModel.isOffline && !isOfflineBannerDismissed {
+                        OfflineBannerView(isDismissed: $isOfflineBannerDismissed)
+                            .zIndex(1)
+                            .transition(.move(edge: .top).combined(with: .opacity))
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.isOffline)
+                    }
                 }
             }
-            .navigationTitle("Recipes")
-            .searchable(
-                text: $viewModel.filter.searchQuery,
-                placement: .navigationBarDrawer(displayMode: .always),
-                prompt: "Search recipes, ingredients…"
-            )
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    filterButton
-                }
-            }
+            .toolbar(.hidden, for: .navigationBar)
             .navigationDestination(for: Recipe.self) { recipe in
                 RecipeDetailView(recipe: recipe)
             }
             .sheet(isPresented: $isFilterSheetPresented) {
-                SearchFilterView(filter: $viewModel.filter)
+                SearchFilterView(
+                    filter: $viewModel.filter,
+                    availableIngredients: viewModel.allIngredientNames
+                )
             }
             .alert("Error", isPresented: Binding(
                 get: { viewModel.errorMessage != nil },
@@ -57,48 +79,171 @@ struct RecipeListView: View {
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - Header
 
     @ViewBuilder
-    private var recipeList: some View {
-        Group {
-            if viewModel.isLoading && viewModel.recipes.isEmpty {
-                loadingView
-            } else if viewModel.recipes.isEmpty {
-                emptyStateView
-            } else {
-                List {
+    private var headerArea: some View {
+        VStack(spacing: 0) {
+            tabControl
+            Divider()
+            searchRow
+            Divider()
+        }
+        .background(Color(.systemBackground))
+    }
+
+    private var tabControl: some View {
+        HStack(spacing: 0) {
+            ForEach(RecipeTab.allCases, id: \.self) { tab in
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) { selectedTab = tab }
+                } label: {
+                    VStack(spacing: 6) {
+                        HStack(spacing: 6) {
+                            Image(systemName: tab.icon).font(.subheadline)
+                            Text(tab.rawValue)
+                                .font(.subheadline.weight(selectedTab == tab ? .semibold : .regular))
+                        }
+                        .foregroundStyle(selectedTab == tab ? Color.accentColor : Color.secondary)
+
+                        Rectangle()
+                            .fill(selectedTab == tab ? Color.accentColor : Color.clear)
+                            .frame(height: 2)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.top, 14)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private var searchRow: some View {
+        HStack(spacing: 10) {
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.secondary)
+                    .font(.subheadline)
+                TextField("Search recipes…", text: $viewModel.filter.searchQuery)
+                    .autocorrectionDisabled()
+                    .submitLabel(.search)
+                if !viewModel.filter.searchQuery.isEmpty {
+                    Button {
+                        viewModel.filter.searchQuery = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+                    }
+                }
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 9)
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+
+            filterButton
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+    }
+
+    @ViewBuilder
+    private var filterButton: some View {
+        Button {
+            isFilterSheetPresented = true
+        } label: {
+            ZStack(alignment: .topTrailing) {
+                Image(systemName: "slider.horizontal.3")
+                    .font(.system(size: 17))
+                    .padding(10)
+                    .background(
+                        viewModel.filter.activeFilterCount > 0
+                            ? Color.accentColor
+                            : Color(.secondarySystemBackground),
+                        in: RoundedRectangle(cornerRadius: 12)
+                    )
+                    .foregroundStyle(viewModel.filter.activeFilterCount > 0 ? .white : .primary)
+
+                if viewModel.filter.activeFilterCount > 0 {
+                    Text("\(viewModel.filter.activeFilterCount)")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundStyle(.white)
+                        .frame(width: 16, height: 16)
+                        .background(Color.red, in: Circle())
+                        .offset(x: 5, y: -5)
+                }
+            }
+        }
+        .accessibilityLabel(
+            viewModel.filter.activeFilterCount > 0
+                ? "Filters active (\(viewModel.filter.activeFilterCount))"
+                : "Filters"
+        )
+    }
+
+    // MARK: - Discover tab
+
+    @ViewBuilder
+    private var discoverContent: some View {
+        if viewModel.isLoading && viewModel.recipes.isEmpty {
+            loadingView
+        } else if viewModel.recipes.isEmpty {
+            emptyStateView
+        } else {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(viewModel.recipes) { recipe in
                         Button {
                             navigationPath.append(recipe)
                         } label: {
-                            RecipeCardView(recipe: recipe)
+                            RecipeGridCard(recipe: recipe)
                         }
                         .buttonStyle(.plain)
-                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .task {
-                            await viewModel.loadNextPageIfNeeded(currentItem: recipe)
+                        .onAppear {
+                            Task { await viewModel.loadNextPageIfNeeded(currentItem: recipe) }
                         }
-                    }
-
-                    if viewModel.isLoading {
-                        HStack {
-                            Spacer()
-                            ProgressView()
-                            Spacer()
-                        }
-                        .listRowSeparator(.hidden)
                     }
                 }
-                .listStyle(.insetGrouped)
-                .refreshable {
-                    await viewModel.loadRecipes()
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 8)
+
+                if viewModel.isLoading {
+                    ProgressView().padding(.bottom, 20)
                 }
             }
+            .background(Color(.systemGroupedBackground))
+            .refreshable { await viewModel.loadRecipes() }
         }
     }
+
+    // MARK: - Favorites tab
+
+    @ViewBuilder
+    private var favoritesContent: some View {
+        if favorites.favorites.isEmpty {
+            emptyFavoritesView
+        } else {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(favorites.favorites) { recipe in
+                        Button {
+                            navigationPath.append(recipe)
+                        } label: {
+                            RecipeGridCard(recipe: recipe)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 16)
+            }
+            .background(Color(.systemGroupedBackground))
+        }
+    }
+
+    // MARK: - State views
 
     @ViewBuilder
     private var loadingView: some View {
@@ -109,6 +254,7 @@ struct RecipeListView: View {
                 .foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
     }
 
     @ViewBuilder
@@ -123,27 +269,32 @@ struct RecipeListView: View {
                 .multilineTextAlignment(.center)
 
             if viewModel.filter.isActive {
-                Button("Clear Filters") {
-                    viewModel.filter = RecipeFilter()
-                }
-                .buttonStyle(.bordered)
+                Button("Clear Filters") { viewModel.filter = RecipeFilter() }
+                    .buttonStyle(.bordered)
             }
         }
         .padding(32)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
     }
 
     @ViewBuilder
-    private var filterButton: some View {
-        Button {
-            isFilterSheetPresented = true
-        } label: {
-            Image(systemName: viewModel.filter.isActive
-                  ? "line.3.horizontal.decrease.circle.fill"
-                  : "line.3.horizontal.decrease.circle")
-                .symbolRenderingMode(.hierarchical)
+    private var emptyFavoritesView: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "heart.slash")
+                .font(.system(size: 60))
+                .foregroundStyle(.secondary)
+            Text("No favorites yet.")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+            Text("Tap the heart on any recipe to save it here.")
+                .font(.subheadline)
+                .foregroundStyle(.tertiary)
+                .multilineTextAlignment(.center)
         }
-        .accessibilityLabel(viewModel.filter.isActive ? "Filters active" : "Filters")
+        .padding(32)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemGroupedBackground))
     }
 }
 
@@ -151,4 +302,5 @@ struct RecipeListView: View {
 
 #Preview {
     RecipeListView()
+        .environmentObject(FavoritesService.shared)
 }

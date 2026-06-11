@@ -23,6 +23,7 @@ final class RecipeListViewModel: ObservableObject {
     @Published private(set) var errorMessage: String? = nil
     @Published private(set) var isOffline: Bool = false
     @Published private(set) var hasNextPage: Bool = false
+    @Published private(set) var allIngredientNames: [String] = []
 
     /// Two-way binding: the View edits `filter`; the ViewModel observes and reacts.
     @Published var filter: RecipeFilter = RecipeFilter()
@@ -30,7 +31,7 @@ final class RecipeListViewModel: ObservableObject {
     // MARK: - Private State
 
     private var currentPage: Int = 1
-    private let pageSize: Int = 10
+    private let pageSize: Int
 
     // MARK: - Dependencies
 
@@ -45,11 +46,13 @@ final class RecipeListViewModel: ObservableObject {
     init(
         recipeService: RecipeServiceProtocol = RecipeService(),
         persistenceService: RecipePersistenceServiceProtocol = RecipePersistenceService(),
-        connectivityMonitor: ConnectivityMonitor = ConnectivityMonitor()
+        connectivityMonitor: ConnectivityMonitor = ConnectivityMonitor(),
+        pageSize: Int = 10
     ) {
         self.recipeService = recipeService
         self.persistenceService = persistenceService
         self.connectivityMonitor = connectivityMonitor
+        self.pageSize = pageSize
 
         bindConnectivity()
         bindFilterChanges()
@@ -60,6 +63,9 @@ final class RecipeListViewModel: ObservableObject {
     /// Initial or pull-to-refresh load. Resets pagination.
     func loadRecipes() async {
         await fetch(reset: true)
+        if allIngredientNames.isEmpty {
+            await prefetchIngredientNames()
+        }
     }
 
     /// Appends the next page when the user scrolls to the end of the list.
@@ -119,6 +125,17 @@ final class RecipeListViewModel: ObservableObject {
             if recipes.isEmpty {
                 await loadCachedRecipes()
             }
+        }
+    }
+
+    /// Fetches all recipes at once to build the ingredient suggestion list.
+    /// Runs after initial load; non-critical so failures are silently ignored.
+    private func prefetchIngredientNames() async {
+        do {
+            let response = try await recipeService.fetchRecipes(page: 1, pageSize: 1000)
+            allIngredientNames = RecipeService.allIngredientNames(from: response.data)
+        } catch {
+            // Non-critical — filter chips just won't appear
         }
     }
 

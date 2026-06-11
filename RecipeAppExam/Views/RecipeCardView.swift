@@ -104,6 +104,54 @@ struct RecipeCardView: View {
     }
 }
 
+// MARK: - RecipeGridCard
+
+/// Compact two-column grid card with a heart-overlay for the favorites feature.
+struct RecipeGridCard: View {
+
+    let recipe: Recipe
+    @EnvironmentObject private var favorites: FavoritesService
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+
+            ZStack(alignment: .topTrailing) {
+                RecipeImageView(urlString: recipe.imageURL, height: 160)
+
+                Button {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                        favorites.toggle(recipe)
+                    }
+                } label: {
+                    Image(systemName: favorites.isFavorite(recipe.id) ? "heart.fill" : "heart")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(favorites.isFavorite(recipe.id) ? .red : .white)
+                        .padding(8)
+                        .background(.ultraThinMaterial, in: Circle())
+                }
+                .padding(8)
+            }
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(recipe.title)
+                    .font(.subheadline.bold())
+                    .lineLimit(2)
+                    .foregroundStyle(.primary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Label("\(recipe.servings) servings", systemImage: "person.2")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+        }
+        .background(Color(.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .shadow(color: .black.opacity(0.07), radius: 8, x: 0, y: 3)
+    }
+}
+
 // MARK: - RecipeImageView
 
 /// Shared image component with two-tier caching.
@@ -219,7 +267,21 @@ struct DietaryBadgeView: View {
 
 // MARK: - Preview
 
-#Preview {
+#Preview("Grid Cards") {
+    ScrollView {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+            RecipeGridCard(recipe: .preview)
+            RecipeGridCard(recipe: .previewMultiDietary)
+            RecipeGridCard(recipe: .preview)
+            RecipeGridCard(recipe: .previewMultiDietary)
+        }
+        .padding(16)
+    }
+    .background(Color(.systemGroupedBackground))
+    .environmentObject(FavoritesService.shared)
+}
+
+#Preview("List Card") {
     List {
         RecipeCardView(recipe: .preview)
             .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))

@@ -60,20 +60,26 @@ final class RecipePersistenceService: RecipePersistenceServiceProtocol {
         }
     }
 
-    /// Removes every recipe from the store using a batch delete.
+    /// Removes every recipe from the store.
+    /// Uses individual object deletions rather than NSBatchDeleteRequest so it works
+    /// correctly with both SQLite and in-memory stores (batch requests are unsupported
+    /// on in-memory stores and behave inconsistently across OS versions).
     func deleteAll() async throws {
         let context = coreDataStack.newBackgroundContext()
         try await context.perform {
-            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "RecipeEntity")
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            deleteRequest.resultType = .resultTypeObjectIDs
-
-            let result = try context.execute(deleteRequest) as? NSBatchDeleteResult
-            let objectIDs = result?.result as? [NSManagedObjectID] ?? []
+            let fetchRequest = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
+            let objects = try context.fetch(fetchRequest)
+            for object in objects {
+                context.delete(object)
+            }
+            if context.hasChanges {
+                try context.save()
+            }
 
             // Propagate deletions to the view context so the UI refreshes.
+            let deletedIDs = objects.map(\.objectID)
             NSManagedObjectContext.mergeChanges(
-                fromRemoteContextSave: [NSDeletedObjectsKey: objectIDs],
+                fromRemoteContextSave: [NSDeletedObjectsKey: deletedIDs],
                 into: [self.coreDataStack.viewContext]
             )
         }

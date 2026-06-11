@@ -107,3 +107,46 @@ final class RecipeService: RecipeServiceProtocol {
         )
     }
 }
+
+// MARK: - Static Ingredient Helpers
+
+extension RecipeService {
+
+    /// Strips quantity, unit, and prep-note fragments from a raw ingredient string,
+    /// returning just the food name (e.g. "2 large onions, finely diced" → "Onions").
+    static func extractIngredientName(from raw: String) -> String {
+        var name = raw.components(separatedBy: ",").first ?? raw
+
+        // Remove parenthetical size/weight notes like "(14 oz)"
+        name = name.replacingOccurrences(
+            of: #"\([^)]*\)"#, with: "", options: .regularExpression
+        )
+
+        // Remove leading quantity + optional unit.
+        // Structure: number + mandatory space + (optional unit + space)?
+        // Using \s+ after the number (not \s*) prevents the space from being consumed
+        // before the optional unit group, which would leave \s+ with nothing to match
+        // for bare counts like "3 onions".
+        name = name.replacingOccurrences(
+            of: #"^\s*\d+(?:[\/\.]\d+)?\s+(?:(?:cups?|tbsps?|tablespoons?|tsps?|teaspoons?|lbs?|oz|g|kg|ml|l\b|cloves?|slices?|cans?|bunches?|sprigs?|stalks?|heads?|pieces?|packets?|strips?|sheets?|dashes?|pinch(?:es)?|handfuls?|pounds?)\s+)?"#,
+            with: "", options: [.regularExpression, .caseInsensitive]
+        )
+
+        // Remove leading size and prep adjectives
+        name = name.replacingOccurrences(
+            of: #"^\s*(?:large|medium|small|extra-large|fresh|dried|frozen|cooked|warm|cold|thin|thick|ripe|raw|boneless|peeled|skin-on|bone-in|day-old|finely|coarsely|roughly|thinly|lightly)\s+"#,
+            with: "", options: [.regularExpression, .caseInsensitive]
+        )
+
+        return name.trimmingCharacters(in: .whitespaces).capitalized
+    }
+
+    /// Extracts, deduplicates, and sorts all ingredient names from a recipe collection.
+    static func allIngredientNames(from recipes: [Recipe]) -> [String] {
+        let names = recipes
+            .flatMap { $0.ingredients }
+            .map { extractIngredientName(from: $0) }
+            .filter { $0.count >= 3 }
+        return Array(Set(names)).sorted()
+    }
+}
